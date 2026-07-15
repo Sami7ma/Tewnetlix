@@ -1,0 +1,42 @@
+Phase 1
+✔ Create project
+✔ Install dependencies
+✔ Folder structure
+✔ Theme
+✔ Fonts
+✔ Global styles
+✔ Navbar
+✔ Hero
+
+Phase 2
+✔ Movie Rows
+✔ Movie Cards
+✔ Footer
+
+Phase 3
+✔ TMDB Integration
+✔ Search
+✔ Movie Page
+
+Phase 4
+✔ Authentication
+✔ Watchlist
+✔ Continue Watching
+
+Phase 5
+✔ Embedded Player
+✔ Animations
+✔ Dynamic Colors
+
+**Tech Stack**
+
+React 19
+Vite
+Tailwind CSS
+Framer Motion
+TanStack Query
+React Router
+Lucide React
+Axios
+React Hot Toast
+MongoDB (later)
