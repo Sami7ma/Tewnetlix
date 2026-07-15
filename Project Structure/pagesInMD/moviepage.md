@@ -29,3 +29,5 @@ Recommended for you
 // we will use cards scrollable side
 [Movie]   [Movie]   [Movie] 
 ★★★★☆  ★★★★☆   ★★★★☆
+
+stg for the pich branch igonre this
