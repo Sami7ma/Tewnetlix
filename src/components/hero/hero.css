@@ -1,25 +1,33 @@
 .hero {
-    height: 100vh; /* Full screen height */
+    height: 95vh; /* Full screen height */
     position: relative;
     display: flex;
     align-items: center; /* Vertically centers the content */
-    padding-top: 100px; /* Adjust based on your navbar height */
-    /* Replace with your image URL */
-    background: url('your-image-url.jpg') no-repeat center center/cover;
+    background: url("../../assets/interstellar.jpg") no-repeat center center/cover;
     color: white;
+    background-size: cover; /* Ensures the image covers the entire hero section */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+}
 
+/*  */
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.7) 20%, transparent 100%);
 }
 
 /* Adds a dark fade over the image so text is readable */
-.hero::before {
+ /* .hero::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, rgba(0,0,0,0.8) 20%, transparent 100%);
-}
+    
+} */
 
 .hero-content {
     position: relative; /* Keeps content above the overlay */
