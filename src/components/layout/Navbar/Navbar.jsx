@@ -1,25 +1,40 @@
 import { useState, useEffect } from "react";
 import { Search, User } from "lucide-react";
+import Logo from "../../../assets/DarkMode.svg";
 import "./Navbar.css";
 
 
 function Navbar() {
     const [scrolled, setScrolled] = useState(false)
+    useEffect(()=>{
+        function handleScroll(){
+            if(window.scrollY > 20){
+                setScrolled(true)
+            }else{
+                setScrolled(false)
+            }
+        }
+        window.addEventListener("scroll",handleScroll);
+        return ()=>{
+            window.removeEventListener("scroll",handleScroll);
+        }
+
+    },[]);
     return (
-        <header className="navbar">
+        <header className={scrolled ?"navbar navbar-scrolled"  :"navbar "}>
             <nav className="navbar-container">
                 <div className="logo">
-                    <img src="../src/assets/logo.svg" alt="Tewnetlix-Logo" />
+                    <img src={Logo} alt="Tewnetlix-Logo" />
                 </div>
                 <ul className="nav-links">
-                    <li>Home</li>
-                    <li>Movie</li>
-                    <li>Tv Shows</li>
-                    <li>Genres</li>
+                    <li className="hover-effect">Home</li>
+                    <li className="hover-effect">Movie</li>
+                    <li className="hover-effect">Tv Shows</li>
+                    <li className="hover-effect">Genres</li>
                 </ul>
                 <div className="nav-icons">
-                    <Search />
-                    <User />
+                    <Search className="hover-effect" />
+                    <User className="hover-effect" />
                 </div>
             </nav>
         </header>
