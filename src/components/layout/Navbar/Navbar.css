@@ -9,27 +9,29 @@
 }
 .navbar {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    top: 20px;
+    left:50%;
+    transform:translateX(-50%);
+    width: 90%;
     z-index: 1000;
     transition: background 0.3s ease, border-bottom 0.3s ease;
-    backdrop-filter: blur(18px);
-    border: 1px solid rgba(140, 39, 76, 0.25);
+    background: transparent;
     border-radius: 20px 20px 15px 15px;
 }
 .navbar-scrolled {
-
-    background: rgba(29, 30, 34, 0.95);
+    backdrop-filter: blur(18px);
+    background:rgba(25,26,30,.55);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
 }
 
 .navbar-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 50px;
+    padding: 12px 32px;
 }
 
 .logo {
