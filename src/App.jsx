@@ -1,13 +1,13 @@
-import Navbar from "./components/layout/Navbar";
-import Hero from "./components/hero/Hero";
+import Home from "./pages/Home/Home";
 
-function App() {
-  return (
-    <div>
-      <Navbar />
-      <Hero />
-    </div>
-  )
+
+function App(){
+
+    return(
+        <Home/>
+    );
+
 }
 
-export default App
+
+export default App;

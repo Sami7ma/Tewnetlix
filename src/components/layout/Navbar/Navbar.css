@@ -12,18 +12,17 @@
     top: 20px;
     left:50%;
     transform:translateX(-50%);
-    width: 90%;
+    width:85%;
+    max-width:1200px;
     z-index: 1000;
-    transition: background 0.3s ease, border-bottom 0.3s ease;
     background: transparent;
-    border-radius: 20px 20px 15px 15px;
+    border-radius: 50px;
+    transition: 0.5s ease;
+
 }
 .navbar-scrolled {
     backdrop-filter: blur(18px);
-    background:rgba(25,26,30,.55);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border:1px solid rgba(255,255,255,.08);
+    -webkit-backdrop-filter:blur(18px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
 }
 
@@ -33,7 +32,14 @@
     justify-content: space-between;
     padding: 12px 32px;
 }
-
+.navbar-scrolled::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:50px;
+    background:rgba(255,255,255,0.08);
+    pointer-events:none;
+}
 .logo {
     display: flex;
     flex: 1;

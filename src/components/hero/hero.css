@@ -8,6 +8,7 @@
     background-size: cover; /* Ensures the image covers the entire hero section */
     background-position: center 25%; /* Centers the image and*/
     background-repeat: no-repeat; /* Prevents the image from repeating */
+    
 }
 
 /*  */
@@ -37,7 +38,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding-left: 15px;
+    padding-left: 3vw;
     max-width:720px;
 }
 

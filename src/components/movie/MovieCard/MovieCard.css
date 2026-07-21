@@ -1,0 +1,54 @@
+.movie-card{
+    width:15vw;
+    flex-shrink:0;
+    cursor:pointer;
+}
+.poster-container{
+    position:relative;
+    overflow:hidden;
+    border-radius: 16px;
+}
+.movie-poster{
+    width: 100%;
+    /* fix the height if its smaller than the usual to streth */
+    height: 22vw;
+    display:block;
+    transition: .4s ease;
+}
+.movie-overlay{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,.5);
+    opacity:0;
+    transition: .4s ease;
+}
+.movie-card:hover .movie-overlay{
+    opacity:1;
+}
+.movie-card:hover .movie-poster{
+    transform:scale(1.05);
+}
+.movie-overlay svg{
+    color:#CFCFCF;
+    transition: .3s ease;
+}
+.movie-card:hover .movie-overlay svg{
+    transform:scale(1.2);
+}
+.movie-info{
+    margin-top: 1vw;
+}
+.movie-info h3{
+    color:white;
+    font-size: 2.3vh;
+    margin-bottom: 1.2vh;
+}
+.movie-meta{
+    display:flex;
+    justify-content:space-between;
+    color:#9f9f9f;
+    font-size:2.2vh;
+}
