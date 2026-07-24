@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Search, User } from "lucide-react";
+import { Search, User,House,Clapperboard,Tv,BookImage } from "lucide-react";
 import Logo from "../../../assets/DarkMode.svg";
 import "./Navbar.css";
 
@@ -27,10 +27,10 @@ function Navbar() {
                     <img src={Logo} alt="Tewnetlix-Logo" />
                 </div>
                 <ul className="nav-links">
-                    <li className="hover-effect">Home</li>
-                    <li className="hover-effect">Movie</li>
-                    <li className="hover-effect">Tv Shows</li>
-                    <li className="hover-effect">Genres</li>
+                    <li className="hover-effect"><span className="nav-link-icon"><House /></span> Home</li>
+                    <li className="hover-effect"><span className="nav-link-icon"><Clapperboard /></span> Movie</li>
+                    <li className="hover-effect"><span className="nav-link-icon"><Tv /></span> Tv Shows</li>
+                    <li className="hover-effect"><span className="nav-link-icon"><BookImage /></span> Genres</li>
                 </ul>
                 <div className="nav-icons">
                     <Search className="hover-effect" />
