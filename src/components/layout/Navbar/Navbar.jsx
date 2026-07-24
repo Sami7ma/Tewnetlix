@@ -21,24 +21,23 @@ function Navbar() {
 
     },[]);
     return (
-        <header className={scrolled ?"navbar navbar-scrolled"  :"navbar "}>
+        <header className={scrolled ? "navbar navbar-scrolled" : "navbar"}>
             <nav className="navbar-container">
                 <div className="logo">
-                    <img src={Logo} alt="Tewnetlix-Logo" />
+                    <img src={Logo} alt="TEWNETLIX" />
                 </div>
                 <ul className="nav-links">
-                    <li className="hover-effect"><span className="nav-link-icon"><House /></span> Home</li>
-                    <li className="hover-effect"><span className="nav-link-icon"><Clapperboard /></span> Movie</li>
-                    <li className="hover-effect"><span className="nav-link-icon"><Tv /></span> Tv Shows</li>
-                    <li className="hover-effect"><span className="nav-link-icon"><BookImage /></span> Genres</li>
+                    <li className="nav-item hover-effect"><House size={22}  /> Home</li>
+                    <li className="nav-item hover-effect"><Clapperboard size={22}  /> Movies</li>
+                    <li className="nav-item hover-effect"><Tv size={22}  /> TV Shows</li>
+                    <li className="nav-item hover-effect"><BookImage size={22}  /> Genres</li>
                 </ul>
                 <div className="nav-icons">
-                    <Search className="hover-effect" />
-                    <User className="hover-effect" />
+                    <Search size={22}  className="hover-effect" />
+                    <User size={22}  className="hover-effect" />
                 </div>
             </nav>
         </header>
     );
 }
-
 export default Navbar;

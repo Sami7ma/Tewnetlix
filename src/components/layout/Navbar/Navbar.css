@@ -1,12 +1,13 @@
-
 .hover-effect{
-    transition: 0.3s ease;
-    cursor: pointer;
+    cursor:pointer;
+    transition:.3s ease;
 }
+
 .hover-effect:hover{
-    color: #730e0e;
-    transform: scale(1.3);
+    transform:scale(1.1);
+    color:#730e0e;
 }
+
 .navbar {
     position: fixed;
     top: 20px;
@@ -25,75 +26,74 @@
     -webkit-backdrop-filter:blur(18px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
 }
-
-.navbar-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 32px;
-}
 .navbar-scrolled::before{
     content:"";
     position:absolute;
     inset:0;
     border-radius:50px;
     background:rgba(255,255,255,0.08);
-    pointer-events:none;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:14px 32px;
 }
 .logo {
     display: flex;
     flex: 1;
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 2px;
+    
 }
 
 .logo img {
-    max-width: 100%;
+    width: 175px;
     height: auto;
     object-fit: contain;
     border-radius: 15px;
     box-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
 }
 .logo img:hover{
-    color: #730e0e;
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 10px #730e0e);
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
     transition: 0.4s ease;
 }
 
 .logo img:not(:hover) {
     filter: drop-shadow(0 0 0px rgba(129, 117, 117, 0.5));
     transition: 0.4s ease;
-
 }
 .nav-links {
-    flex: 2;
-    display: flex;
-    gap: 10vh;
-    font-size: 20px;
     list-style: none;
-    color: #a00d0d;
+    display: flex;
     align-items: center;
-    margin-left: 15vw;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-left: 9rem;
+}
+.nav-item{
+    color: rgb(49, 20, 20);
+    display:flex;
+    align-items:center;
+    gap: 0.4em;
+    padding-right: 0.4rem;
+    font-size: 1.3rem;
 }
 
 .nav-icons {
     display: flex;
     flex: 1;
     justify-content: flex-end;
-    gap: 20px;
-    color: #730e0e;
+    gap: 1.5rem;
+    color:  rgb(49, 20, 20);
     margin-right: 10vh;
 }
+
 @media (max-width: 768px) {
     .nav-links {
         display: none;
     }
-    .nav-link-icon {
-        display:flex
-    }
     .nav-icons {
-        margin-right: 5vw;
+        margin-right: 0;
     }
 }
