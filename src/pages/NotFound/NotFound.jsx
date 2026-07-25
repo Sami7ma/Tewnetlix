@@ -1,7 +1,7 @@
-const Profile = () => {
+const NotFound = () => {
     return (
-        <h1>Profile</h1>
+        <h1>Page Not Found</h1>
     );
 };
 
-export default Profile;
+export default NotFound;
