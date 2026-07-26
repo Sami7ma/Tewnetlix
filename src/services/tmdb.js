@@ -1,6 +1,6 @@
 import { fetchFromTMDB } from "./api";
 
-const LIMIT = 45; // Limit the number of results to fetch
+const LIMIT = 25; // Limit the number of results to fetch
 export async function getTrendingMovies() {
     const data = await fetchFromTMDB("/trending/movie/week");
     return data.results.slice(0, LIMIT);
@@ -19,4 +19,24 @@ export async function getPopularTVShows() {
 export async function searchMovies(query){
     const data = await fetchFromTMDB(`/search/movie?query=${encodeURIComponent(query)}`);
     return data.results.slice(0, LIMIT);
+}
+export async function getMovieDetails(id){
+    return await fetchFromTMDB(`/movie/${id}`);
+}
+export async function getMovieCredits(id) {
+    const data = await fetchFromTMDB(`/movie/${id}/credits`);
+
+    return data.cast.slice(0, 12);
+}
+export async function getMovieRecommendations(id) {
+    const data = await fetchFromTMDB(`/movie/${id}/recommendations`);
+    return data.results.slice(0, LIMIT);
+}
+export async function getMovieVideos(id){
+    const data = await fetchFromTMDB(`/movie/${id}/videos`);
+    return(
+        data.results.find(
+            video => video.type === "Trailer" && video.site === "YouTube"
+        ) || null
+    );
 }

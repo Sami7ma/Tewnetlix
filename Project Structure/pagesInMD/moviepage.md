@@ -1,33 +1,36 @@
-// If info was clicked in the homepage
+<!-- Updated on moviepage -->
+██████████████████████████████████████████████
 
-█████████████████████████████
-*----------------------------------------------------------------
- [back button]
+← Back
 
-        [Movie Title]
-        
-        
-            [Background Image This image streches thrudn the two star * and * ]
-            [Trailer wil play when loaded in the background from an embeded site and when mouth hover on it it plays other wise Poster]
-[Play Now]
+──────────────────────────────────────────────
 
-[★ 8.2 RATING] Action • Comedy • 2024
+            Movie Title
+
+    (Trailer / Backdrop Hero)
+
+             ▶ Play Now
+
+★ 8.2    PG-13    2h 18m
+Action • Adventure • Sci-Fi • 2024
 
 Description...
 
-[add to Favorite]
-*----------------------------------------------------------------
+♡ Add to Favorites
+
+──────────────────────────────────────────────
 
 CAST
 
-// circles Indicate actors images
-○ Actor 1               ○ Actor 2           ○ Actor 3
-○ Actor 4               ○ Actor 5           ○ Actor 6 ....
-// cast will have a maximum of 12 top people from the sites api
+○ Actor 1     ○ Actor 2     ○ Actor 3
+○ Actor 4     ○ Actor 5     ○ Actor 6
+○ Actor 7     ○ Actor 8     ○ Actor 9
+○ Actor10     ○ Actor11     ○ Actor12
 
-Recommended for you
-// we will use cards scrollable side
-[Movie]   [Movie]   [Movie] 
-★★★★☆  ★★★★☆   ★★★★☆
+──────────────────────────────────────────────
 
-stg for the pich branch igonre this
+Recommended For You
+
+<MovieRow />
+
+──────────────────────────────────────────────
