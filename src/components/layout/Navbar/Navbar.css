@@ -40,11 +40,12 @@
     justify-content: space-between;
     align-items: center;
     padding:14px 32px;
+    gap: 1rem;
 }
 .logo {
     display: flex;
-    flex: 1;
-    
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .logo img {
@@ -69,32 +70,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2.5rem;
-    margin-left: 9rem;
+    gap: 2rem;
 }
 .nav-item{
     color: rgb(49, 20, 20);
     display:flex;
     align-items:center;
     gap: 0.4em;
-    padding-right: 0.4rem;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+    white-space: nowrap;
 }
 
 .nav-icons {
     display: flex;
-    flex: 1;
+    align-items: center;
     justify-content: flex-end;
-    gap: 1.5rem;
+    gap: 1.2rem;
     color:  rgb(49, 20, 20);
-    margin-right: 10vh;
-}
-
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-    .nav-icons {
-        margin-right: 0;
-    }
+    margin:0;
+    flex-shrink: 0;
 }
