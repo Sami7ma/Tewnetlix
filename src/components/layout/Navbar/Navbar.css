@@ -1,65 +1,100 @@
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background: #292C32;
-    backdrop-filter: blur(18px);
-    border-bottom: 1px solid rgba(140, 39, 76, 0.25);
-
+.hover-effect{
+    cursor:pointer;
+    transition:.3s ease;
 }
 
+.hover-effect:hover{
+    transform:scale(1.1);
+    color:#730e0e;
+}
+
+.navbar {
+    position: fixed;
+    top: 20px;
+    left:50%;
+    transform:translateX(-50%);
+    width:85%;
+    max-width:1200px;
+    z-index: 1000;
+    background: transparent;
+    border-radius: 50px;
+    transition: 0.5s ease;
+
+}
+.navbar-scrolled {
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+.navbar-scrolled::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:50px;
+    background:rgba(255,255,255,0.08);
+    pointer-events: none;
+}
 
 .navbar-container {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 20px 50px;
+    align-items: center;
+    padding:14px 32px;
 }
-
 .logo {
-    color: white;
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 2px;
+    display: flex;
+    flex: 1;
+    
 }
 
 .logo img {
-    height: 70px;
-    width: 150px;
+    width: 175px;
+    height: auto;
     object-fit: contain;
+    border-radius: 15px;
+    box-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
+}
+.logo img:hover{
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+    transition: 0.4s ease;
 }
 
+.logo img:not(:hover) {
+    filter: drop-shadow(0 0 0px rgba(129, 117, 117, 0.5));
+    transition: 0.4s ease;
+}
 .nav-links {
-
-    display: flex;
-    gap: 35px;
     list-style: none;
-    color: #817575;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-left: 9rem;
 }
-
-.nav-links li {
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.nav-links li:hover {
-    color: #731A32;
-    transform: scale(1.1);
-    text-shadow: 2px 2px 2px rgba(7, 7, 7, 0.5);
+.nav-item{
+    color: rgb(49, 20, 20);
+    display:flex;
+    align-items:center;
+    gap: 0.4em;
+    padding-right: 0.4rem;
+    font-size: 1.3rem;
 }
 
 .nav-icons {
     display: flex;
-    gap: 20px;
-    color: #817575;
-    cursor: pointer;
+    flex: 1;
+    justify-content: flex-end;
+    gap: 1.5rem;
+    color:  rgb(49, 20, 20);
+    margin-right: 10vh;
 }
 
-.nav-icons svg:hover {
-
-    color: #731A32;
-    transform: scale(1.1);
-    text-shadow: 2px 2px 2px rgba(7, 7, 7, 0.5);
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    .nav-icons {
+        margin-right: 0;
+    }
 }

@@ -1,21 +1,27 @@
-*----------------------------------------------------------------
-LOGO        Home   Movies   TV Shows   Trending   Genres Account
+--------------------------------------------------------------
+LOGO
 
-                    Search...
+Home   Movies   TV Shows   Trending   Genres        Search    👤
+--------------------------------------------------------------
 
------------------------------------------------------------------
 
-           BIG HERO MOVIE
 
-          [Background Image This image streches thrudn the two star * and * ]
+                BACKDROP IMAGE
+     (dark overlay + gradient to bottom)
 
-Lorem ipsum...
 
-    ★ 8.6   2025   Action • Adventure
-[ Watch Now ] [i Info] [ Trailer ] [ + Watchlist ]
 
---------------------------------------------------------------------*
 
+
+              INTERSTELLAR
+
+      ★ 8.8     2014     Sci-Fi • Adventure
+
+A team of explorers travel through a wormhole...
+
+[ ▶ Watch Now ]   [ Trailer ]   [ ℹ Info ]   [ ❤ Watchlist ]
+
+--------------------------------------------------------------
 Trending Today
 
 [Movie] [Movie] [Movie] [Movie]

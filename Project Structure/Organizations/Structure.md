@@ -66,3 +66,38 @@ tewnetlix.com/
 │
 ├── main.jsx
 └── vite.config.js
+<!-- Two updates on structure both on their places respectively -->
+
+<!-- Update on Pages part -->
+pages
+│
+├── Home
+│
+├── Movie
+│     ├── Movie.jsx
+│     └── Movie.css
+│
+├── TVShow
+│     ├── TVShow.jsx
+│     └── TVShow.css
+│
+├── Watch
+│     ├── MoviePlayer.jsx
+│     ├── TVPlayer.jsx
+│     └── Watch.css
+│
+├── Profile
+│     ├── Profile.jsx
+│     └── Profile.css
+│
+└── NotFound
+      ├── NotFound.jsx
+      └── NotFound.css
+
+<!-- Update on Components -->
+components
+│
+├── search
+│     ├── SearchModal.jsx
+│     ├── SearchResult.jsx
+│     └── Search.css
