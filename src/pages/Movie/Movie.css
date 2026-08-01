@@ -1,138 +1,120 @@
-.movie-page {
-    background: #1d1e22;
-    min-height: 100vh;
-    color: white;
-    font-family: system-ui, -apple-system, sans-serif;
+.movie-page{
+    background:#1d1e22;
+    min-height:100vh;
+    color:#CFCFCF;
+}
+.movie-hero{
+    position:relative;
+    min-height:95vh;
+    display:flex;
+    align-items:flex-end;
+    background-size:cover;
+    background-position:center;
+    padding:0 3vw 5vw;
 }
 
-.movie-hero {
-    position: relative;
-    height: 80vh;
-    /* Add your movie backdrop image URL here dynamically via inline style if needed */
-    background-size: cover;
-    background-position: center;
-    background: linear-gradient(
-        to bottom, 
-        rgba(29, 30, 34, 0.2), 
-        #1d1e22
-    );
-    display: flex;
-    align-items: flex-end;
-    padding: 3vw;
-}
-
-.button-container {
+.movie-overlay {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    display: flex;
-    gap: 15px;
-    z-index: 10;
+    inset: 0;
+    background: linear-gradient(to right, rgba(29, 30, 34, 0.45) 10%, transparent 100%);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
-
-.back-button, .volume-button {
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s;
-}
-
-.back-button:hover, .volume-button:hover {
-    background: rgba(0, 0, 0, 0.8);
-}
-
-.movie-info-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.movie-content {
+    position: relative;
+    z-index: 2;
     max-width: 700px;
+}
+.movie-top-buttons {
+    position: absolute;
+    top: 1.2rem;
+    left: 3vw;
+    right: 3vw;
+    display: flex;
+    justify-content: space-between;
     z-index: 2;
 }
-
-.movie-info-container h1 {
-    font-size: 55px;
-    font-weight: 800;
-    line-height: 1.1;
-    margin: 0;
-}
-
-.play-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: #e50914;
-    color: white;
-    width: max-content;
-    margin: 5px 0;
-    padding: 12px 30px;
-    border-radius: 12px;
+.back-button,
+.volume-button{
+    width: 3.4rem;
+    height: 3.4rem;
+    border-radius: 50%;
     border: none;
-    font-weight: bold;
     cursor: pointer;
-    transition: background 0.2s;
-}
-
-.play-button:hover {
-    background: #f40612;
-}
-
-.movie-meta {
     display: flex;
-    gap: 20px;
-    color: #ccc;
-    font-size: 14px;
-    font-weight: 500;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.12);
+    color: #CFCFCF;
+    transition: background 0.4s ease, transform 0.3s ease;
+}
+.back-button:hover,
+.volume-button:hover{
+    background:#CFCFCF;
+    color:#1d1e22;
+    transform: scale(1.1);
 }
 
-.movie-info-container p {
-    line-height: 1.6;
-    color: #ddd;
-    margin: 0;
-    font-size: 15px;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+.movie-info-container h1{
+    font-size: 5rem;
+    margin-bottom: 1.2rem;
+    color:#CFCFCF;
 }
-
-.favorite-button {
+.movie-meta{
+    display:flex;
+    gap:1.5rem;
+    color:#CFCFCF;
+    margin-bottom: 1.2rem;
+    font-size: 1.1rem;
+}
+.movie-genres{
+    display:flex;
+    gap: 1rem;
+    flex-wrap:wrap;
+    margin-bottom: 1.2rem;
+}
+.movie-genres span{
+    padding:0.5rem 1rem;
+    border-radius: 20px;
+    background:rgba(255,255,255,.12);
+}
+.movie-description{
+    max-width: 650px;
+    line-height: 1.5;
+    color: #d7d7d7;
+    margin-bottom: 1.2rem;
+}
+.movie-actions{
+    display:flex;
+    gap:1rem;
+}
+.movie-actions button{
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 0.8rem;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
-    width: max-content;
-    padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.2s;
+    gap: 0.65rem;
+    transition: .4s ease;
 }
-
-.favorite-button:hover {
-    background: rgba(255, 255, 255, 0.2);
+.play-button{
+    background: #CFCFCF;
+    color:#1d1e22;
 }
-
-.cast-section {
-    padding: 3vw;
+.favorite-button{
+    background: rgba(255, 255, 255, 0.12);
+    color:#CFCFCF;
 }
-
-.cast-section h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
+.play-button:hover{
+    background: rgba(255, 255, 255, 0.12);
+    color:#CFCFCF;
 }
-
-.cast-list {
-    display: flex;
-    gap: 15px;
-    overflow-x: auto;
-    min-height: 150px;
-    padding-bottom: 10px;
+.favorite-button:hover{
+    background: #CFCFCF;
+    color:#1d1e22;
+}
+.movie-actions button:hover{
+    transform:translateY(-2px);
 }

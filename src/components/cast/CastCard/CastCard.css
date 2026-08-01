@@ -1,0 +1,46 @@
+.cast-card{
+    display:flex;
+    align-items:center;
+    width:15rem;
+    padding:0.8rem;
+    border-radius:0.8rem;
+    border: 1px solid rgba(255,255,255,.12);
+    color:#CFCFCF;
+    box-sizing:border-box;
+    gap:1rem;
+}
+
+
+.cast-card img{
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius:50%;
+    object-fit:cover;
+    flex-shrink:0;
+    margin-bottom:0;
+}
+.cast-info{
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+}
+
+
+.cast-card h3{
+    font-size:0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.cast-card p{
+    color:#D5D5D5;
+    font-size:.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.cast-card:hover{
+    transform:scale(1.05);
+    transition:0.4s ease;
+    background:rgba(255,255,255,.12);
+}

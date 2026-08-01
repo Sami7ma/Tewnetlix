@@ -1,29 +1,44 @@
 .movie-card{
-    width:15vw;
-    flex-shrink:0;
+    /* base width for mobile with rem */
+    flex: 0 0 11.25rem ;
+    width: 11.25rem;
     cursor:pointer;
+    /* transiton is  */
+    
 }
 .poster-container{
     position:relative;
+    width:100%;
+    aspect-ratio: 2/3;/* (Netflix style) */
+    border-radius: 0.5rem;
     overflow:hidden;
-    border-radius: 16px;
+    background-color: #222;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
 }
 .movie-poster{
     width: 100%;
-    /* fix the height if its smaller than the usual to streth */
-    height: 22vw;
-    display:block;
-    transition: .4s ease;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
 }
 .movie-overlay{
     position:absolute;
     inset:0;
+    background:rgba(0,0,0,.5);
     display:flex;
     justify-content:center;
     align-items:center;
-    background:rgba(0,0,0,.5);
     opacity:0;
     transition: .4s ease;
+    color:#CFCFCF;
+}
+.poster-container:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+.movie-card:hover{
+    transform: translateY(-6px);
 }
 .movie-card:hover .movie-overlay{
     opacity:1;
@@ -35,20 +50,44 @@
     color:#CFCFCF;
     transition: .3s ease;
 }
-.movie-card:hover .movie-overlay svg{
-    transform:scale(1.2);
-}
 .movie-info{
-    margin-top: 1vw;
+    margin-top: 0.55rem;
 }
 .movie-info h3{
-    color:white;
-    font-size: 2.3vh;
-    margin-bottom: 1.2vh;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color:#CFCFCF;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-bottom: 0 0 0.3rem 0;
 }
 .movie-meta{
     display:flex;
     justify-content:space-between;
+    align-items:center;
+    font-size: 0.85rem;
     color:#9f9f9f;
-    font-size:2.2vh;
+}
+.movie-meta span{
+    display:flex;
+    align-items:center;
+    gap:0.3rem;
+}
+.movie-meta svg {
+    color: #f5c518; /* IMDb star yellow accent */
+}
+
+@media (min-width: 768px) {
+    .movie-card {
+        flex: 0 0 210px;
+        width: 210px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .movie-card {
+        flex: 0 0 240px;
+        width: 240px;
+    }
 }

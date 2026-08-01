@@ -32,11 +32,14 @@ export async function getMovieRecommendations(id) {
     const data = await fetchFromTMDB(`/movie/${id}/recommendations`);
     return data.results.slice(0, LIMIT);
 }
-export async function getMovieVideos(id){
+export async function getMovieTrailer(id){
+
     const data = await fetchFromTMDB(`/movie/${id}/videos`);
-    return(
-        data.results.find(
-            video => video.type === "Trailer" && video.site === "YouTube"
-        ) || null
+
+    return data.results.find(
+        video =>
+            video.site === "YouTube" &&
+            video.type === "Trailer"
     );
+
 }

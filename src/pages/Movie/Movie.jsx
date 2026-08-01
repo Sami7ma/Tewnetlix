@@ -5,26 +5,41 @@ import {
     getMovieDetails,
     getMovieCredits,
     getMovieRecommendations,
-    getMovieVideos,
+    getMovieTrailer,
 } from "../../services/tmdb";
+import CastList from "../../components/cast/CastList/CastList";
+import MovieRow from "../../components/movie/MovieRow";
+import "./Movie.css";
 function Movie(){
+    
     const [movie, setMovie] = useState(null);
     const [cast, setCast] = useState([]);
     const [recommendations, setRecommendations] = useState([]);
     const [trailer, setTrailer] = useState(null);
+    const imageURL = import.meta.env.VITE_TMDB_IMAGE_URL;
     const {id} = useParams();
     const navigate = useNavigate();
+
     useEffect(()=>{
         async function loadMovie(){
             try{
-                const movie = await getMovieDetails(id);
-                const cast = await getMovieCredits(id);
-                const recommendations = await getMovieRecommendations(id);
-                const trailer = await getMovieVideos(id);
+                const [
+                    movie,
+                    cast,
+                    recommendations,
+                    trailer
+                ] = await Promise.all([
+                    getMovieDetails(id),
+                    getMovieCredits(id),
+                    getMovieRecommendations(id),
+                    getMovieTrailer(id)
+                ]);
+
                 setMovie(movie);
                 setCast(cast);
                 setRecommendations(recommendations);
                 setTrailer(trailer);
+
             }
             catch(error){
                 console.error("Error fetching movie details:", error);
@@ -33,45 +48,77 @@ function Movie(){
         loadMovie();
     },[id]);
 
+    if(!movie){
+        return <div>Loading...</div>
+    }
+    
+    const backdrop = `${imageURL}${movie.backdrop_path}`;
+    const runtime = `${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60}m`;
+    const year = movie.release_date.split("-")[0];
+    const rating = movie.vote_average.toFixed(1);
+    
     return(
         <main className="movie-page">
             
-            <section className="movie-hero">
-                <div className="button-container">
-                    <button className="back-button" onClick={()=> navigater(-1)}>
-                        <ArrowLeft />
+            <section className="movie-hero" style={{backgroundImage: `url(${backdrop})`,}}>
+                <div className="movie-top-buttons">
+                        <button className="back-button" onClick={() => navigate (-1)}>
+                            <ArrowLeft />
                         </button>
-                        <button className="volume-button">
+                        <button className="volume-button" >
                             <VolumeOff />
                         </button>
+                    </div>
+                <div className="movie-overlay">
+                        
                 </div>
-                <div className="movie-info-container">
-                    <h1>{movie?.title || movie?.name || "Movie Title"}</h1>
-                </div>
-                <button className="play-button">
-                    <Play />
-                </button>
-                <div className="movie-meta">
-                    <span> ★ {movie?.vote_average?.toFixed(1)} • {movie?.runtime ? `${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60}m` : "Runtime"} </span>
+                <div className="movie-content">
                     
-                </div>
-                <p>{movie?.overview || "No overview available."}</p>
-                <button className="favorite-button">
-                    <HeartPlus /> Add to Favorites
-                </button>
+                    <div className="movie-info-container">
+                        <h1>{movie.title}</h1>
+                    </div>
+                    <div className="movie-meta">
+                        <span>
+                            ★ {rating}
+                        </span>
+                        <span>
+                            {runtime}
+                        </span>
+                        <span>
+                            {year}
+                        </span>
+                    </div>
+                    <div className="movie-genres">
+                        {movie.genres.map(genre => (
+                            <span key={genre.id}>
+                                {genre.name}
+                                </span>
+                            ))}
+                    </div>
+                    <p className="movie-description">
+                        {movie.overview}
+                        </p>
+                    <div className="movie-actions">
+                        <button className="play-button"
+                            onClick={()=> navigate(`/watch/movie/${movie.id}`)}>
+                            <Play /> Play Now
+                        </button>
+                        <button className="favorite-button">
+                            <HeartPlus /> Add to Favorites
+                        </button>
+                    </div>
+                </div>                                        
             </section>
             <section className="cast-section">
-                <h2>Cast</h2>
                 <div className="cast-list">
-                    {/* Map through the cast array and display each actor */}
-                    {cast.cast?.map(actor => (
-                        <div key={actor.id} className="cast-card">
-                            <img src={actor.profile_path ? `https://image.tmdb.org/t/p/w185${actor.profile_path}` : "default-profile-image.jpg"} alt={actor.name} />
-                            <h3>{actor.name}</h3>
-                            <p>{actor.character}</p>
-                        </div>
-                    ))}
+                    <CastList cast={cast} imageURL={imageURL} />
                 </div>
+            </section>
+            <section className="recommendations-section">
+                <MovieRow 
+                    title="Recommended Movies" 
+                    movies={recommendations} 
+                />
             </section>
         </main>
     )
