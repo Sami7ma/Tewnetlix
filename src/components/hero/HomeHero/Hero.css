@@ -3,7 +3,7 @@
     position: relative;
     display: flex;
     align-items: center; /* Vertically centers the content */
-    background: url("../../assets/wallpaperflare.com_wallpaper\ \(1\).jpg") no-repeat center center/cover;
+    background: url("../../../assets/wallpaperflare.com_wallpaper\ \(1\).jpg") no-repeat center center/cover;
     color: white;
     background-size: cover; /* Ensures the image covers the entire hero section */
     background-position: center 25%; /* Centers the image and*/
