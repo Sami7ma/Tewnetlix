@@ -1,10 +1,7 @@
 .movie-card{
-    /* base width for mobile with rem */
     flex: 0 0 11.25rem ;
     width: 11.25rem;
     cursor:pointer;
-    /* transiton is  */
-    
 }
 .poster-container{
     position:relative;
@@ -37,14 +34,11 @@
     transform: translateY(-6px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
-.movie-card:hover{
-    transform: translateY(-6px);
+.poster-container:hover .movie-overlay {
+    opacity: 1;
 }
-.movie-card:hover .movie-overlay{
-    opacity:1;
-}
-.movie-card:hover .movie-poster{
-    transform:scale(1.05);
+.poster-container:hover .movie-poster {
+    transform: scale(1.05);
 }
 .movie-overlay svg{
     color:#CFCFCF;
