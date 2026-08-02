@@ -1,17 +1,13 @@
 import "./CastCard.css";
 
 function CastCard({actor,imageURL}){
+    const profile = actor.profile_path ?
+                    `${imageURL}${actor.profile_path}`
+                    :"/default-profile.png";
 
     return(
         <div className="cast-card">
-            <img
-                src={
-                    actor.profile_path
-                    ? `${imageURL}${actor.profile_path}`
-                    : "/default-profile.png"
-                }
-                alt={actor.name}
-            />
+            <img src={profile} alt={actor.name} />
             <div className="cast-info">
                 <h3>{actor.name}</h3>
                 <p>{actor.character}</p>
