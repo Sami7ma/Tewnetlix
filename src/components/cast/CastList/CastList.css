@@ -1,5 +1,5 @@
 :root {
-    --section-margin: 1rem;
+    --section-margin: 0rem 0rem 0rem 1rem;
     --section-flex-dir: column;
     
     --heading-color: #CFCFCF;

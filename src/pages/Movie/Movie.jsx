@@ -1,6 +1,5 @@
-import {useParams, useNavigate} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {useState, useEffect} from "react";
-import { ArrowLeft, Volume, VolumeOff, Play, HeartPlus } from "lucide-react";
 import {
     getMovieDetails,
     getMovieCredits,
@@ -19,7 +18,6 @@ function Movie(){
     const [trailer, setTrailer] = useState(null);
     const imageURL = import.meta.env.VITE_TMDB_IMAGE_URL;
     const {id} = useParams();
-    const navigate = useNavigate();
 
     useEffect(()=>{
         async function loadMovie(){
@@ -55,7 +53,7 @@ function Movie(){
     
     return(
         <main className="movie-page">
-            <DetailHero movie={movie} imageURL={imageURL} />
+            <DetailHero movie={movie} imageURL={imageURL} trailer={trailer} />
             <section className="cast-section">
                 <div className="cast-list">
                     <CastList cast={cast} imageURL={imageURL} />
