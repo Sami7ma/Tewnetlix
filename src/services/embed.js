@@ -1,24 +1,22 @@
-const BASE_URL = import.meta.env.VIDSRCSBS_URL;
+const embedURL = import.meta.env.VITE_EMBED_URL;
+const playerColor = import.meta.env.VITE_PLAYER_COLOR;
 
-export function getMovieEmbedURL(id, color="CFCFCF") {
+export function getMovieEmbed(id){
+
     const params = new URLSearchParams({
-        autoPlay: 1,
-        controls: 0,
-        color: color,
+        autoplay: 1,
+        color: playerColor,
     });
 
-     return `${BASE_URL}/movie/${id}?${params}`;
+    return `${embedURL}/movie/${id}?${params.toString()}`;
 }
-export function getTVEmbedURL(
-    id,
-    season,
-    episode,
-    color = "CFCFCF"
-) {
+
+export function getTVEmbed(id, season, episode){
+
     const params = new URLSearchParams({
-        autoPlay: 1,
-        controls: 0,
-        color: color,
-    })
-    return `${BASE_URL}/tv/${id}/${season}/${episode}?${params}`;
+        autoplay: 1,
+        color: playerColor,
+    });
+
+    return `${embedURL}/tv/${id}/${season}/${episode}?${params.toString()}`;
 }

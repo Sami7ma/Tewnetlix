@@ -1,6 +1,27 @@
+import {useParams, useNavigate} from "react-router-dom";
+import {ArrowLeft} from "lucide-react";
+import {getMovieEmbed} from "../../services/embed";
+import "./Watch.css";
+
+
+
 const MoviePlayer = () => {
+    const {id} = useParams();
+    const navigate = useNavigate();
+
+    const playerURL = getMovieEmbed(id);
     return (
-        <h1>Movie Player</h1>
+        <main className="movie-player">
+            <button className="back-button" onClick={() => navigate(-1)}>
+                <ArrowLeft />
+            </button>
+            <iframe
+                src={playerURL}
+                title="Movie Player"
+                allowFullScreen
+            />
+
+        </main>
     );
 };
 
