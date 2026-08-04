@@ -80,7 +80,7 @@ const trailerURL = trailer
                 </p>
                 <div className="movie-actions">
                     <button className="play-button"
-                        onClick={()=> navigate(`/watch/movie/${movie.id}`)}>
+                        onClick={()=>navigate(`/watch/movie/${movie.id}`)}>
                             <Play fill="currentColor" />
                             Play Now
                     </button>
