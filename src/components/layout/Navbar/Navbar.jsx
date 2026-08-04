@@ -21,23 +21,37 @@ function Navbar() {
 
     },[]);
     return (
-        <header className={scrolled ? "navbar navbar-scrolled" : "navbar"}>
-            <nav className="navbar-container">
+        <>
+            {/* Separate Top bar for mobile (Hidden on desktop by the CSS) 
+            while etg else stays the same*/ }
+            <div className="mobile-top-bar">
                 <div className="logo">
                     <img src={Logo} alt="TEWNETLIX" />
                 </div>
-                <ul className="nav-links">
-                    <li className="nav-item hover-effect"><House size={22}  /> Home</li>
-                    <li className="nav-item hover-effect"><Clapperboard size={22}  /> Movies</li>
-                    <li className="nav-item hover-effect"><Tv size={22}  /> TV Shows</li>
-                    <li className="nav-item hover-effect"><BookImage size={22}  /> Genres</li>
-                </ul>
                 <div className="nav-icons">
                     <Search size={22}  className="hover-effect" />
                     <User size={22}  className="hover-effect" />
                 </div>
-            </nav>
-        </header>
+            </div>
+        {/* Main Navbar stays the same */ }
+            <header className={scrolled ? "navbar navbar-scrolled" : "navbar"}>
+                <nav className="navbar-container">
+                    <div className="logo desktop-only">
+                        <img src={Logo} alt="TEWNETLIX" />
+                    </div>
+                    <ul className="nav-links">
+                        <li className="nav-item hover-effect"><House size={22}  /> Home</li>
+                        <li className="nav-item hover-effect"><Clapperboard size={22}  /> Movies</li>
+                        <li className="nav-item hover-effect"><Tv size={22}  /> TV Shows</li>
+                        <li className="nav-item hover-effect"><BookImage size={22}  /> Genres</li>
+                    </ul>
+                    <div className="nav-icons desktop-only">
+                        <Search size={22}  className="hover-effect" />
+                        <User size={22}  className="hover-effect" />
+                    </div>
+                </nav>
+            </header>
+        </>
     );
 }
 export default Navbar;

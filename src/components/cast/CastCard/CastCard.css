@@ -1,0 +1,68 @@
+:root {
+    --cast-width: 15rem;
+    --cast-padding: 0.8rem;
+    --cast-radius: 0.8rem;
+    --cast-border: 1px solid rgba(255, 255, 255, .08);
+    --cast-color: #CFCFCF;
+    --cast-gap: 1rem;
+    --cast-transition: transform 0.4s ease, background 0.4s ease;
+    
+    --img-size: 3.5rem;
+    --img-radius: 50%;
+    
+    --h3-size: 0.95rem;
+    
+    --p-color: #D5D5D5;
+    --p-size: .85rem;
+    
+    --hover-transform: scale(1.05);
+    --hover-bg: rgba(255, 255, 255, .12);
+}
+
+.cast-card {
+    display: flex;
+    align-items: center;
+    width: var(--cast-width);
+    padding: var(--cast-padding);
+    border-radius: var(--cast-radius);
+    border: var(--cast-border);
+    color: var(--cast-color);
+    box-sizing: border-box;
+    gap: var(--cast-gap);
+    transition: var(--cast-transition);
+}
+
+.cast-card img {
+    width: var(--img-size);
+    height: var(--img-size);
+    border-radius: var(--img-radius);
+    object-fit: cover;
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+.cast-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.cast-card h3 {
+    font-size: var(--h3-size);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cast-card p {
+    color: var(--p-color);
+    font-size: var(--p-size);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cast-card:hover {
+    transform: var(--hover-transform);
+    background: var(--hover-bg);
+}
