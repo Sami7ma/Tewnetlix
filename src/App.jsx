@@ -2,7 +2,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Movie from "./pages/Movie/Movie";
 import TVShow from "./pages/TVShow/TVShow";
-import MoviePlayer from "./pages/Watch/TVPlayer.jsx";
+import MoviePlayer from "./pages/Watch/MoviePlayer";
 import TVPlayer from "./pages/Watch/TVPlayer";
 import Profile from "./pages/Profile/Profile.jsx";
 import NotFound from "./pages/NotFound/NotFound";
@@ -16,7 +16,7 @@ function App(){
                 <Route path="/" element={<Home />} />
                 <Route path="/movie/:id" element={<Movie />} />
                 <Route path="/tv/:id" element={<TVShow />} />
-                <Route path="/watch/movie/:id" element={<MoviePlayer/>} />
+                <Route path="/watch/movie/:id" element={<MoviePlayer />} />
                 <Route path="/watch/tv/:id" element={<TVPlayer/>}/> 
                 <Route path="/profile" element={<Profile/>}/>
                 <Route path="*" element={<NotFound/>}/>

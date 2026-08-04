@@ -1,5 +1,5 @@
 import Navbar from "../../components/layout/Navbar";
-import Hero from "../../components/hero/Hero";
+import Hero from "../../components/hero/HomeHero/Hero";
 import MovieRow from "../../components/movie/MovieRow/MovieRow";
 import "./Home.css";
 import {useEffect, useState} from "react";
