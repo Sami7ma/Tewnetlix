@@ -1,0 +1,11 @@
+.player-notice{
+    margin-bottom: 3rem;
+}
+
+.player-notice p{
+    color:#9c9c9c;
+    font-size:18px;
+    text-align:center;
+    font-style:italic;
+    margin-bottom:0.4rem;
+}

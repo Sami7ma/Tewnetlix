@@ -1,31 +1,40 @@
-████████████████████████████████████████
+██████████████████████████████
 
 ← Back
 
-────────────────────────────────────────
+──────────────────────────────
 
-┌──────────────────────────────────────┐
-│                                      │
-│                                      │
-│          Embedded Player             │
-│                                      │
-│                                      │
-└──────────────────────────────────────┘
+┌─────────────────────────────┐
+│                             │
+│                             │
+│        VIDEO PLAYER         │
+│                             │
+│                             │
+└─────────────────────────────┘
 
-Interstellar
+[ Server 1 ]
+[ Server 2 ]
+[ Server 3 ]
+[ Server 4 ]
 
-★ 8.8 • 2014 • 2h 49m
+Please switch servers if playback fails.
 
-────────────────────────────────────────
+Tewnetlix does not host or control advertisements shown by third-party players.
 
-Description...
-
-────────────────────────────────────────
+──────────────────────────────
 
 More Like This
 
-<MovieRow/>
+<MovieRow />
+<MoviePlayer>
 
+    <Player />
+
+    <ServerSelector />
+
+    <MovieRow />
+
+</MoviePlayer>
 pages/
     Watch/
         MoviePlayer.jsx

@@ -1,0 +1,22 @@
+.server-selctor{
+    display:flex;
+    flex-wrap:wrap;
+    gap:1rem;
+    margin: 1rem 0;
+}
+.server-selctor button{
+    padding: 0.75rem 1rem;
+    border:none;
+    border-radius: 0.75rem;
+    background: rgba(255,255,255,.12);
+    color:#CFCFCF;
+    cursor:pointer;
+    transition:.3s ease;
+}
+.server-button:hover{
+    background: rgba(255,255,255,.18);
+}
+.server-button.active{
+    background:#CFCFCF;
+    color:#1d1e22;
+}
