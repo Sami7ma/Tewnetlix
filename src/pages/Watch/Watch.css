@@ -1,43 +1,54 @@
 .movie-player{
-    width:100%;
-    height:100vh;
-    background:#000;
-    overflow:hidden;
-    position:relative;
+
+    min-height:100vh;
+
+    background:#1d1e22;
+
+    color:#CFCFCF;
+
 }
 
-.movie-player iframe{
-    width:100%;
-    height:100%;
-    border:none;
+.watch-container{
+
+    width:min(1400px,95%);
+
+    margin:auto;
+
+    padding:2rem 0 4rem;
+
 }
 
 .player-back{
-    position:absolute;
-    top:25px;
-    left:25px;
 
-    width:48px;
-    height:48px;
+    width:3rem;
+    height:3rem;
 
     border:none;
+
     border-radius:50%;
 
-    background:rgba(0,0,0,.45);
-    color:white;
+    margin-bottom:2rem;
 
     display:flex;
+
     justify-content:center;
+
     align-items:center;
 
     cursor:pointer;
 
-    z-index:5;
+    color:#CFCFCF;
+
+    background:rgba(255,255,255,.12);
 
     transition:.3s;
+
 }
 
 .player-back:hover{
-    background:white;
-    color:black;
+
+    background:#CFCFCF;
+
+    color:#1d1e22;
+
 }
