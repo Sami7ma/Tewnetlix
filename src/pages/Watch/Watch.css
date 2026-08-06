@@ -1,54 +1,126 @@
-.movie-player{
-
-    min-height:100vh;
-
-    background:#1d1e22;
-
-    color:#CFCFCF;
-
+.movie-player {
+    min-height: 100vh;
+    background: #1d1e22;
+    color: #CFCFCF;
+    padding: 1.5rem 1rem;
 }
 
-.watch-container{
-
-    width:min(1400px,95%);
-
-    margin:auto;
-
-    padding:2rem 0 4rem;
-
+.watch-container {
+    max-width: 1700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0rem;
 }
 
-.player-back{
-
-    width:3rem;
-    height:3rem;
-
-    border:none;
-
-    border-radius:50%;
-
-    margin-bottom:2rem;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    cursor:pointer;
-
-    color:#CFCFCF;
-
-    background:rgba(255,255,255,.12);
-
-    transition:.3s;
-
+/* =========================================
+   MOBILE LAYOUT (Stacked Grid)
+========================================= */
+.main-watch-grid {
+    display: grid;
+    grid-template-columns:minmax(0, 1fr);
+    grid-template-areas:
+        "player"
+        "title"
+        "servers"
+        "notice"
+        "recommendation";
+    gap: 0.5rem;
 }
 
-.player-back:hover{
+.grid-area-player { grid-area: player; }
+.grid-area-title { grid-area: title; }
+.grid-area-servers { grid-area: servers; }
+.grid-area-notice { grid-area: notice; }
+.grid-area-recommendation { grid-area: recommendation; }
 
-    background:#CFCFCF;
+.player-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    border-radius: 1.2rem;
+    background: black;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
 
-    color:#1d1e22;
+.player-back {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    color: #cfcfcf;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
 
+.player-back:hover {
+    background: #CFCFCF;
+    color: #1d1e22;
+}
+
+/* Title Area */
+.selection-scroll-box {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 1.2rem;
+    padding: 1rem;
+}
+
+.now-playing-label {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.6;
+    margin-bottom: 0.15rem;
+}
+
+.selection-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Server List - Mobile (Free flow) */
+.server-container > * {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.75rem;
+}
+
+/* Notice Area */
+.player-notice-wrapper {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 1.2rem;
+    font-size: 0.95rem;
+    opacity: 0.8;
+}
+
+/* =========================================
+   DESKTOP LAYOUT 
+========================================= */
+@media (min-width: 992px) {
+    .main-watch-grid {
+        grid-template-columns: minmax(0, 3fr) 1fr 1fr;
+        grid-template-areas:
+            "player title title"
+            "player servers notice"
+            "recommendation recommendation recommendation";
+        gap: 1.5rem;
+        align-items: start;
+    }
+}
+@media (min-width: 1200px) {
+    .main-watch-grid {
+        grid-template-columns: minmax(0, 3.8fr) 1fr 1fr;
+    }
 }

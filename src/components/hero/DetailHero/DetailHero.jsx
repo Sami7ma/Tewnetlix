@@ -19,7 +19,7 @@ function DetailHero({ movie, trailer, imageURL }) {
 
     const timer = setTimeout(() => {
       setShowTrailer(true);
-    }, 7000);
+    }, 3500);
 
     return () => clearTimeout(timer);
   }, [movie?.id, trailer?.key]);
@@ -101,7 +101,7 @@ function DetailHero({ movie, trailer, imageURL }) {
         {/* Mute/Unmute button is rendered ONLY when the trailer is active */}
         {showTrailer && trailerURL && (
           <button className="volume-button" onClick={toggleMute}>
-            {muted ? <VolumeOff /> : <Volume />}
+            {muted ? <VolumeOff fill="currentColor" /> : <Volume />}
           </button>
         )}
       </div>

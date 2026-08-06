@@ -4,7 +4,7 @@
     
     --heading-color: #CFCFCF;
     --heading-size: 2rem;
-    --heading-margin-bottom: 2rem;
+    --heading-margin-bottom: 1rem;
     
     --list-display: grid;
     --list-grid-cols: repeat(auto-fit, minmax(15rem, 1fr));
