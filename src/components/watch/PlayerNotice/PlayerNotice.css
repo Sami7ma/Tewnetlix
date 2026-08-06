@@ -1,11 +1,12 @@
 .player-notice{
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    color:#9c9c9c;
+    font-style:italic;
+    text-align:center;
 }
 
 .player-notice p{
-    color:#9c9c9c;
-    font-size:18px;
-    text-align:center;
-    font-style:italic;
-    margin-bottom:0.4rem;
+    margin-bottom:0.35rem;
 }

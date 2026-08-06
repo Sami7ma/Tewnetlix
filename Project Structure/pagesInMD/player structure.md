@@ -1,27 +1,15 @@
 ██████████████████████████████
-
-← Back
-
 ──────────────────────────────
+┌─────────────────────────────┐               Now Playing
+│  ← Back                     │                 [Movietitle]
+│                             │ [ Server 1 ]
+│        VIDEO PLAYER         │ [ Server 2 ]
+│                             │ [ Server 3 ]
+│                             │ [ Server 4 ]
+└─────────────────────────────┘ 
 
-┌─────────────────────────────┐
-│                             │
-│                             │
-│        VIDEO PLAYER         │
-│                             │
-│                             │
-└─────────────────────────────┘
-
-[ Server 1 ]
-[ Server 2 ]
-[ Server 3 ]
-[ Server 4 ]
-
-Please switch servers if playback fails.
-
-Tewnetlix does not host or control advertisements shown by third-party players.
-
-──────────────────────────────
+    Please switch servers if playback fails.
+    Tewnetlix does not host or control advertisements shown by third-party players.
 
 More Like This
 
