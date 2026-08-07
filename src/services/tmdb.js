@@ -66,3 +66,6 @@ export const getTVTrailer = async (id) => {
     );
 }
 
+export async function getSeasonDetails(id, season) {
+    return await fetchFromTMDB(`/tv/${id}/season/${season}`);
+}

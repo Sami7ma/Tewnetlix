@@ -6,15 +6,14 @@ const SeasonSelector = ({ seasons = [], selectedSeason, onChange }) => {
     const [open, setOpen] = useState(false);
 
     return (
-        <div 
-            className="custom-selector"
-            onMouseEnter={() => setOpen(true)}
-            onMouseLeave={() => setOpen(false)}
-        >
+        <div className="custom-selector">
 
-            <button className="selector-button">
+            <button 
+                className="selector-button"
+                onClick={() => setOpen(!open)}
+                >
                 Season {selectedSeason}
-                
+
             </button>
 
 
@@ -30,9 +29,10 @@ const SeasonSelector = ({ seasons = [], selectedSeason, onChange }) => {
                                 ? "option active"
                                 : "option"
                             }
-                            onClick={() =>
-                                onChange(season.season_number)
-                            }
+                            onClick={() =>{
+                                onChange(season.season_number);
+                                setOpen(false);
+                            }}
                         >
                             Season {season.season_number}
                         </button>

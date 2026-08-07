@@ -12,11 +12,10 @@
     padding: .5rem 1rem;
     border: 1px solid rgba(255,255,255,.15);
     border-radius: 999px;
-
+    user-select: none;
     background: rgba(255,255,255,.1);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-
     color: #cfcfcf;
     font-size: .9rem;
     font-weight: 500;
@@ -36,7 +35,8 @@
 }
 
 .selector-dropdown {
-
+    max-height:320px;
+    overflow-y:auto;
     position: absolute;
     top: calc(100% + .5rem);
     left: 0;
@@ -70,8 +70,13 @@
     pointer-events:auto;
 }
 
-
-
+.selector-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+.selector-dropdown::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
 .option {
     width:100%;
     padding:.65rem .8rem;
