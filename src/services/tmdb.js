@@ -43,3 +43,26 @@ export async function getMovieTrailer(id){
     );
 
 }
+
+// TV Show related functions
+export async function getTVDetails(id) {
+    return await fetchFromTMDB(`/tv/${id}`);
+}
+export const getTVCredits = async (id) => {
+    const data = await fetchFromTMDB(`/tv/${id}/credits`);
+    return data.cast.slice(0, 12);
+}
+export const getTVRecommendations = async (id) => {
+    const data = await fetchFromTMDB(`/tv/${id}/recommendations`);
+    return data.results.slice(0, LIMIT);
+}
+export const getTVTrailer = async (id) => {
+    const data = await fetchFromTMDB(`/tv/${id}/videos`);
+    return (data.results.find(
+        video =>
+            video.site === "YouTube" &&
+            video.type === "Trailer"
+        )|| null
+    );
+}
+

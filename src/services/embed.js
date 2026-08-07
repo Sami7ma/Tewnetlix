@@ -1,22 +1,14 @@
-const embedURL = import.meta.env.VITE_EMBED_URL;
-const playerColor = import.meta.env.VITE_PLAYER_COLOR;
+const PRIMARY = import.meta.env.VITE_EMBED_PRIMARY;
+const SECONDARY = import.meta.env.VITE_EMBED_SECONDARY;
 
-export function getMovieEmbed(id){
 
-    const params = new URLSearchParams({
-        autoplay: 1,
-        color: playerColor,
-    });
-
-    return `${embedURL}/movie/${id}?${params.toString()}`;
-}
-
-export function getTVEmbed(id, season, episode){
-
-    const params = new URLSearchParams({
-        autoplay: 1,
-        color: playerColor,
-    });
-
-    return `${embedURL}/tv/${id}/${season}/${episode}?${params.toString()}`;
+export function getMovieEmbed(id,server, type, season, episode) {
+    let baseURL = server === 1 ? PRIMARY : SECONDARY;
+    if(type === "movie"){
+        return `${baseURL}/movie/${id}`;
+    }
+    if(type === "tv"){
+        return `${baseURL}/tv/${id}/${season}/${episode}`;
+    }
+    return null;
 }
