@@ -136,6 +136,13 @@
         align-items: start;
     }
 }
+.tv-meta {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
 
 /* 2. Standard Desktop (1150px to 1199px) */
 /* 3 Columns: Restores your original layout */
