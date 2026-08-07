@@ -10,7 +10,7 @@ import CastList from "../../components/cast/CastList/CastList";
 import MovieRow from "../../components/movie/MovieRow";
 import DetailHero from "../../components/hero/DetailHero/DetailHero";
 import "./Movie.css";
-function Movie(){
+const Movie = () => {
     
     const [movie, setMovie] = useState(null);
     const [cast, setCast] = useState([]);
@@ -22,12 +22,8 @@ function Movie(){
     useEffect(()=>{
         async function loadMovie(){
             try{
-                const [
-                    movie,
-                    cast,
-                    recommendations,
-                    trailer
-                ] = await Promise.all([
+                const [movie,cast,recommendations,trailer] = 
+                    await Promise.all([
                     getMovieDetails(id),
                     getMovieCredits(id),
                     getMovieRecommendations(id),
@@ -53,7 +49,7 @@ function Movie(){
     
     return(
         <main className="movie-page">
-            <DetailHero movie={movie} imageURL={imageURL} trailer={trailer} />
+            <DetailHero media={movie} imageURL={imageURL} trailer={trailer} />
             <section className="cast-section">
                 <div className="cast-list">
                     <CastList cast={cast} imageURL={imageURL} />

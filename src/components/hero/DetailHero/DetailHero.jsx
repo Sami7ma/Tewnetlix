@@ -3,14 +3,14 @@ import { ArrowLeft, Volume, VolumeOff, Play, HeartPlus } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import "./DetailHero.css";
 
-function DetailHero({ movie, trailer, imageURL }) {
+function DetailHero({ media, trailer, imageURL }) {
   const navigate = useNavigate();
   const iframeRef = useRef(null);
 
   const [muted, setMuted] = useState(true);
   const [showTrailer, setShowTrailer] = useState(false);
 
-  // Reset trailer state when switching movies
+  // Reset trailer state when switching media
   useEffect(() => {
     setShowTrailer(false);
     setMuted(true);
@@ -22,7 +22,7 @@ function DetailHero({ movie, trailer, imageURL }) {
     }, 3500);
 
     return () => clearTimeout(timer);
-  }, [movie?.id, trailer?.key]);
+  }, [media?.id, trailer?.key]);
 
   const handleBack = () => {
     if (window.history.length > 1) {
@@ -44,10 +44,32 @@ function DetailHero({ movie, trailer, imageURL }) {
     setMuted(!muted);
   };
 
-  const backdrop = movie?.backdrop_path ? `${imageURL}${movie.backdrop_path}` : "";
-  const runtime = movie?.runtime ? `${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60}m` : "";
-  const year = movie?.release_date ? movie.release_date.split("-")[0] : "";
-  const rating = movie?.vote_average ? movie.vote_average.toFixed(1) : "N/A";
+  // 1. SAFELY EXTRACT DATA
+  const title = media.title || media.name;
+  const backdrop = media.backdrop_path ? `${imageURL}${media.backdrop_path}` : "";
+  
+  // Determine if movie or tv for the play button
+  const mediaType = media.media_type || (media.title ? "movie" : "tv");
+
+  // Format runtime or seasons safely
+  let runtime = null;
+  if (media.runtime) {
+    runtime = `${Math.floor(media.runtime / 60)}h ${media.runtime % 60}m`;
+  } else if (media.number_of_seasons) {
+    runtime = `${media.number_of_seasons} Season${media.number_of_seasons > 1 ? 's' : ''}`;
+  }
+
+  // Format year safely
+  const year = media.release_date
+    ? media.release_date.split("-")[0]
+    : media.first_air_date
+    ? media.first_air_date.split("-")[0]
+    : null;
+
+  // Format rating safely
+  const rating = media.vote_average && media.vote_average > 0 
+    ? media.vote_average.toFixed(1) 
+    : null;
 
   const trailerParams = trailer?.key
     ? new URLSearchParams({
@@ -70,22 +92,22 @@ function DetailHero({ movie, trailer, imageURL }) {
     : null;
 
   return (
-    <section className="movie-hero">
+    <section className="media-hero">
       {backdrop && (
         <img
-          className={`movie-backdrop ${showTrailer ? "hidden" : "visible"}`}
+          className={`media-backdrop ${showTrailer ? "hidden" : "visible"}`}
           src={backdrop}
-          alt={movie?.title || "Movie Backdrop"}
+          alt={title || "media Backdrop"}
         />
       )}
 
       {showTrailer && trailerURL && (
-        <div className="movie-video-wrapper visible">
+        <div className="media-video-wrapper visible">
           <iframe
             ref={iframeRef}
-            className="movie-trailer"
+            className="media-trailer"
             src={trailerURL}
-            title={movie?.title || "Trailer"}
+            title={title || "Trailer"}
             allow="autoplay; encrypted-media; fullscreen"
             loading="eager"
             allowFullScreen
@@ -93,7 +115,7 @@ function DetailHero({ movie, trailer, imageURL }) {
         </div>
       )}
 
-      <div className="movie-top-buttons">
+      <div className="media-top-buttons">
         <button className="back-button" onClick={handleBack}>
           <ArrowLeft />
         </button>
@@ -106,25 +128,31 @@ function DetailHero({ movie, trailer, imageURL }) {
         )}
       </div>
 
-      <div className="detailHero-movie-overlay" />
+      <div className="detailHero-media-overlay" />
 
-      <div className="movie-content">
-        <h1>{movie?.title}</h1>
-        <div className="movie-meta">
-          <span>★ {rating}</span>
-          <span>{runtime}</span>
-          <span>{year}</span>
+      <div className="media-content">
+        <h1>{title}</h1>
+        
+        <div className="media-meta">
+          {/* 2. CONDITIONALLY RENDER SPANS SO THEY DON'T SHOW UP BLANK */}
+          {rating && <span>★ {rating}</span>}
+          {runtime && <span>{runtime}</span>}
+          {year && <span>{year}</span>}
         </div>
-        <div className="movie-genres">
-          {movie?.genres?.map((genre) => (
+
+        <div className="media-genres">
+          {/* Safe check in case genres array is undefined */}
+          {media.genres && media.genres.map((genre) => (
             <span key={genre.id}>{genre.name}</span>
           ))}
         </div>
-        <p className="movie-description">{movie?.overview}</p>
-        <div className="movie-actions">
+        
+        <p className="media-description">{media.overview}</p>
+        
+        <div className="media-actions">
           <button
             className="play-button"
-            onClick={() => navigate(`/watch/movie/${movie?.id}`)}
+            onClick={() => navigate(`/watch/${mediaType}/${media.id}`)}
           >
             <Play fill="currentColor" />
             Play Now

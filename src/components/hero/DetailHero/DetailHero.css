@@ -1,4 +1,4 @@
-.movie-hero{
+.media-hero{
     position:relative;
     min-height:87vh;
     display:flex;
@@ -10,7 +10,7 @@
     overflow:hidden;
 }
 
-.detailHero-movie-overlay{
+.detailHero-media-overlay{
     position:absolute;
     inset:0;
     z-index:2;
@@ -29,7 +29,7 @@
             transparent 65%
         );
 }
-.detailHero-movie-overlay::after{
+.detailHero-media-overlay::after{
     content:"";
     position:absolute;
     left:0;
@@ -38,7 +38,7 @@
     height:250px;
     background:linear-gradient(to bottom,transparent,rgba(29, 30, 34, 0.95));
 }
-.movie-backdrop{
+.media-backdrop{
     position:absolute;
     top:0;
     left:0;
@@ -48,10 +48,10 @@
     z-index:0;
     transition: opacity 0.8s ease;
 }
-.movie-backdrop.hidden{
+.media-backdrop.hidden{
     opacity:0;
 }
-.movie-video-wrapper{
+.media-video-wrapper{
     position:absolute;
     inset:0;
     overflow:hidden;
@@ -59,10 +59,10 @@
     opacity:0;
     transition: opacity 0.8s ease;
 }
-.movie-video-wrapper.visible{
+.media-video-wrapper.visible{
     opacity:1;
 }
-.movie-trailer{
+.media-trailer{
     position:absolute;
     top:50%;
     left:50%;
@@ -74,20 +74,21 @@
     border:none;
     pointer-events:none;
 }
-.movie-content {
+.media-content {
+    color: #CFCFCF;
     position: relative;
     z-index: 3;
     width: 100%;
     max-width: 650px;
 }
-.movie-content h1 {
+.media-content h1 {
     font-size: clamp(2rem, 5vw, 3.2rem);
     font-weight: 800;
     letter-spacing: 1px;
     line-height: 1.15;
     margin-bottom: 1rem;
 }
-.movie-top-buttons {
+.media-top-buttons {
     position: absolute;
     top: 1.5rem;
     left: 5%;
@@ -119,7 +120,7 @@
     color:#1d1e22;
     transform: scale(1.1);
 }
-.movie-meta{
+.media-meta{
     max-width:fit-content;
     display:flex;
     flex-wrap:wrap;
@@ -128,25 +129,25 @@
     font-weight: 500;
     margin-bottom: 1rem;
 }
-.movie-meta span {
+.media-meta span {
     display: flex;
     align-items: center;
     margin-right: 1rem;
 }
-.movie-genres{
+.media-genres{
     display:flex;
     gap: 0.6rem;
     flex-wrap:wrap;
     margin-bottom: 1rem;
 }
-.movie-genres span{
+.media-genres span{
     padding:0.5rem 1rem;
     border-radius: 20px;
     background:rgba(255,255,255,.12);
 }
 
 
-.movie-description{
+.media-description{
     max-width: 650px;
     line-height: 1.5;
     color: #d7d7d7;
@@ -157,12 +158,12 @@
     overflow: hidden;
 }
 
-.movie-actions{
+.media-actions{
     display:flex;
     gap:1rem;
     flex-wrap:wrap;
 }
-.movie-actions button{
+.media-actions button{
     padding: 0.75rem 1.4rem;
     border: none;
     border-radius: 1rem;
@@ -191,11 +192,11 @@
     background: #CFCFCF;
     color:#1d1e22;
 }
-.movie-actions button:hover{
+.media-actions button:hover{
     transform:translateY(-2px);
 }
 @media (max-width: 480px) {
-    .movie-hero {
+    .media-hero {
         min-height: 75vh;
         padding-top: 5rem;
     }
