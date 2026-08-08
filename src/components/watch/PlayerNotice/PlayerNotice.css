@@ -1,10 +1,11 @@
 .player-notice{
     margin-bottom: 2rem;
-    font-size: 1.2rem;
-    line-height: 1.5rem;
-    color:#9c9c9c;
+    font-size: 1.1rem;
+    line-height: 1.6rem;
+    color: rgba(180, 180, 195, 0.5);
     font-style:italic;
     text-align:center;
+    letter-spacing: 0.01em;
 }
 
 .player-notice p{

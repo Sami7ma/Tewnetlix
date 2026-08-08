@@ -1,11 +1,40 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-  margin:0;
-    overflow-x:hidden;
-    background:#1d1e22;
+body {
+    margin: 0;
+    overflow-x: hidden;
+    background: #111114;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #e0e0e5;
+    scroll-behavior: smooth;
+}
+
+/* Refined scrollbar for the whole app */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+/* Selection color */
+::selection {
+    background: rgba(120, 120, 180, 0.35);
+    color: #fff;
 }

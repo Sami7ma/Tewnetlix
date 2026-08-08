@@ -17,25 +17,30 @@
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    border:none;
+    border: 1px solid rgba(255,255,255,0.1);
     display: flex;
     align-items:center;
     justify-content:center;
     cursor:pointer;
-    background:rgba(255,255,255,.12);
-    color:#CFCFCF;
-    transition: all .3s ease;
+    background:rgba(255,255,255,.07);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    color: rgba(220, 220, 230, 0.8);
+    transition: all .3s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 .row-buttons button:hover{
-    background:#CFCFCF;
-    color:#141414;
-    transform:scale(1.1);
+    background: rgba(255,255,255,0.9);
+    color:#111114;
+    transform:scale(1.08);
+    border-color: transparent;
+    box-shadow: 0 4px 16px rgba(255,255,255,0.1);
 }
 .row-title{
     font-size: 1.5rem;
-    font-weight: 600;
-    color: #CFCFCF;
-    
+    font-weight: 700;
+    color: #e0e0e5;
+    letter-spacing: 0.03em;
 }
 .movie-list{
     display:flex;
