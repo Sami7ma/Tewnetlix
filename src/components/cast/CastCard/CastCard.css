@@ -3,20 +3,20 @@
     --cast-padding: 0.6rem;
     --cast-radius: 0.8rem;
     --cast-border: 1px solid rgba(255, 255, 255, .08);
-    --cast-color: #CFCFCF;
+    --cast-color: #e0e0e5;
     --cast-gap: 1rem;
-    --cast-transition: transform 0.4s ease, background 0.4s ease;
+    --cast-transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
     
     --img-size: 3.5rem;
     --img-radius: 50%;
     
     --h3-size: 0.95rem;
     
-    --p-color: #D5D5D5;
+    --p-color: rgba(220, 220, 230, 0.7);
     --p-size: .85rem;
     
-    --hover-transform: scale(1.05);
-    --hover-bg: rgba(255, 255, 255, .12);
+    --hover-transform: scale(1.03) translateY(-2px);
+    --hover-bg: rgba(255, 255, 255, .08);
 }
 
 .cast-card {
@@ -30,6 +30,9 @@
     box-sizing: border-box;
     gap: var(--cast-gap);
     transition: var(--cast-transition);
+    background: rgba(255,255,255, 0.03);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .cast-card img {
@@ -39,6 +42,8 @@
     object-fit: cover;
     flex-shrink: 0;
     margin-bottom: 0;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 .cast-info {
@@ -49,9 +54,11 @@
 
 .cast-card h3 {
     font-size: var(--h3-size);
+    font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    letter-spacing: 0.01em;
 }
 
 .cast-card p {
@@ -65,4 +72,6 @@
 .cast-card:hover {
     transform: var(--hover-transform);
     background: var(--hover-bg);
+    border-color: rgba(255,255,255,0.14);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
 }

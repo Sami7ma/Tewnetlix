@@ -1,11 +1,13 @@
 .player-wrapper{
     width:85%;
     aspect-ratio:16/9;
-    border-radius:1rem;
+    border-radius:1.2rem;
     justify-self:center;
     overflow:hidden;
-    background:#1d1e22;
-    box-shadow:0 25px 60px rgba(0,0,0,.45);
+    background:#0a0a0d;
+    box-shadow: 0 25px 60px rgba(0,0,0,.55),
+                0 0 0 1px rgba(255,255,255,0.06) inset;
+    border: 1px solid rgba(255,255,255,0.06);
 }
 .player-wrapper iframe{
     width:100%;
