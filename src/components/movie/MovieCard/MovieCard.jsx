@@ -99,7 +99,7 @@ function MovieCard({ movie }) {
 
                     {visibleGenres.length > 0 && (
                         <div className="movie-genres">
-                            {visibleGenres.join(" | ")}
+                            {visibleGenres.join("|")}
                         </div>
                     )}
 
