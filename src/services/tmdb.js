@@ -1,6 +1,6 @@
 import { fetchFromTMDB } from "./api";
 
-const LIMIT = 25;
+const LIMIT = 35;
 
 
 /* =========================================
@@ -99,16 +99,48 @@ export async function getTopRatedMovies() {
 }
 
 
-export async function searchMovies(query) {
+export async function searchMulti(query) {
+    if (!query.trim()) {
+        return [];
+    }
+
     const data = await fetchFromTMDB(
-        `/search/movie?query=${encodeURIComponent(query)}`
+        `/search/multi?query=${encodeURIComponent(query)}`
     );
 
-    const results = data.results.slice(0, LIMIT);
+    const results = data.results
+        .filter(
+            item =>
+                item.media_type === "movie" ||
+                item.media_type === "tv"
+        )
+        .slice(0, LIMIT);
 
-    return await addMovieGenres(results);
+    const movies = results.filter(
+        item => item.media_type === "movie"
+    );
+
+    const shows = results.filter(
+        item => item.media_type === "tv"
+    );
+
+    const movieResults = await addMovieGenres(movies);
+    const tvResults = await addTVGenres(shows);
+
+    const normalizedResults = results.map(item => {
+        if (item.media_type === "movie") {
+            return movieResults.find(
+                movie => movie.id === item.id
+            );
+        }
+
+        return tvResults.find(
+            show => show.id === item.id
+        );
+    });
+
+    return normalizedResults;
 }
-
 
 export async function getMovieDetails(id) {
     return await fetchFromTMDB(`/movie/${id}`);
