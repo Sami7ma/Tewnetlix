@@ -3,10 +3,12 @@ import { Search, User, House, Clapperboard, Tv, BookImage } from "lucide-react";
 
 import { Link } from "react-router-dom";
 import Logo from "../../../assets/DarkMode.svg";
+import SearchOverlay from "../../search/SearchOverlay/SearchOverlay";
 import "./Navbar.css";
 
 function Navbar() {
     const [scrolled, setScrolled] = useState(false);
+    const [searchOpen, setSearchOpen] = useState(false);
 
     useEffect(() => {
         function handleScroll() {
@@ -35,7 +37,7 @@ function Navbar() {
                     <img src={Logo} alt="TEWNETLIX" />
                 </Link>
                 <div className="nav-icons">
-                    <Search size={22} className="hover-effect" />
+                    <Search size={22} className="hover-effect" onClick={() => setSearchOpen(true)} />
                     <User size={22} className="hover-effect" />
                 </div>
             </div>
@@ -72,13 +74,19 @@ function Navbar() {
                     </ul>
                     {/* Desktop Icons */}
                     <div className="nav-icons desktop-only">
-                        <Search size={22} className="hover-effect" />
+                        <Search size={22} className="hover-effect" onClick={() => setSearchOpen(true)} />
                         <Link to="/profile">
                             <User size={22} className="hover-effect" />
                         </Link>
                     </div>
                 </nav>
             </header>
+            {/* Search Overlay */}
+            {
+                searchOpen && (
+                    <SearchOverlay onClose={() => setSearchOpen(false)} />
+                )
+            }
         </>
     );
 }
