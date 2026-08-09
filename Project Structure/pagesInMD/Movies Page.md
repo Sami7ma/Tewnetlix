@@ -24,7 +24,7 @@ Something along the lines of:
 <!-- Same conep t for Tvshows
  -->
 
- Movies page ───────┐
+Movies page ───────┐
                    │
 TV Shows page ─────┼──→ Media components
                    │
