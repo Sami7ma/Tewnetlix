@@ -1,5 +1,5 @@
 .hero {
-    height: 95vh; /* Full screen height */
+    min-height:87vh; /* Full screen height */
     position: relative;
     display: flex;
     align-items: center; /* Vertically centers the content */
