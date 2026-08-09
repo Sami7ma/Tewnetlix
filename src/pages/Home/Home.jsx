@@ -1,4 +1,4 @@
-import Navbar from "../../components/layout/Navbar";
+import Navbar from "../../components/layout/Navbar/Navbar";
 import Hero from "../../components/hero/HomeHero/Hero";
 import MovieRow from "../../components/movie/MovieRow/MovieRow";
 import "./Home.css";

@@ -9,7 +9,7 @@ import {
 } from "../../services/tmdb";
 
 import CastList from "../../components/cast/CastList/CastList";
-import MovieRow from "../../components/movie/MovieRow";
+import MovieRow from "../../components/movie/MovieRow/MovieRow";
 import DetailHero from "../../components/hero/DetailHero/DetailHero";
 
 import "./TVShow.css";

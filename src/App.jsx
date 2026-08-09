@@ -1,9 +1,10 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom";
+
 import Home from "./pages/Home/Home";
 import Movie from "./pages/Movie/Movie";
 import TVShow from "./pages/TVShow/TVShow";
 import WatchPage from "./pages/Watch/WatchPage";
-import Profile from "./pages/Profile/Profile.jsx";
+import Profile from "./pages/Profile/Profile";
 import NotFound from "./pages/NotFound/NotFound";
 
 

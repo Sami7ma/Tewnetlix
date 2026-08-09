@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Search, User, House, Clapperboard, Tv, BookImage } from "lucide-react";
+
+import { Link } from "react-router-dom";
 import Logo from "../../../assets/DarkMode.svg";
 import "./Navbar.css";
 
@@ -20,13 +22,18 @@ function Navbar() {
         };
     }, []);
 
+    // Scroll to top when clicking on the logo
+    const scrollToTop =() =>{
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     return (
         <>
             {/* Mobile Top Bar */}
             <div className="mobile-top-bar">
-                <div className="logo">
+                <Link to="/" className="logo" onClick={scrollToTop}>
                     <img src={Logo} alt="TEWNETLIX" />
-                </div>
+                </Link>
                 <div className="nav-icons">
                     <Search size={22} className="hover-effect" />
                     <User size={22} className="hover-effect" />
@@ -36,26 +43,39 @@ function Navbar() {
             {/* Main Navbar */}
             <header className={scrolled ? "navbar navbar-scrolled" : "navbar"}>
                 <nav className="navbar-container">
-                    <div className="logo desktop-only">
+                    {/* Logo */}
+                    <Link to="/" className="logo desktop-only" onClick={scrollToTop}>
                         <img src={Logo} alt="TEWNETLIX" />
-                    </div>
+                    </Link>
+                    {/* Navigation Links */}
                     <ul className="nav-links">
-                        <li className="nav-item hover-effect">
-                            <House size={20} /> Home
+                        <li >
+                            <Link to="/" className="nav-item hover-effect" onClick={scrollToTop}>
+                                <House size={20} /> Home
+                            </Link>
                         </li>
-                        <li className="nav-item hover-effect">
-                            <Clapperboard size={20} /> Movies
+                        <li >
+                            <Link to="/movies" className="nav-item hover-effect">
+                                <Clapperboard size={20} /> Movies
+                            </Link>
                         </li>
-                        <li className="nav-item hover-effect">
-                            <Tv size={20} /> TV Shows
+                        <li>
+                            <Link to="/tvshows" className="nav-item hover-effect">
+                                <Tv size={20} /> TV Shows
+                            </Link>
                         </li>
-                        <li className="nav-item hover-effect">
-                            <BookImage size={20} /> Genres
+                        <li >
+                            <Link to="/genres" className="nav-item hover-effect">
+                                <BookImage size={20} /> Genres
+                            </Link>
                         </li>
                     </ul>
+                    {/* Desktop Icons */}
                     <div className="nav-icons desktop-only">
                         <Search size={22} className="hover-effect" />
-                        <User size={22} className="hover-effect" />
+                        <Link to="/profile">
+                            <User size={22} className="hover-effect" />
+                        </Link>
                     </div>
                 </nav>
             </header>
