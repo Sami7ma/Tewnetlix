@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import MovieCard from "../MovieCard/MovieCard";
-import "./MovieRow.css";
+import MovieCard from "../MediaCard/MediaCard";
+import "./MediaRow.css";
 
 const MovieRow = ({
     title,

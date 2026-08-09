@@ -1,6 +1,6 @@
 import Navbar from "../../components/layout/Navbar/Navbar";
 import Hero from "../../components/hero/HomeHero/Hero";
-import MovieRow from "../../components/movie/MovieRow/MovieRow";
+import MovieRow from "../../components/media/MediaRow/MediaRow";
 import "./Home.css";
 import {useEffect, useState} from "react";
 import {

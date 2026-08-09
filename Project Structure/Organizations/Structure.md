@@ -101,3 +101,36 @@ components
 │     ├── SearchModal.jsx
 │     ├── SearchResult.jsx
 │     └── Search.css
+
+
+<!-- Update on src strcutre src/
+├── components/
+│   ├── layout/
+│   │   └── Navbar/
+│   │
+│   ├── media/
+│   │   ├── MovieCard/
+│   │   ├── MovieList/
+│   │   ├── MovieRow/
+│   │   ├── MediaFilter/
+│   │   └── MediaGrid/
+│   │
+│   ├── search/
+│   │
+│   └── watch/
+│
+├── pages/
+│   ├── Home/
+│   ├── Movies/
+│   ├── TVShows/
+│   ├── Anime/
+│   ├── Movie/
+│   ├── TVShow/
+│   ├── Watch/
+│   ├── Profile/
+│   └── NotFound/
+│
+└── services/
+    ├── tmdb.js
+    ├── api.js
+    └── embed.js -->

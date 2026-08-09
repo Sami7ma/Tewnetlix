@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Play, Star } from "lucide-react";
-import "./MovieCard.css";
+import "./MediaCard.css";
 
 function MovieCard({ movie }) {
     const imageURL = import.meta.env.VITE_TMDB_IMAGE_URL;
