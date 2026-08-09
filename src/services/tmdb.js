@@ -1,71 +1,204 @@
 import { fetchFromTMDB } from "./api";
 
-const LIMIT = 25; // Limit the number of results to fetch
+const LIMIT = 25;
+
+
+/* =========================================
+   GENRES
+========================================= */
+
+let movieGenres = null;
+let tvGenres = null;
+
+
+async function getMovieGenres() {
+    if (movieGenres) {
+        return movieGenres;
+    }
+
+    const data = await fetchFromTMDB("/genre/movie/list");
+
+    movieGenres = Object.fromEntries(
+        data.genres.map(genre => [
+            genre.id,
+            genre.name
+        ])
+    );
+
+    return movieGenres;
+}
+
+
+async function getTVGenres() {
+    if (tvGenres) {
+        return tvGenres;
+    }
+
+    const data = await fetchFromTMDB("/genre/tv/list");
+
+    tvGenres = Object.fromEntries(
+        data.genres.map(genre => [
+            genre.id,
+            genre.name
+        ])
+    );
+
+    return tvGenres;
+}
+
+
+/* =========================================
+   ADD GENRE NAMES TO RESULTS
+========================================= */
+
+async function addMovieGenres(movies) {
+    const genres = await getMovieGenres();
+
+    return movies.map(movie => ({
+        ...movie,
+
+        genre_names: (movie.genre_ids || [])
+            .map(id => genres[id])
+            .filter(Boolean)
+    }));
+}
+
+
+async function addTVGenres(shows) {
+    const genres = await getTVGenres();
+
+    return shows.map(show => ({
+        ...show,
+
+        genre_names: (show.genre_ids || [])
+            .map(id => genres[id])
+            .filter(Boolean)
+    }));
+}
+
+
+/* =========================================
+   MOVIES
+========================================= */
+
 export async function getTrendingMovies() {
     const data = await fetchFromTMDB("/trending/movie/week");
-    return data.results.slice(0, LIMIT);
+
+    const results = data.results.slice(0, LIMIT);
+
+    return await addMovieGenres(results);
 }
+
 
 export async function getTopRatedMovies() {
     const data = await fetchFromTMDB("/movie/top_rated");
-    return data.results.slice(0, LIMIT);
+
+    const results = data.results.slice(0, LIMIT);
+
+    return await addMovieGenres(results);
 }
 
-export async function getPopularTVShows() {
-    const data = await fetchFromTMDB("/tv/popular");
-    return data.results.slice(0, LIMIT);
+
+export async function searchMovies(query) {
+    const data = await fetchFromTMDB(
+        `/search/movie?query=${encodeURIComponent(query)}`
+    );
+
+    const results = data.results.slice(0, LIMIT);
+
+    return await addMovieGenres(results);
 }
 
-export async function searchMovies(query){
-    const data = await fetchFromTMDB(`/search/movie?query=${encodeURIComponent(query)}`);
-    return data.results.slice(0, LIMIT);
-}
-export async function getMovieDetails(id){
+
+export async function getMovieDetails(id) {
     return await fetchFromTMDB(`/movie/${id}`);
 }
+
+
 export async function getMovieCredits(id) {
     const data = await fetchFromTMDB(`/movie/${id}/credits`);
 
     return data.cast.slice(0, 12);
 }
-export async function getMovieRecommendations(id) {
-    const data = await fetchFromTMDB(`/movie/${id}/recommendations`);
-    return data.results.slice(0, LIMIT);
-}
-export async function getMovieTrailer(id){
 
-    const data = await fetchFromTMDB(`/movie/${id}/videos`);
+
+export async function getMovieRecommendations(id) {
+    const data = await fetchFromTMDB(
+        `/movie/${id}/recommendations`
+    );
+
+    const results = data.results.slice(0, LIMIT);
+
+    return await addMovieGenres(results);
+}
+
+
+export async function getMovieTrailer(id) {
+    const data = await fetchFromTMDB(
+        `/movie/${id}/videos`
+    );
 
     return data.results.find(
         video =>
             video.site === "YouTube" &&
             video.type === "Trailer"
     );
-
 }
 
-// TV Show related functions
+
+/* =========================================
+   TV SHOWS
+========================================= */
+
+export async function getPopularTVShows() {
+    const data = await fetchFromTMDB("/tv/popular");
+
+    const results = data.results.slice(0, LIMIT);
+
+    return await addTVGenres(results);
+}
+
+
 export async function getTVDetails(id) {
     return await fetchFromTMDB(`/tv/${id}`);
 }
+
+
 export const getTVCredits = async (id) => {
     const data = await fetchFromTMDB(`/tv/${id}/credits`);
+
     return data.cast.slice(0, 12);
-}
+};
+
+
 export const getTVRecommendations = async (id) => {
-    const data = await fetchFromTMDB(`/tv/${id}/recommendations`);
-    return data.results.slice(0, LIMIT);
-}
-export const getTVTrailer = async (id) => {
-    const data = await fetchFromTMDB(`/tv/${id}/videos`);
-    return (data.results.find(
-        video =>
-            video.site === "YouTube" &&
-            video.type === "Trailer"
-        )|| null
+    const data = await fetchFromTMDB(
+        `/tv/${id}/recommendations`
     );
-}
+
+    const results = data.results.slice(0, LIMIT);
+
+    return await addTVGenres(results);
+};
+
+
+export const getTVTrailer = async (id) => {
+    const data = await fetchFromTMDB(
+        `/tv/${id}/videos`
+    );
+
+    return (
+        data.results.find(
+            video =>
+                video.site === "YouTube" &&
+                video.type === "Trailer"
+        ) || null
+    );
+};
+
 
 export async function getSeasonDetails(id, season) {
-    return await fetchFromTMDB(`/tv/${id}/season/${season}`);
-}
+    return await fetchFromTMDB(
+        `/tv/${id}/season/${season}`
+    );
+};
