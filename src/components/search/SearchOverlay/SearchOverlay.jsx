@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Search, X, ChevronDown } from "lucide-react";
 
-import MovieCard from "../../movie/MovieCard/MovieCard";
+import MovieCard from "../../media/MediaCard/MediaCard";
 import {
     searchMulti
 } from "../../../services/tmdb";

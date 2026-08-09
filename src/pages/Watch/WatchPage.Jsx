@@ -5,7 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import Player from "../../components/watch/Player/Player";
 import ServerSelector from "../../components/watch/ServerSelector/ServerSelector";
 import PlayerNotice from "../../components/watch/PlayerNotice/PlayerNotice";
-import MovieRow from "../../components/movie/MovieRow/MovieRow";
+import MovieRow from "../../components/media/MediaRow/MediaRow";
 import NavBar from "../../components/layout/Navbar/Navbar";
 import SeasonSelector from "../../components/watch/Selector/SeasonSelector/SeasonSelector";
 import EpisodeSelector from "../../components/watch/Selector/EpisodeSelector/EpisodeSelector";
