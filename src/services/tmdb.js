@@ -286,3 +286,143 @@ export async function getDiscoverMovies({
 
     return data;
 }
+export const getDiscoverTV = async ({
+    genres = [],
+    year = "",
+    rating = "",
+    length = "",
+    status = "",
+    type = "",
+    sort = "popularity.desc",
+    page = 1
+}) => {
+
+    const params = new URLSearchParams();
+
+    params.append("page", page);
+    params.append("sort_by", sort);
+
+    /* ================================
+       GENRES
+    ================================= */
+
+    if (genres.length) {
+        params.append(
+            "with_genres",
+            genres.join("|")
+        );
+    }
+
+
+    /* ================================
+       FIRST AIR YEAR
+    ================================= */
+
+    if (year) {
+        params.append(
+            "first_air_date_year",
+            year
+        );
+    }
+
+
+    /* ================================
+       RATING
+    ================================= */
+
+    if (rating) {
+        params.append(
+            "vote_average.gte",
+            rating
+        );
+    }
+
+
+    /* ================================
+       EPISODE RUNTIME
+    ================================= */
+
+    if (length === "short") {
+
+        params.append(
+            "with_runtime.lte",
+            "30"
+        );
+
+    }
+
+    if (length === "medium") {
+
+        params.append(
+            "with_runtime.gte",
+            "30"
+        );
+
+        params.append(
+            "with_runtime.lte",
+            "60"
+        );
+
+    }
+
+    if (length === "long") {
+
+        params.append(
+            "with_runtime.gte",
+            "60"
+        );
+
+        params.append(
+            "with_runtime.lte",
+            "90"
+        );
+
+    }
+
+    if (length === "epic") {
+
+        params.append(
+            "with_runtime.gte",
+            "90"
+        );
+
+    }
+
+
+    /* ================================
+       STATUS
+    ================================= */
+
+    if (status) {
+
+        params.append(
+            "with_status",
+            status
+        );
+
+    }
+
+
+    /* ================================
+       TYPE
+    ================================= */
+
+    if (type) {
+
+        params.append(
+            "with_type",
+            type
+        );
+
+    }
+
+
+    /* ================================
+       FETCH FROM TMDB
+    ================================= */
+
+    return await fetchFromTMDB(
+        `/discover/tv?${params.toString()}`
+    );
+
+};

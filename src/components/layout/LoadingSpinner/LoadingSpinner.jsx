@@ -6,7 +6,7 @@ const LoadingSpinner = ({
 }) => {
 
     return (
-        <div className={`loading-spinner ${size}`}>
+        <div className={`loading-spinner-container ${size}`}>
 
             <div className="spinner"></div>
 

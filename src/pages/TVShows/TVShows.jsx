@@ -5,52 +5,67 @@ import {
 } from "react";
 
 import NavBar from "../../components/layout/Navbar/Navbar";
-import MediaFilter from "../../components/media/MeidaFilter/MovieFilter";
+
+import TVFilter from "../../components/media/MeidaFilter/TVFilter";
+
 import MediaList from "../../components/media/MediaList/MediaList";
+
 import LoadingSpinner from "../../components/layout/LoadingSpinner/LoadingSpinner";
+
 import {
-    getDiscoverMovies
+    getDiscoverTV
 } from "../../services/tmdb";
 
-import "./Movies.css";
+import "./TVShows.css";
 
 
-function Movies() {
+function TVShows() {
 
-    const [movies, setMovies] = useState([]);
+    const [tvShows, setTVShows] = useState([]);
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] =
+        useState(true);
 
     const [loadingMore, setLoadingMore] =
         useState(false);
 
-    const [page, setPage] = useState(1);
+    const [page, setPage] =
+        useState(1);
 
     const [totalPages, setTotalPages] =
         useState(1);
 
+
     const [filters, setFilters] = useState({
 
-        genre: [],
+        genres: [],
 
         year: "",
+
+        rating: "",
+
+        length: "",
+
+        status: "",
+
+        type: "",
 
         sort: "popularity.desc"
 
     });
 
-    const observerRef = useRef(null);
+
+    const observerRef =
+        useRef(null);
 
 
-    /*
-        =========================================
-        LOAD MOVIES
-        =========================================
-    */
+    /* =========================================
+       LOAD TV SHOWS
+    ========================================= */
 
     useEffect(() => {
 
-        async function loadMovies() {
+        async function loadTVShows() {
 
             try {
 
@@ -58,28 +73,35 @@ function Movies() {
 
                 setPage(1);
 
+
                 const data =
-                    await getDiscoverMovies({
+                    await getDiscoverTV({
+
                         ...filters,
+
                         page: 1
+
                     });
 
-                setMovies(
+
+                setTVShows(
                     data.results || []
                 );
+
 
                 setTotalPages(
                     data.total_pages || 1
                 );
 
+
             } catch (error) {
 
                 console.error(
-                    "Failed to load movies:",
+                    "Failed to load TV shows:",
                     error
                 );
 
-                setMovies([]);
+                setTVShows([]);
 
             } finally {
 
@@ -89,18 +111,16 @@ function Movies() {
 
         }
 
-        loadMovies();
+        loadTVShows();
 
     }, [filters]);
 
 
-    /*
-        =========================================
-        LOAD NEXT PAGE
-        =========================================
-    */
+    /* =========================================
+       LOAD NEXT PAGE
+    ========================================= */
 
-    const loadMoreMovies = async () => {
+    const loadMoreTVShows = async () => {
 
         if (
             loading ||
@@ -110,14 +130,18 @@ function Movies() {
             return;
         }
 
+
         try {
 
             setLoadingMore(true);
 
-            const nextPage = page + 1;
+
+            const nextPage =
+                page + 1;
+
 
             const data =
-                await getDiscoverMovies({
+                await getDiscoverTV({
 
                     ...filters,
 
@@ -125,7 +149,8 @@ function Movies() {
 
                 });
 
-            setMovies(prev => [
+
+            setTVShows(prev => [
 
                 ...prev,
 
@@ -133,12 +158,14 @@ function Movies() {
 
             ]);
 
+
             setPage(nextPage);
+
 
         } catch (error) {
 
             console.error(
-                "Failed to load more movies:",
+                "Failed to load more TV shows:",
                 error
             );
 
@@ -151,11 +178,9 @@ function Movies() {
     };
 
 
-    /*
-        =========================================
-        INFINITE SCROLL
-        =========================================
-    */
+    /* =========================================
+       INFINITE SCROLL
+    ========================================= */
 
     useEffect(() => {
 
@@ -168,7 +193,7 @@ function Movies() {
                         entries[0].isIntersecting
                     ) {
 
-                        loadMoreMovies();
+                        loadMoreTVShows();
 
                     }
 
@@ -180,6 +205,7 @@ function Movies() {
 
             );
 
+
         if (observerRef.current) {
 
             observer.observe(
@@ -187,6 +213,7 @@ function Movies() {
             );
 
         }
+
 
         return () => {
 
@@ -205,26 +232,27 @@ function Movies() {
 
     return (
 
-        <main className="movies-page">
+        <main className="tv-shows-page">
 
             <NavBar />
 
-            <section className="movies-container">
 
-                <header className="movies-header">
+            <section className="tv-shows-container">
+
+                <header className="tv-shows-header">
 
                     <div>
 
-                        <span className="movies-eyebrow">
+                        <span className="tv-shows-eyebrow">
                             Explore
                         </span>
 
                         <h1>
-                            Movies
+                            TV Shows
                         </h1>
 
                         <p>
-                            Discover movies you'll love.
+                            Discover your next favorite series.
                         </p>
 
                     </div>
@@ -232,27 +260,27 @@ function Movies() {
                 </header>
 
 
-                <MediaFilter
+                <TVFilter
                     filters={filters}
                     onChange={setFilters}
                 />
 
 
                 {loading ? (
-                        <LoadingSpinner
-                            size="medium"
-                        >Loading ,Please wait</LoadingSpinner>
+
+                    <LoadingSpinner
+                        size="medium"
+                        text="Loading TV shows..."
+                    />
 
                 ) : (
 
                     <>
 
                         <MediaList
-                            movies={movies}
+                            movies={tvShows}
                         />
 
-
-                        {/* Infinite scroll trigger */}
 
                         {page < totalPages && (
 
@@ -265,6 +293,7 @@ function Movies() {
 
                                     <LoadingSpinner
                                         size="small"
+                                        text="Loading more..."
                                     />
 
                                 )}
@@ -285,4 +314,4 @@ function Movies() {
 
 }
 
-export default Movies;
+export default TVShows;

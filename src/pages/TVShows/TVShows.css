@@ -1,23 +1,22 @@
-.movies-page {
+.tv-shows-page {
     min-height: 100vh;
     background: #1d1e22;
     color: #cfcfcf;
     padding-top: 3.3rem;
 }
 
-.movies-container {
+.tv-shows-container {
     width: min(1500px, 94%);
     margin: 0 auto;
     padding-bottom: 5rem;
 }
 
-
-.movies-header {
+.tv-shows-header {
     padding: 2rem 0 1.5rem;
 }
 
 
-.movies-eyebrow {
+.tv-shows-eyebrow {
     display: block;
     margin-bottom: 0.35rem;
     font-size: 0.8rem;
@@ -27,14 +26,14 @@
 }
 
 
-.movies-header h1 {
+.tv-shows-header h1 {
     margin: 0;
     font-size: clamp(2rem, 4vw, 3rem);
     color: #f0f0f5;
 }
 
 
-.movies-header p {
+.tv-shows-header p {
     margin: 0.5rem 0 0;
     color: rgba(210, 210, 220, 0.55);
 }
