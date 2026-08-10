@@ -5,7 +5,7 @@ import {
 } from "react";
 
 import NavBar from "../../components/layout/Navbar/Navbar";
-import MediaFilter from "../../components/media/MeidaFilter/MediaFilter";
+import MediaFilter from "../../components/media/MeidaFilter/MovieFilter";
 import MediaList from "../../components/media/MediaList/MediaList";
 import LoadingSpinner from "../../components/layout/LoadingSpinner/LoadingSpinner";
 import {
