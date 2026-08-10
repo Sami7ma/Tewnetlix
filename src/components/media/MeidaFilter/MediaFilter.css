@@ -1,0 +1,312 @@
+.media-filter {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    width: 100%;
+    margin-bottom: 1.8rem;
+}
+
+.filter-dropdown-wrapper {
+    position: relative;
+}
+
+
+/* =========================================
+   FILTER BUTTON
+========================================= */
+
+.filter-button {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+
+    padding: 0.65rem 0.9rem;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0.75rem;
+
+    background: rgba(255, 255, 255, 0.07);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    color: rgba(230, 230, 238, 0.85);
+
+    font-size: 0.85rem;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.2s ease;
+}
+
+.filter-button:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.filter-button.active {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #fff;
+}
+
+.filter-button svg {
+    transition: transform 0.25s ease;
+}
+
+.filter-button svg.rotate {
+    transform: rotate(180deg);
+}
+
+
+/* =========================================
+   DROPDOWN
+========================================= */
+
+.filter-dropdown {
+    position: absolute;
+
+    top: calc(100% + 0.6rem);
+    left: 0;
+
+    z-index: 100;
+
+    padding: 0.5rem;
+
+    background: rgba(35, 35, 35, 0.82);
+
+    backdrop-filter: blur(35px) saturate(180%);
+    -webkit-backdrop-filter: blur(35px) saturate(180%);
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    border-radius: 1rem;
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.65),
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+
+    animation: filterDropdownIn
+        0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes filterDropdownIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(-6px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+/* =========================================
+   GENRE DROPDOWN
+========================================= */
+
+.genre-dropdown {
+    width: 430px;
+}
+
+.filter-dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0.55rem 0.65rem 0.7rem;
+
+    color: #f1f1f5;
+
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.clear-filter {
+    border: none;
+    background: transparent;
+
+    color: rgba(220, 220, 230, 0.55);
+
+    font-size: 0.75rem;
+
+    cursor: pointer;
+}
+
+.clear-filter:hover {
+    color: #fff;
+}
+
+
+/* =========================================
+   GENRE GRID
+========================================= */
+
+.genre-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 0.35rem;
+
+    max-height: 330px;
+
+    overflow-y: auto;
+
+    padding-right: 0.2rem;
+}
+
+.genre-grid::-webkit-scrollbar,
+.year-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.genre-grid::-webkit-scrollbar-thumb,
+.year-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+}
+
+
+/* =========================================
+   GENRE OPTION
+========================================= */
+
+.genre-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    min-width: 0;
+
+    padding: 0.65rem 0.7rem;
+
+    border: none;
+    border-radius: 0.6rem;
+
+    background: transparent;
+
+    color: rgba(225, 225, 232, 0.8);
+
+    text-align: left;
+
+    font-size: 0.8rem;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.genre-option:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.genre-option.selected {
+    background: rgba(255, 255, 255, 0.95);
+    color: #111;
+}
+
+
+/* =========================================
+   STANDARD OPTIONS
+========================================= */
+
+.sort-dropdown {
+    min-width: 190px;
+}
+
+.year-dropdown {
+    width: 180px;
+}
+
+.filter-option {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0.65rem 0.7rem;
+
+    border: none;
+    border-radius: 0.6rem;
+
+    background: transparent;
+
+    color: rgba(225, 225, 232, 0.82);
+
+    font-size: 0.82rem;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.filter-option:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.filter-option.selected {
+    background: rgba(255, 255, 255, 0.95);
+    color: #111;
+}
+
+
+/* =========================================
+   YEAR LIST
+========================================= */
+
+.year-list {
+    max-height: 320px;
+    overflow-y: auto;
+
+    margin-top: 0.25rem;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+    .media-filter {
+        flex-wrap: wrap;
+    }
+
+    .genre-dropdown {
+        width: min(430px, calc(100vw - 2rem));
+    }
+
+}
+
+@media (max-width: 450px) {
+
+    .filter-button {
+        font-size: 0.78rem;
+        padding: 0.6rem 0.75rem;
+    }
+
+    .genre-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}

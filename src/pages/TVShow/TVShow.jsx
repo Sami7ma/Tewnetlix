@@ -11,6 +11,7 @@ import {
 import CastList from "../../components/cast/CastList/CastList";
 import MovieRow from "../../components/media/MediaRow/MediaRow";
 import DetailHero from "../../components/hero/DetailHero/DetailHero";
+import LoadingSpinner from "../../components/layout/LoadingSpinner/LoadingSpinner";
 
 import "./TVShow.css";
 
@@ -59,7 +60,9 @@ function TVShow() {
     }, [id]);
 
     if (!tvShow) {
-        return <div>Loading...</div>;
+        return (
+            <LoadingSpinner text="Loading TV show details..." />
+        );
     }
 
     return (

@@ -71,7 +71,7 @@ const MovieRow = ({
                 {displayedMovies.map(movie => (
                     <MovieCard
                         key={`${movie.media_type || "media"}-${movie.id}`}
-                        movie={movie}
+                        media={movie}
                     />
                 ))}
 

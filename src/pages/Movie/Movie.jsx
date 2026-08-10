@@ -10,6 +10,7 @@ import CastList from "../../components/cast/CastList/CastList";
 import MovieRow from "../../components/media/MediaRow/MediaRow";
 import DetailHero from "../../components/hero/DetailHero/DetailHero";
 import "./Movie.css";
+import LoadingSpinner from "../../components/layout/LoadingSpinner/LoadingSpinner";
 const Movie = () => {
     
     const [movie, setMovie] = useState(null);
@@ -44,7 +45,10 @@ const Movie = () => {
     },[id]);
 
     if(!movie){
-        return <div>Loading...</div>
+        return(
+            <LoadingSpinner text="Loading movie details..." />
+        )
+
     }
     
     return(

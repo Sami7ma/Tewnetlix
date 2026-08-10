@@ -234,3 +234,55 @@ export async function getSeasonDetails(id, season) {
         `/tv/${id}/season/${season}`
     );
 };
+export async function getDiscoverMovies({
+    genres = [],
+    year = "",
+    sort = "popularity.desc",
+    page = 1
+}) {
+
+    const params = new URLSearchParams();
+
+    params.append("sort_by", sort);
+    params.append("page", page);
+
+    /*
+        TMDB:
+        comma = AND
+        pipe = OR
+
+        We want:
+        Action OR Comedy OR Drama
+
+        So:
+        28|35|18
+    */
+
+    if (genres.length > 0) {
+        params.append(
+            "with_genres",
+            genres.join("|")
+        );
+    }
+
+    if (year) {
+        params.append(
+            "primary_release_year",
+            year
+        );
+    }
+
+    /*
+        Prevent very low-vote movies from appearing
+        when sorting by rating.
+    */
+    if (sort === "vote_average.desc") {
+        params.append("vote_count.gte", "100");
+    }
+
+    const data = await fetchFromTMDB(
+        `/discover/movie?${params.toString()}`
+    );
+
+    return data;
+}
