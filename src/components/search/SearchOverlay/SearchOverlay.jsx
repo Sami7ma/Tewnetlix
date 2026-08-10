@@ -296,7 +296,7 @@ const SearchOverlay = ({ onClose }) => {
 
                                     <MovieCard
                                         key={`${movie.media_type}-${movie.id}`}
-                                        movie={movie}
+                                        media={movie}
                                     />
 
                                 ))}
