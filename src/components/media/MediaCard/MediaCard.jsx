@@ -2,46 +2,57 @@ import { useNavigate } from "react-router-dom";
 import { Play, Star } from "lucide-react";
 import "./MediaCard.css";
 
-function MovieCard({ movie }) {
-    const imageURL = import.meta.env.VITE_TMDB_IMAGE_URL;
+const MediaCard = ({ media }) => {
     const navigate = useNavigate();
 
-    const poster = movie.poster_path
-        ? `${imageURL}${movie.poster_path}`
-        : movie.poster;
+    if (!media) {
+        return null;
+    }
 
-    const title = movie.title || movie.name || "Unknown Title";
+    const imageURL = import.meta.env.VITE_TMDB_IMAGE_URL;
+
+    const poster = media.poster_path
+        ? `${imageURL}${media.poster_path}`
+        : media.poster;
+
+    const title =
+        media.title ||
+        media.name ||
+        "Unknown Title";
 
     const rating =
-        movie.vote_average !== undefined && movie.vote_average !== null
-            ? movie.vote_average.toFixed(1)
-            : movie.rating || "N/A";
+        media.vote_average !== undefined &&
+        media.vote_average !== null
+            ? media.vote_average.toFixed(1)
+            : media.rating || "N/A";
 
     const year =
-        movie.release_date?.split("-")[0] ||
-        movie.first_air_date?.split("-")[0] ||
-        movie.year ||
+        media.release_date?.split("-")[0] ||
+        media.first_air_date?.split("-")[0] ||
+        media.year ||
         "N/A";
 
     const mediaType =
-        movie.media_type ||
-        (movie.title ? "movie" : "tv");
+        media.media_type ||
+        (media.title ? "movie" : "tv");
 
     const mediaLabel =
-        mediaType === "tv" ? "TV Show" : "Movie";
+        mediaType === "tv"
+            ? "TV Show"
+            : "Movie";
 
     const genres =
-        movie.genres?.map(genre => genre.name) ||
-        movie.genre_names ||
+        media.genres?.map(genre => genre.name) ||
+        media.genre_names ||
         [];
 
     const visibleGenres = genres.slice(0, 2);
 
     function openDetails() {
         if (mediaType === "tv") {
-            navigate(`/tv/${movie.id}`);
+            navigate(`/tv/${media.id}`);
         } else {
-            navigate(`/movie/${movie.id}`);
+            navigate(`/movie/${media.id}`);
         }
     }
 
@@ -84,22 +95,31 @@ function MovieCard({ movie }) {
                                 size={14}
                                 fill="currentColor"
                             />
+
                             {rating}
                         </span>
 
-                        <span className="meta-dot">•</span>
+                        <span className="meta-dot">
+                            •
+                        </span>
 
-                        <span>{year}</span>
+                        <span>
+                            {year}
+                        </span>
 
-                        <span className="meta-dot">•</span>
+                        <span className="meta-dot">
+                            •
+                        </span>
 
-                        <span>{mediaLabel}</span>
+                        <span>
+                            {mediaLabel}
+                        </span>
 
                     </div>
 
                     {visibleGenres.length > 0 && (
                         <div className="movie-genres">
-                            {visibleGenres.join("|")}
+                            {visibleGenres.join(" | ")}
                         </div>
                     )}
 
@@ -111,4 +131,4 @@ function MovieCard({ movie }) {
     );
 }
 
-export default MovieCard;
+export default MediaCard;

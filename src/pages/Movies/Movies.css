@@ -1,0 +1,76 @@
+.movies-page {
+    min-height: 100vh;
+    background: #1d1e22;
+    color: #cfcfcf;
+    padding-top: 6rem;
+}
+
+.movies-container {
+    width: min(1500px, 94%);
+    margin: 0 auto;
+    padding-bottom: 5rem;
+}
+
+
+.movies-header {
+    padding: 2rem 0 1.5rem;
+}
+
+
+.movies-eyebrow {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(220, 220, 230, 0.45);
+}
+
+
+.movies-header h1 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: #f0f0f5;
+}
+
+
+.movies-header p {
+    margin: 0.5rem 0 0;
+    color: rgba(210, 210, 220, 0.55);
+}
+
+
+.media-loading {
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.media-load-more {
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.media-empty {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    color: rgba(220, 220, 230, 0.5);
+    text-align: center;
+}
+
+.media-empty p {
+    margin: 0;
+    color: #e5e5ea;
+    font-size: 1rem;
+}
+
+.media-empty span {
+    font-size: 0.85rem;
+}
