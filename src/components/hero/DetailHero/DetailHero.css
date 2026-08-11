@@ -1,14 +1,71 @@
-.media-hero{
-    position:relative;
-    min-height:87vh;
-    display:flex;
-    align-items:flex-end;
-    background-size:cover;
-    background-position:center;
-    padding:0 3vw 3.5vw;
+.media-hero {
+    position: relative;
+    min-height: 87vh;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 3vw 3.5vw;
+    overflow: hidden;
+    background: #111114;
+    color: #e0e0e5;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-    overflow:hidden;
 }
+
+
+/* =========================================
+   BACKDROP
+========================================= */
+
+.media-backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+    transition: opacity 0.8s ease;
+}
+
+.media-backdrop.hidden {
+    opacity: 0;
+}
+
+
+/* =========================================
+   TRAILER
+========================================= */
+
+.media-video-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    background: #111114;
+}
+
+.media-video-wrapper.visible {
+    opacity: 1;
+}
+
+.media-trailer {
+    position: absolute;
+    width: 177.78vh;
+    height: 100vh;
+    min-width: 100vw;
+    min-height: 56.25vw;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 0;
+    pointer-events: none;
+}
+
+
+/* =========================================
+   OVERLAY
+========================================= */
 
 .detailHero-media-overlay {
     position: absolute;
@@ -18,14 +75,14 @@
         linear-gradient(
             to top,
             #111114 0%,
-            rgba(17,17,20,.99) 13%,
-            rgba(17,17,20,.55) 25%,
-            transparent 35%            
+            rgba(17, 17, 20, 0.99) 13%,
+            rgba(17, 17, 20, 0.75) 45%,
+            transparent 78%
         ),
         radial-gradient(
             circle at bottom left,
-            rgba(17,17,20, 0.76),       
-            transparent 45%    
+            rgba(17, 17, 20, 0.76),
+            transparent 45%
         );
 }
 
@@ -35,201 +92,356 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 150px; /* Reduced height to keep the shadow lower (was 250px) */
-    background: linear-gradient(to bottom, transparent, rgba(17, 17, 20, 0.7)); /* Lighter bottom fade */
+    height: 220px;
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            rgba(17, 17, 20, 0.98)
+        );
 }
-.detailHero-media-overlay::after{
-    content:"";
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:0;
-    height:250px;
-    background:linear-gradient(to bottom,transparent,rgba(17, 17, 20, 0.98));
-}
-.media-backdrop{
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    z-index:0;
-    transition: opacity 0.8s ease;
-}
-.media-backdrop.hidden{
-    opacity:0;
-}
-.media-video-wrapper{
-    position:absolute;
-    inset:0;
-    overflow:hidden;
-    z-index:0;
-    opacity:0;
-    transition: opacity 0.8s ease;
-}
-.media-video-wrapper.visible{
-    opacity:1;
-}
-.media-trailer{
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:120vw;
-    height:67.5vw;
-    min-width:100%;
-    min-height:100%;
-    transform:translate(-50%,-50%);
-    border:none;
-    pointer-events:none;
-}
-.media-content {
-    color: #e0e0e5;
-    position: relative;
-    z-index: 3;
-    width: 100%;
-    max-width: 650px;
-}
-.media-content h1 {
-    font-size: clamp(1.5rem, 5vw, 2.2rem);
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    line-height: 1.15;
-    margin-bottom: 0.7rem;
-    color: #eaeaef;
-    text-shadow: 0 2px 16px rgba(0,0,0,0.4);
-}
+
+
+/* =========================================
+   TOP BUTTONS
+========================================= */
+
 .media-top-buttons {
     position: absolute;
     top: 1.5rem;
     left: 5%;
     right: 5%;
+
     display: flex;
     justify-content: space-between;
+
     z-index: 4;
 }
+
 .back-button,
-.volume-button{
+.volume-button {
     width: 3rem;
     height: 3rem;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.12);
-    cursor: pointer;
+
     display: flex;
-    justify-content: center;
     align-items: center;
-    background: rgba(255,255,255,.08);
+    justify-content: center;
+
+    cursor: pointer;
+
+    background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
+
     color: #e0e0e5;
-    transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.25);
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease,
+        border-color 0.3s ease;
 }
+
 .back-button:hover,
-.volume-button:hover{
-    background: rgba(255,255,255,0.9);
-    color:#111114;
+.volume-button:hover {
+    background: rgba(255, 255, 255, 0.9);
+    color: #111114;
     transform: scale(1.08);
     border-color: transparent;
-    box-shadow: 0 8px 24px rgba(255,255,255,0.12);
 }
-.media-meta{
-    max-width:fit-content;
-    display:flex;
-    flex-wrap:wrap;
-    gap:1rem 1.2rem;
-    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-    font-weight: 500;
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.media-content {
+    position: relative;
+    z-index: 3;
+
+    width: 100%;
+    max-width: 620px;
+
+    margin: 0 0 1.1rem;
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.media-content h1 {
+    margin: 0 0 0.7rem;
+
+    color: #f2f2f6;
+
+    font-size: clamp(
+        2.6rem,
+        7vw,
+        5.8rem
+    );
+
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: 0;
+
+    text-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.55);
+}
+
+
+/* =========================================
+   META
+========================================= */
+
+.media-meta {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 1rem 1.2rem;
+
+    max-width: fit-content;
+
     margin-bottom: 0.7rem;
+
     color: rgba(220, 220, 230, 0.85);
+
+    font-size: clamp(
+        0.9rem,
+        1.5vw,
+        1.1rem
+    );
+
+    font-weight: 500;
     letter-spacing: 0.02em;
 }
+
 .media-meta span {
     display: flex;
     align-items: center;
 }
-.media-genres{
-    display:flex;
+
+
+/* =========================================
+   GENRES
+========================================= */
+
+.media-genres {
+    display: flex;
+    flex-wrap: wrap;
+
     gap: 0.6rem;
-    flex-wrap:wrap;
+
     margin-bottom: 0.7rem;
 }
-.media-genres span{
-    padding:0.5rem 1rem;
-    border-radius: 20px;
-    background:rgba(255,255,255,.08);
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
-    border: 1px solid rgba(255,255,255,0.1);
+
+.media-genres span {
+    padding: 0rem 1rem;
     font-size: 0.9rem;
     font-weight: 500;
-    letter-spacing: 0.02em
+    letter-spacing: 0.02em;
 }
 
-
-.media-description{
-    max-width: 650px;
-    line-height: 1.6;
-    color: rgba(220, 220, 230, 0.75);
-    margin-bottom: 1.1rem;
+.media-description {
+    max-width: 620px;
+    margin: 0 0 1.1rem;
+    color: rgba(232, 232, 238, 0.78);
+    font-size: clamp(0.95rem,1.8vw,1.08rem);
+    line-height: 1.55;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    letter-spacing: 0.01em;
 }
 
-.media-actions{
-    display:flex;
-    gap:1rem;
-    flex-wrap:wrap;
+.media-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
-.media-actions button{
+
+.media-actions button {
     padding: 0.75rem 1.4rem;
     border: none;
     border-radius: 1rem;
-    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: clamp(0.9rem, 1.2vw, 1rem);
-    font-weight: 600;
+    cursor: pointer;
     font-family: inherit;
+    font-size: clamp(
+        0.9rem,
+        1.2vw,
+        1rem
+    );
+
+    font-weight: 600;
     letter-spacing: 0.02em;
-    transition: all .35s cubic-bezier(0.25, 1, 0.5, 1);
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
-.play-button{
-    background: rgba(255,255,255,0.92);
-    color:#111114;
-    box-shadow: 0 4px 20px rgba(255,255,255,0.1);
+
+
+.play-button {
+    background: rgba(255, 255, 255, 0.92);
+    color: #111114;
+    box-shadow:0 4px 20px rgba(255, 255, 255, 0.1);
 }
-.favorite-button{
+
+.play-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #e0e0e5;
+
+    box-shadow:0 6px 24px rgba(0, 0, 0, 0.3);
+}
+
+.favorite-button {
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(255,255,255,0.12) !important;
-    color:#e0e0e5;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    color: #e0e0e5;
+    box-shadow:0 4px 16px rgba(0, 0, 0, 0.2);
 }
-.play-button:hover{
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255,255,255,0.12);
-    color:#e0e0e5;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.3);
-}
-.favorite-button:hover{
-    background: rgba(255,255,255,0.9);
-    color:#111114;
+
+.favorite-button:hover {
+    background: rgba(255, 255, 255, 0.9);
+    color: #111114;
+
     border-color: transparent !important;
-    box-shadow: 0 8px 24px rgba(255,255,255,0.1);
+
+    box-shadow:0 8px 24px rgba(255, 255, 255, 0.1);
 }
-.media-actions button:hover{
-    transform:translateY(-3px) scale(1.02);
+
+.media-actions button:hover {
+    transform: translateY(-2px);
 }
+
+@media (max-width: 815px) {
+    .media-hero {
+        min-height: 76vh;
+        padding: 0 1vw 3rem;
+    }
+
+    .detailHero-media-overlay {
+        transform: translate(0.5px, 0.5px);
+    }
+
+    .media-content {
+        max-width: 560px;
+    }
+
+    .media-content h1 {
+        font-size: 2.4rem;
+    }
+
+    .media-description {
+        font-size: 0.95rem;
+    }
+
+    .media-actions {
+        gap: 0.7rem;
+    }
+
+    .media-actions button {
+        padding: 0.7rem 1.1rem;
+    }
+    .detailHero-media-overlay {
+    transform: translate(1px, 1px);
+    /* full width */
+    min-width: 100%;
+}
+}
+
 @media (max-width: 480px) {
     .media-hero {
-        min-height: 75vh;
-        padding-top: 5rem;
+        min-height: 65vh;
+        padding:0 0.4rem 2rem;
     }
-    
+    .media-trailer {
+        top: 45%;
+        left: 50%;
+    }
+    .detailHero-media-overlay {
+        background:
+            linear-gradient(
+                to top,
+                #111114 0%,
+                rgba(17, 17, 20, 0.99) 18%,
+                rgba(17, 17, 20, 0.62) 38%,
+                rgba(17, 17, 20, 0.18) 65%,
+                transparent 90%
+            );
+        padding-bottom: 0rem;
+    }
+
+    .detailHero-media-overlay::after {
+        height: 180px;
+    }
+    .media-top-buttons {
+        top: 1rem;
+        left: 1rem;
+        right: 1rem;
+    }
+
+    .back-button,
+    .volume-button {
+        width: 2.7rem;
+        height: 2.7rem;
+    }
+    .media-content {
+        max-width: 100%;
+        margin-bottom: 0;
+    }
+
+    .media-content h1 {
+        margin-bottom: 0.55rem;
+        font-size: 1.35rem;
+        line-height: 1.05;
+    }
+    .media-meta {
+        gap: 0.5rem 0.8rem;
+        margin-bottom: 0.55rem;
+        font-size: 0.82rem;
+    }
+    .media-genres {
+        gap: 0.4rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .media-genres span {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.75rem;
+    }
+
+    .media-description {
+        margin-bottom: 0.8rem;
+        font-size: 0.82rem;
+        line-height: 1.45;
+        -webkit-line-clamp: 2;
+    }
+    .media-actions {
+        gap: 0.5rem;
+    }
+
+    .media-actions button {
+        padding: 0.6rem 0.85rem;
+        border-radius: 0.8rem;
+        font-size: 0.78rem;
+    }
+
+    .media-actions svg {
+        width: 16px;
+        height: 16px;
+    }
 }

@@ -1,6 +1,6 @@
 :root {
     --cast-width: 15rem;
-    --cast-padding: 0.6rem;
+    --cast-padding: 0.1rem;
     --cast-radius: 0.8rem;
     --cast-border: 1px solid rgba(255, 255, 255, .08);
     --cast-color: #e0e0e5;

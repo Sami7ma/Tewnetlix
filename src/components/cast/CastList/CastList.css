@@ -3,9 +3,8 @@
     --section-flex-dir: column;
     
     --heading-color: #e0e0e5;
-    --heading-size: 2rem;
+    --heading-size: 1.5rem;
     --heading-margin-bottom: 1rem;
-    
     --list-display: grid;
     --list-grid-cols: repeat(auto-fit, minmax(15rem, 1fr));
     --list-auto-flow: row;
@@ -23,7 +22,7 @@
     color: var(--heading-color);
     font-size: var(--heading-size);
     margin-bottom: var(--heading-margin-bottom);
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: 0.03em;
 }
 
@@ -37,4 +36,25 @@
 
 .cast-list::-webkit-scrollbar {
     display: none;
+}
+@media (max-width: 768px) {
+    .cast-list {
+        grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+        padding: 0 0;
+    }
+    .cast-list >:nth-child(n+7){
+        display: none;
+    }
+}
+@media (max-width: 480px) {
+    .cast-list {
+        grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+        padding: 0 0;
+    }
+    .cast-section {
+        padding:0 0 0 0;
+    }
+    .cast-list >:nth-child(n+3){
+        display: none;
+    }
 }
