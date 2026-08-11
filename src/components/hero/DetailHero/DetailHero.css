@@ -181,12 +181,7 @@
 
     color: #f2f2f6;
 
-    font-size: clamp(
-        2.6rem,
-        7vw,
-        5.8rem
-    );
-
+    font-size: 2.6rem;
     font-weight: 800;
     line-height: 0.95;
     letter-spacing: 0;
@@ -342,7 +337,7 @@
     }
 
     .media-content h1 {
-        font-size: 2.4rem;
+        font-size: 2rem;
     }
 
     .media-description {
