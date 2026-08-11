@@ -2,43 +2,115 @@ import Navbar from "../../components/layout/Navbar/Navbar";
 import Hero from "../../components/hero/HomeHero/Hero";
 import MovieRow from "../../components/media/MediaRow/MediaRow";
 import "./Home.css";
-import {useEffect, useState} from "react";
+
+import { useEffect, useState } from "react";
+
 import {
     getTrendingMovies,
+    getTrendingTVShows,
+    getTrendingAnime,
     getTopRatedMovies,
-    getPopularTVShows,
+    getTopRatedTVShows,
+    getTopRatedAnime,
+    getPopularTVShows
 } from "../../services/tmdb";
 
-function Home(){
+
+function Home() {
+
     const [trendingMovies, setTrendingMovies] = useState([]);
+    const [trendingTV, setTrendingTV] = useState([]);
+    const [trendingAnime, setTrendingAnime] = useState([]);
+
     const [topRatedMovies, setTopRatedMovies] = useState([]);
+    const [topRatedTV, setTopRatedTV] = useState([]);
+    const [topRatedAnime, setTopRatedAnime] = useState([]);
+
     const [tvshows, setTvshows] = useState([]);
 
-    useEffect(()=>{
-        async function loadMovies(){
-            const trending = await getTrendingMovies();
-            const topRated = await getTopRatedMovies();
-            const tvshows = await getPopularTVShows();
-            setTrendingMovies(trending);
-            setTopRatedMovies(topRated);
-            setTvshows(tvshows);
+
+    useEffect(() => {
+
+        async function loadMovies() {
+
+            try {
+
+                const [
+                    trendingMoviesData,
+                    trendingTVData,
+                    trendingAnimeData,
+
+                    topRatedMoviesData,
+                    topRatedTVData,
+                    topRatedAnimeData,
+
+                    popularTVData
+
+                ] = await Promise.all([
+
+                    getTrendingMovies(),
+                    getTrendingTVShows(),
+                    getTrendingAnime(),
+
+                    getTopRatedMovies(),
+                    getTopRatedTVShows(),
+                    getTopRatedAnime(),
+
+                    getPopularTVShows()
+
+                ]);
+
+
+                setTrendingMovies(trendingMoviesData);
+                setTrendingTV(trendingTVData);
+                setTrendingAnime(trendingAnimeData);
+
+                setTopRatedMovies(topRatedMoviesData);
+                setTopRatedTV(topRatedTVData);
+                setTopRatedAnime(topRatedAnimeData);
+
+                setTvshows(popularTVData);
+
+            } catch (error) {
+
+                console.error(
+                    "Failed to load homepage:",
+                    error
+                );
+
+            }
+
         }
+
+
         loadMovies();
-    },[]);
 
-    return(
+    }, []);
+
+
+    return (
         <main className="home">
-
             <Navbar />
-
-            <Hero />
-
-            <MovieRow title="Trending Today"movies={trendingMovies}/>
-            {/* continue watching is not a version 1 feature */}
-            {/* <MovieRow title="Continue Watching " movies={movies}/> */}
-            <MovieRow title="Top Rated" movies={topRatedMovies} />
-            {/* <MovieRow title="Newly Released" movies={newlyReleasedMovies}/> */}
-            <MovieRow title ="Popular Tv Shows" movies={tvshows}/>
+            <Hero items={trendingMovies}/>
+            <MovieRow title="Trending Today"
+                movies={trendingMovies}
+                categories={{
+                    movies: trendingMovies,
+                    tv: trendingTV,
+                }}
+            />
+            <MovieRow
+                title="Top Rated"
+                movies={topRatedMovies}
+                categories={{
+                    movies: topRatedMovies,
+                    tv: topRatedTV,
+                }}
+            />
+            <MovieRow
+                title="Popular TV Shows"
+                movies={tvshows}
+            />
         </main>
     );
 }

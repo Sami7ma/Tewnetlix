@@ -1,16 +1,15 @@
 .media-filter {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0.7rem;
     width: 100%;
-    margin-bottom: 1.8rem;
 }
 
 .filter-dropdown-wrapper {
     position: relative;
+    flex-shrink: 0; /* <-- THIS IS THE MISSING MAGIC BULLET */
 }
-
-
 /* =========================================
    FILTER BUTTON
 ========================================= */
@@ -18,18 +17,16 @@
 .filter-button {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 0.55rem;
-
     padding: 0.65rem 0.9rem;
-
+    white-space: nowrap;
+    min-width: max-content;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 0.75rem;
-
     background: rgba(255, 255, 255, 0.07);
-
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-
     color: rgba(230, 230, 238, 0.85);
 
     font-size: 0.85rem;
@@ -53,7 +50,9 @@
     border-color: rgba(255, 255, 255, 0.25);
     color: #fff;
 }
-
+.filter-button span{
+    display: block;
+}
 .filter-button svg {
     transition: transform 0.25s ease;
 }
@@ -276,8 +275,6 @@
 .year-list {
     max-height: 320px;
     overflow-y: auto;
-
-    margin-top: 0.25rem;
 }
 
 

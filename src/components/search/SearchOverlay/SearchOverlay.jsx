@@ -63,6 +63,15 @@ const SearchOverlay = ({ onClose }) => {
                         item => item.media_type === "tv"
                     );
                 }
+                if (filter === "anime") {
+                    filteredResults = data.filter( item =>{
+                        const isAnimation = item.genre_ids?.includes(16);
+                        const isJapanese = item.original_language === "ja";
+                        return isAnimation && isJapanese;
+                    }
+                        
+                    );
+                }
 
                 filteredResults = filteredResults.slice(0, 5);
 
@@ -194,12 +203,18 @@ const SearchOverlay = ({ onClose }) => {
 
 
                                     <button
-                                        className="filter-option disabled"
-                                        disabled
+                                        className={
+                                            filter === "anime"
+                                                ? "filter-option active"
+                                                : "filter-option"
+                                        }
+                                        onClick={() => {
+                                            setFilter("anime");
+                                            setOpenFilter(false);
+                                        }}
                                     >
                                         Anime
-                                        <span>Coming Soon</span>
-                                    </button>
+                                    </button>                                            
 
                                 </div>
 

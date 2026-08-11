@@ -213,31 +213,22 @@ function Movies() {
 
                 <header className="movies-header">
 
-                    <div>
+                    <div className="movies-heading">
 
-                        <span className="movies-eyebrow">
-                            Explore
-                        </span>
-
+                        
                         <h1>
                             Movies
                         </h1>
-
-                        <p>
-                            Discover movies you'll love.
-                        </p>
-
+                        
+                    </div>
+                    <div className="movies-filter">
+                        <MediaFilter
+                            filters={filters}
+                            onChange={setFilters}
+                        />
                     </div>
 
                 </header>
-
-
-                <MediaFilter
-                    filters={filters}
-                    onChange={setFilters}
-                />
-
-
                 {loading ? (
                         <LoadingSpinner
                             size="medium"
