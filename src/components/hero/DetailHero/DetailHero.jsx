@@ -143,7 +143,7 @@ function DetailHero({ media, trailer, imageURL }) {
         <div className="media-genres">
           {/* Safe check in case genres array is undefined */}
           {media.genres && media.genres.map((genre) => (
-            <span key={genre.id}>{genre.name}</span>
+            <span key={genre.id}>●{genre.name}</span>
           ))}
         </div>
         
