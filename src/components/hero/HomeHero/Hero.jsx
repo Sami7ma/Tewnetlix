@@ -37,46 +37,13 @@ function Hero({ items = [] }) {
 
     const navigate = useNavigate();
 
-    const [activeIndex, setActiveIndex] =
-        useState(0);
+    const [activeIndex, setActiveIndex] = useState(0);
 
-    const [isDragging, setIsDragging] =
-        useState(false);
-
-
-    /*
-        Track pointer position.
-    */
-
-    const dragStartX =
-        useRef(0);
-
-    const dragCurrentX =
-        useRef(0);
-
-
-    /*
-        Used to restart autoplay
-        after manual interaction.
-    */
-
-    const timerRef =
-        useRef(null);
-
-
-    /*
-        Prevent buttons from triggering
-        a drag action.
-    */
-
-    const hasDragged =
-        useRef(false);
-
-
-    /* =========================================
-       HERO SLIDES
-    ========================================= */
-
+    const [isDragging, setIsDragging] = useState(false);
+    const dragStartX = useRef(0);
+    const dragCurrentX = useRef(0);
+    const timerRef = useRef(null);
+    const hasDragged = useRef(false);
     const slides = useMemo(() => {
 
         const usableItems =
@@ -90,12 +57,6 @@ function Hero({ items = [] }) {
             : FALLBACK_SLIDES;
 
     }, [items]);
-
-
-    /* =========================================
-       RESET SLIDE
-    ========================================= */
-
     useEffect(() => {
 
         setActiveIndex(0);

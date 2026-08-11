@@ -1,60 +1,106 @@
 :root {
-    --section-margin: 0rem 0rem 0rem 1rem;
+    --section-margin: 0 0 0 1rem;
     --section-flex-dir: column;
-    
+
     --heading-color: #e0e0e5;
     --heading-size: 1.5rem;
     --heading-margin-bottom: 1rem;
-    --list-display: grid;
-    --list-grid-cols: repeat(auto-fit, minmax(15rem, 1fr));
-    --list-auto-flow: row;
-    --list-overflow: visible;
+
     --list-gap: 1rem;
 }
 
+
+/* =========================================
+   CAST SECTION
+========================================= */
+
 .cast-section {
     display: flex;
-    margin: var(--section-margin);
     flex-direction: var(--section-flex-dir);
+    margin: var(--section-margin);
+
+    min-width: 0;
 }
+
 
 .cast-section h2 {
     color: var(--heading-color);
+
     font-size: var(--heading-size);
-    margin-bottom: var(--heading-margin-bottom);
     font-weight: 500;
+
+    margin: 0 0 var(--heading-margin-bottom);
+
     letter-spacing: 0.03em;
 }
 
+
+/* =========================================
+   CAST LIST
+========================================= */
+
 .cast-list {
-    display: var(--list-display);
-    grid-template-columns: var(--list-grid-cols);
-    grid-auto-flow: var(--list-auto-flow);
-    overflow-x: var(--list-overflow); 
+    display: grid;
+
+    /* Desktop: 4 × 3 = 12 */
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
     gap: var(--list-gap);
+
+    width: 100%;
+    min-width: 0;
 }
 
-.cast-list::-webkit-scrollbar {
+
+/* =========================================
+   LIMIT CAST
+========================================= */
+
+/* Show maximum 12 on desktop */
+.cast-list > :nth-child(n + 13) {
     display: none;
 }
+
+
+/* =========================================
+   TABLET
+========================================= */
+
 @media (max-width: 768px) {
+
     .cast-list {
-        grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-        padding: 0 0;
+        /* 3 × 2 = 6 */
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+
+        gap: 0.75rem;
     }
-    .cast-list >:nth-child(n+7){
+
+    /* Show only 6 */
+    .cast-list > :nth-child(n + 7) {
         display: none;
     }
 }
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
 @media (max-width: 480px) {
-    .cast-list {
-        grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-        padding: 0 0;
-    }
+
     .cast-section {
-        padding:0 0 0 0;
+        margin-left: 0.4rem;
+        margin-right: 0.4rem;
     }
-    .cast-list >:nth-child(n+3){
+
+    .cast-list {
+        
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+
+        gap: 0.6rem;
+    }
+
+    .cast-list > :nth-child(n + 3) {
         display: none;
     }
 }
