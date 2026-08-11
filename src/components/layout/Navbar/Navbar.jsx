@@ -14,10 +14,10 @@ import SearchOverlay from "../../search/SearchOverlay/SearchOverlay";
 
 import "./Navbar.css";
 
-
 function Navbar() {
 
     const [scrolled, setScrolled] = useState(false);
+    const [atBottom, setAtBottom] = useState(false);
     const [searchOpen, setSearchOpen] = useState(false);
 
 
@@ -25,19 +25,49 @@ function Navbar() {
 
         function handleScroll() {
 
-            setScrolled(window.scrollY > 20);
+            const scrollTop = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight =
+                document.documentElement.scrollHeight;
+
+            setScrolled(scrollTop > 20);
+
+            /*
+                Detect when the user reaches
+                the bottom of the page.
+            */
+            const isBottom =
+                scrollTop + windowHeight >=
+                documentHeight - 10;
+
+            setAtBottom(isBottom);
 
         }
 
+
+        handleScroll();
+
         window.addEventListener(
             "scroll",
+            handleScroll,
+            { passive: true }
+        );
+
+        window.addEventListener(
+            "resize",
             handleScroll
         );
+
 
         return () => {
 
             window.removeEventListener(
                 "scroll",
+                handleScroll
+            );
+
+            window.removeEventListener(
+                "resize",
                 handleScroll
             );
 
@@ -108,15 +138,14 @@ function Navbar() {
             ========================================= */}
 
             <header
-                className={
-                    scrolled
-                        ? "navbar navbar-scrolled"
-                        : "navbar"
-                }
+                className={`
+                    navbar
+                    ${scrolled ? "navbar-scrolled" : ""}
+                    ${atBottom ? "navbar-at-bottom" : ""}
+                `}
             >
 
                 <nav className="navbar-container">
-
 
                     {/* Logo */}
 
@@ -137,7 +166,6 @@ function Navbar() {
                     {/* Navigation */}
 
                     <ul className="nav-links">
-
 
                         <li>
 
@@ -211,7 +239,6 @@ function Navbar() {
 
                         </li>
 
-
                     </ul>
 
 
@@ -243,9 +270,7 @@ function Navbar() {
             </header>
 
 
-            {/* =========================================
-                SEARCH
-            ========================================= */}
+            {/* SEARCH */}
 
             {searchOpen && (
 
@@ -259,8 +284,6 @@ function Navbar() {
 
         </>
     );
-
 }
-
 
 export default Navbar;

@@ -8,7 +8,7 @@ import TVShows from "./pages/TVShows/TVShows";
 import WatchPage from "./pages/Watch/WatchPage";
 import Profile from "./pages/Profile/Profile";
 import NotFound from "./pages/NotFound/NotFound";
-
+import Anime from "./pages/Anime/Anime";
 
 function App(){
 
@@ -21,9 +21,11 @@ return(
             <Route path="/movies" element={<Movies />} />
             <Route path="/tv/:id" element={<TVShow />} />
             <Route path="/tvshows" element={<TVShows />} />
+            <Route path="/anime" element={<Anime />} />
             <Route path="/watch/:type/:id" element={<WatchPage />} />
             <Route path="/profile" element={<Profile/>}/>
             <Route path="*" element={<NotFound/>}/>
+
 
         </Routes>
     </BrowserRouter>

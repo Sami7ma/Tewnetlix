@@ -1,3 +1,7 @@
+/* =========================================
+   TV SHOWS PAGE
+========================================= */
+
 .tv-shows-page {
     min-height: 100vh;
     background: #1d1e22;
@@ -5,71 +9,322 @@
     padding-top: 3.3rem;
 }
 
+
+/* =========================================
+   CONTAINER
+========================================= */
+
 .tv-shows-container {
     width: min(1500px, 94%);
     margin: 0 auto;
     padding-bottom: 5rem;
 }
 
+
+/* =========================================
+   PAGE HEADER
+========================================= */
+
 .tv-shows-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+
+    gap: 2rem;
+
     padding: 2rem 0 1.5rem;
+
+    /*
+        Keeps the filter above the
+        media cards and gives the
+        dropdown a proper stacking
+        context.
+    */
+    position: relative;
+    z-index: 20;
+}
+
+
+/* =========================================
+   HEADING
+========================================= */
+
+.tv-shows-heading {
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
 
 .tv-shows-eyebrow {
     display: block;
+
     margin-bottom: 0.35rem;
-    font-size: 0.8rem;
+
+    font-size: 0.78rem;
+    font-weight: 600;
+
     text-transform: uppercase;
     letter-spacing: 0.12em;
+
     color: rgba(220, 220, 230, 0.45);
 }
 
 
 .tv-shows-header h1 {
     margin: 0;
-    font-size: clamp(2rem, 4vw, 3rem);
+
     color: #f0f0f5;
+
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+    font-weight: 700;
+
+    letter-spacing: -0.02em;
 }
 
 
 .tv-shows-header p {
-    margin: 0.5rem 0 0;
+    max-width: 520px;
+
+    margin: 0.55rem 0 0;
+
     color: rgba(210, 210, 220, 0.55);
+
+    font-size: 0.95rem;
+    line-height: 1.5;
 }
 
+
+/* =========================================
+   FILTER
+========================================= */
+
+.tv-shows-filter {
+    flex: 0 0 auto;
+
+    display: flex;
+    align-items: center;
+
+    position: relative;
+    z-index: 30;
+}
+
+
+.tv-shows-filter > * {
+    max-width: 100%;
+}
+
+
+/* =========================================
+   MEDIA LIST
+========================================= */
+
+.tv-shows-container > .media-list {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* =========================================
+   LOADING
+========================================= */
 
 .media-loading {
     min-height: 300px;
+
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
+
+/* =========================================
+   LOAD MORE
+========================================= */
 
 .media-load-more {
     min-height: 80px;
+
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
 
 .media-empty {
     min-height: 300px;
+
     display: flex;
     flex-direction: column;
+
     align-items: center;
     justify-content: center;
+
     gap: 0.4rem;
+
     color: rgba(220, 220, 230, 0.5);
+
     text-align: center;
 }
 
+
 .media-empty p {
     margin: 0;
+
     color: #e5e5ea;
+
     font-size: 1rem;
 }
 
+
 .media-empty span {
     font-size: 0.85rem;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+    .tv-shows-container {
+        width: min(94%, 1100px);
+    }
+
+
+    .tv-shows-header {
+        gap: 1.5rem;
+    }
+
+
+    .tv-shows-header h1 {
+        font-size: 2.2rem;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .tv-shows-container {
+        width: calc(100% - 2rem);
+    }
+
+
+    .tv-shows-header {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 1rem;
+
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+
+    .tv-shows-heading {
+        width: 100%;
+    }
+
+
+    .tv-shows-header h1 {
+        font-size: 2rem;
+    }
+
+
+    .tv-shows-header p {
+        font-size: 0.9rem;
+    }
+
+
+    .tv-shows-filter {
+        width: 100%;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+}
+
+
+/* =========================================
+   SMALL PHONE
+========================================= */
+
+@media (max-width: 500px) {
+
+    .tv-shows-page {
+        padding-top: 4.2rem;
+    }
+
+
+    .tv-shows-container {
+        width: calc(100% - 1.5rem);
+    }
+
+
+    .tv-shows-header {
+        gap: 0.85rem;
+
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+    }
+
+
+    .tv-shows-eyebrow {
+        font-size: 0.72rem;
+    }
+
+
+    .tv-shows-header h1 {
+        font-size: 1.85rem;
+    }
+
+
+    .tv-shows-header p {
+        font-size: 0.85rem;
+    }
+
+
+    .tv-shows-filter {
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================
+   VERY SMALL PHONE
+========================================= */
+
+@media (max-width: 380px) {
+
+    .tv-shows-container {
+        width: calc(100% - 1rem);
+    }
+
+
+    .tv-shows-header {
+        gap: 0.75rem;
+    }
+
+
+    .tv-shows-header h1 {
+        font-size: 1.7rem;
+    }
+
 }

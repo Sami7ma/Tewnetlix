@@ -238,34 +238,25 @@ function TVShows() {
 
 
             <section className="tv-shows-container">
+<header className="tv-shows-header">
 
-                <header className="tv-shows-header">
+    <div className="tv-shows-heading">
 
-                    <div>
+        <h1>
+            TV Shows
+        </h1>
+    </div>
 
-                        <span className="tv-shows-eyebrow">
-                            Explore
-                        </span>
+    <div className="tv-shows-filter">
 
-                        <h1>
-                            TV Shows
-                        </h1>
+        <TVFilter
+            filters={filters}
+            onChange={setFilters}
+        />
 
-                        <p>
-                            Discover your next favorite series.
-                        </p>
+    </div>
 
-                    </div>
-
-                </header>
-
-
-                <TVFilter
-                    filters={filters}
-                    onChange={setFilters}
-                />
-
-
+</header>
                 {loading ? (
 
                     <LoadingSpinner
