@@ -17,22 +17,6 @@ import {
 
 import "./Hero.css";
 
-const FALLBACK_SLIDES = [
-
-    {
-        id: 157336,
-        media_type: "movie",
-        title: "Interstellar",
-        vote_average: 8.8,
-        release_date: "2014-11-07",
-        backdrop_path:
-            "/xJHokMbljvjADYdit5fK5VQsXEG.jpg",
-        overview:
-            "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival."
-    }
-
-];
-
 function Hero({ items = [] }) {
 
     const navigate = useNavigate();
@@ -40,6 +24,8 @@ function Hero({ items = [] }) {
     const [activeIndex, setActiveIndex] = useState(0);
 
     const [isDragging, setIsDragging] = useState(false);
+    const [isHovering, setIsHovering] = useState(false);
+    const [dragOffset, setDragOffset] = useState(0);
     const dragStartX = useRef(0);
     const dragCurrentX = useRef(0);
     const timerRef = useRef(null);
@@ -52,9 +38,7 @@ function Hero({ items = [] }) {
                     item?.backdrop_path
             );
 
-        return usableItems.length
-            ? usableItems.slice(0, 8)
-            : FALLBACK_SLIDES;
+        return usableItems.slice(0, 8);
 
     }, [items]);
     useEffect(() => {
@@ -170,6 +154,19 @@ function Hero({ items = [] }) {
         }
 
 
+        if (
+            event.pointerType === "mouse" &&
+            !isHovering
+        ) {
+            return;
+        }
+
+
+        if (slides.length < 2) {
+            return;
+        }
+
+
         dragStartX.current =
             event.clientX;
 
@@ -180,6 +177,16 @@ function Hero({ items = [] }) {
             false;
 
         setIsDragging(true);
+        setDragOffset(0);
+
+
+        if (timerRef.current) {
+
+            window.clearInterval(
+                timerRef.current
+            );
+
+        }
 
 
         /*
@@ -208,6 +215,14 @@ function Hero({ items = [] }) {
 
         dragCurrentX.current =
             event.clientX;
+
+
+        const offset =
+            dragCurrentX.current -
+            dragStartX.current;
+
+
+        setDragOffset(offset);
 
 
         const distance =
@@ -276,6 +291,7 @@ function Hero({ items = [] }) {
 
 
         setIsDragging(false);
+        setDragOffset(0);
 
 
         if (
@@ -290,6 +306,9 @@ function Hero({ items = [] }) {
 
         }
 
+
+        startAutoplay();
+
     };
 
 
@@ -300,6 +319,8 @@ function Hero({ items = [] }) {
     const handlePointerCancel = () => {
 
         setIsDragging(false);
+        setDragOffset(0);
+        startAutoplay();
 
     };
 
@@ -379,10 +400,24 @@ function Hero({ items = [] }) {
             className={
                 isDragging
                     ? "hero is-dragging"
-                    : "hero"
+                    : isHovering
+                        ? "hero is-hovered"
+                        : "hero"
             }
+            style={{
+                transform:
+                    `translate3d(${dragOffset}px, 0, 0)`
+            }}
 
             aria-label="Featured titles"
+
+            onMouseEnter={() =>
+                setIsHovering(true)
+            }
+
+            onMouseLeave={() =>
+                setIsHovering(false)
+            }
 
             onPointerDown={
                 handlePointerDown
@@ -408,6 +443,7 @@ function Hero({ items = [] }) {
             {backdrop && (
 
                 <img
+                    key={`backdrop-${active.id}`}
                     className="hero-backdrop"
                     src={backdrop}
                     alt=""
