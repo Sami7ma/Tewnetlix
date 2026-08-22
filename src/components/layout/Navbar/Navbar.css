@@ -178,8 +178,6 @@
     }
     /* mobile */
     @media (max-width: 576px){
-        .nav-item{
-            font-size:0rem;
-        }
+        .nav-item{font-size:0rem;}
     }
 }
