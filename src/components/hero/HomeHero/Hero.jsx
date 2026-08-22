@@ -581,29 +581,6 @@ function Hero({ items = [] }) {
                 </div>
 
             </div>
-
-
-            {/* =================================
-                SLIDE POSITION
-            ================================= */}
-
-            <div
-                className="hero-progress"
-                aria-hidden="true"
-            >
-
-                <span
-                    style={{
-                        width: `${
-                            ((activeIndex + 1) /
-                            slides.length) *
-                            100
-                        }%`
-                    }}
-                />
-
-            </div>
-
         </section>
 
     );
