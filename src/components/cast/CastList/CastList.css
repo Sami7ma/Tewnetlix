@@ -1,105 +1,67 @@
-:root {
-    --section-margin: 0 0 0 1rem;
-    --section-flex-dir: column;
-
-    --heading-color: #e0e0e5;
-    --heading-size: 1.5rem;
-    --heading-margin-bottom: 1rem;
-
-    --list-gap: 1rem;
-}
-
-
 /* =========================================
-   CAST SECTION
+   CAST LIST (DESKTOP)
 ========================================= */
-
-.cast-section {
-    display: flex;
-    flex-direction: var(--section-flex-dir);
-    margin: var(--section-margin);
-
-    min-width: 0;
-}
-
-
-.cast-section h2 {
-    color: var(--heading-color);
-
-    font-size: var(--heading-size);
-    font-weight: 500;
-
-    margin: 0 0 var(--heading-margin-bottom);
-
-    letter-spacing: 0.03em;
-}
-
-
-/* =========================================
-   CAST LIST
-========================================= */
-
 .cast-list {
-    display: grid;
-
-    /* Desktop: 4 × 3 = 12 */
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-
-    gap: var(--list-gap);
-
+    /* Ditching grid entirely for Flexbox */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-left: 1rem;
     width: 100%;
     min-width: 0;
+    box-sizing: border-box;
 }
 
-
-/* =========================================
-   LIMIT CAST
-========================================= */
-
-/* Show maximum 12 on desktop */
+/* Desktop — Maximum 12 */
 .cast-list > :nth-child(n + 13) {
     display: none;
 }
 
-
 /* =========================================
    TABLET
 ========================================= */
-
 @media (max-width: 768px) {
-
-    .cast-list {
-        /* 3 × 2 = 6 */
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-
-        gap: 0.75rem;
+    .cast-section {
+        width: calc(100% - 1.5rem);
+        margin-left: 0.75rem;
+        margin-right: 0.75rem;
     }
 
-    /* Show only 6 */
+    .cast-list {
+        /* Just update the gap for tablet */
+        gap: 0.75rem;
+        padding-left: 0;
+    }
+
+    /* Maximum 6 */
     .cast-list > :nth-child(n + 7) {
         display: none;
     }
 }
 
-
 /* =========================================
-   MOBILE
+   PHONE (1 COLUMN PER ROW)
 ========================================= */
-
 @media (max-width: 480px) {
-
     .cast-section {
+        width: calc(100% - 0.8rem);
         margin-left: 0.4rem;
         margin-right: 0.4rem;
     }
 
-    .cast-list {
-        
-        grid-template-columns: repeat(1, minmax(0, 1fr));
-
-        gap: 0.6rem;
+    .cast-section h2 {
+        margin-bottom: 1rem;
+        font-size: 1.25rem;
     }
 
+    .cast-list {
+        /* Centers the single 15rem card on mobile */
+        justify-content: center;
+        gap: 0.6rem;
+        padding-left: 0;
+    }
+
+    /* Maximum 2 */
     .cast-list > :nth-child(n + 3) {
         display: none;
     }
