@@ -1,12 +1,17 @@
 .media-hero {
     position: relative;
     min-height: 87vh;
+
     display: flex;
     align-items: flex-end;
+
     padding: 0 3vw 3.5vw;
+
     overflow: hidden;
+
     background: #111114;
     color: #e0e0e5;
+
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
@@ -18,11 +23,15 @@
 .media-backdrop {
     position: absolute;
     inset: 0;
+
     width: 100%;
     height: 100%;
+
     object-fit: cover;
     object-position: center;
+
     z-index: 0;
+
     transition: opacity 0.8s ease;
 }
 
@@ -38,10 +47,15 @@
 .media-video-wrapper {
     position: absolute;
     inset: 0;
+
     z-index: 0;
+
     overflow: hidden;
+
     opacity: 0;
+
     transition: opacity 0.8s ease;
+
     background: #111114;
 }
 
@@ -51,14 +65,20 @@
 
 .media-trailer {
     position: absolute;
+
     width: 177.78vh;
     height: 100vh;
+
     min-width: 100vw;
     min-height: 56.25vw;
+
     top: 40%;
     left: 50%;
+
     transform: translate(-50%, -50%);
+
     border: 0;
+
     pointer-events: none;
 }
 
@@ -70,7 +90,9 @@
 .detailHero-media-overlay {
     position: absolute;
     inset: 0;
+
     z-index: 2;
+
     background:
         linear-gradient(
             to top,
@@ -79,6 +101,7 @@
             rgba(17, 17, 20, 0.75) 45%,
             transparent 78%
         ),
+
         radial-gradient(
             circle at bottom left,
             rgba(17, 17, 20, 0.76),
@@ -88,11 +111,15 @@
 
 .detailHero-media-overlay::after {
     content: "";
+
     position: absolute;
+
     left: 0;
     right: 0;
     bottom: 0;
+
     height: 220px;
+
     background:
         linear-gradient(
             to bottom,
@@ -108,6 +135,7 @@
 
 .media-top-buttons {
     position: absolute;
+
     top: 1.5rem;
     left: 5%;
     right: 5%;
@@ -124,6 +152,7 @@
     height: 3rem;
 
     border: 1px solid rgba(255, 255, 255, 0.12);
+
     border-radius: 50%;
 
     display: flex;
@@ -133,8 +162,12 @@
     cursor: pointer;
 
     background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+
+    backdrop-filter:
+        blur(20px) saturate(180%);
+
+    -webkit-backdrop-filter:
+        blur(20px) saturate(180%);
 
     color: #e0e0e5;
 
@@ -151,8 +184,11 @@
 .back-button:hover,
 .volume-button:hover {
     background: rgba(255, 255, 255, 0.9);
+
     color: #111114;
+
     transform: scale(1.08);
+
     border-color: transparent;
 }
 
@@ -163,6 +199,7 @@
 
 .media-content {
     position: relative;
+
     z-index: 3;
 
     width: 100%;
@@ -182,8 +219,11 @@
     color: #f2f2f6;
 
     font-size: 2.6rem;
+
     font-weight: 800;
+
     line-height: 0.95;
+
     letter-spacing: 0;
 
     text-shadow:
@@ -214,6 +254,7 @@
     );
 
     font-weight: 500;
+
     letter-spacing: 0.02em;
 }
 
@@ -237,39 +278,122 @@
 }
 
 .media-genres span {
-    padding: 0rem 1rem;
+    padding: 0 1rem;
+
     font-size: 0.9rem;
+
     font-weight: 500;
+
     letter-spacing: 0.02em;
 }
 
-.media-description {
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.media-description-wrapper {
     max-width: 620px;
-    margin: 0 0 1.1rem;
-    color: rgba(232, 232, 238, 0.78);
-    font-size: clamp(0.95rem,1.8vw,1.08rem);
-    line-height: 1.55;
+
+    margin-bottom: 1.1rem;
+}
+
+
+/* Collapsed description */
+
+.media-description-wrapper:not(.expanded)
+    .media-description {
     display: -webkit-box;
+
     -webkit-line-clamp: 2;
+
     -webkit-box-orient: vertical;
+
     overflow: hidden;
 }
+
+
+/* Full description */
+
+.media-description-wrapper.expanded {
+    max-width: 680px;
+}
+
+.media-description {
+    margin: 0;
+
+    color: rgba(232, 232, 238, 0.78);
+
+    font-size: clamp(
+        0.95rem,
+        1.8vw,
+        1.08rem
+    );
+
+    line-height: 1.55;
+}
+
+
+/* =========================================
+   SEE MORE
+========================================= */
+
+.media-see-more {
+    margin-top: 0.35rem;
+
+    padding: 0;
+
+    border: none;
+
+    background: none;
+
+    color: rgba(245, 245, 248, 0.95);
+
+    font-family: inherit;
+
+    font-size: inherit;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        color 0.25s ease,
+        opacity 0.25s ease;
+}
+
+.media-see-more:hover {
+    color: #ffffff;
+
+    opacity: 0.75;
+}
+
+
+/* =========================================
+   ACTIONS
+========================================= */
 
 .media-actions {
     display: flex;
     flex-wrap: wrap;
+
     gap: 1rem;
 }
 
 .media-actions button {
-    padding: 0.75rem 1.4rem;
-    border: none;
-    border-radius: 1rem;
+    padding: 0.78rem 1.4rem;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
     display: flex;
     align-items: center;
+
     gap: 0.5rem;
+
     cursor: pointer;
+
     font-family: inherit;
+
     font-size: clamp(
         0.9rem,
         1.2vw,
@@ -277,59 +401,100 @@
     );
 
     font-weight: 600;
+
     letter-spacing: 0.02em;
+
+    /* iOS-style rounded buttons */
+    border-radius: 16px;
 
     transition:
         background 0.3s ease,
         color 0.3s ease,
         transform 0.3s ease,
-        box-shadow 0.3s ease;
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
 }
 
+
+/* =========================================
+   PLAY
+========================================= */
 
 .play-button {
     background: rgba(255, 255, 255, 0.92);
+
     color: #111114;
-    box-shadow:0 4px 20px rgba(255, 255, 255, 0.1);
+
+    box-shadow:
+        0 4px 20px rgba(255, 255, 255, 0.1);
 }
 
 .play-button:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #e0e0e5;
+    background: #ffffff;
 
-    box-shadow:0 6px 24px rgba(0, 0, 0, 0.3);
+    color: #111114;
+
+    box-shadow:
+        0 8px 28px rgba(255, 255, 255, 0.14);
 }
+
+
+/* =========================================
+   FAVORITE
+========================================= */
 
 .favorite-button {
     background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
+
+    backdrop-filter:
+        blur(16px) saturate(180%);
+
+    -webkit-backdrop-filter:
+        blur(16px) saturate(180%);
+
     border: 1px solid rgba(255, 255, 255, 0.12) !important;
+
     color: #e0e0e5;
-    box-shadow:0 4px 16px rgba(0, 0, 0, 0.2);
+
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .favorite-button:hover {
     background: rgba(255, 255, 255, 0.9);
+
     color: #111114;
 
     border-color: transparent !important;
 
-    box-shadow:0 8px 24px rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 8px 24px rgba(255, 255, 255, 0.1);
 }
+
+
+/* Button hover */
 
 .media-actions button:hover {
-    transform: translateY(-2px);
+    transform: scale(1.05);
 }
 
+
+/* =========================================
+   TABLET
+========================================= */
+
 @media (max-width: 815px) {
+
     .media-hero {
         min-height: 76vh;
-        padding: 0 1vw 3rem;
+
+        padding:
+            0 1vw 3rem;
     }
 
     .detailHero-media-overlay {
-        transform: translate(0.5px, 0.5px);
+        transform:
+            translate(0.5px, 0.5px);
     }
 
     .media-content {
@@ -349,24 +514,30 @@
     }
 
     .media-actions button {
-        padding: 0.7rem 1.1rem;
+        padding:
+            0.7rem 1.1rem;
     }
-    .detailHero-media-overlay {
-    transform: translate(1px, 1px);
-    /* full width */
-    min-width: 100%;
-}
 }
 
+
+/* =========================================
+   MOBILE
+========================================= */
+
 @media (max-width: 480px) {
+
     .media-hero {
         min-height: 65vh;
-        padding:0 0.4rem 2rem;
+
+        padding:
+            0 0.4rem 2rem;
     }
+
     .media-trailer {
         top: 45%;
         left: 50%;
     }
+
     .detailHero-media-overlay {
         background:
             linear-gradient(
@@ -377,14 +548,17 @@
                 rgba(17, 17, 20, 0.18) 65%,
                 transparent 90%
             );
-        padding-bottom: 0rem;
+
+        padding-bottom: 0;
     }
 
     .detailHero-media-overlay::after {
         height: 180px;
     }
+
     .media-top-buttons {
         top: 1rem;
+
         left: 1rem;
         right: 1rem;
     }
@@ -394,49 +568,70 @@
         width: 2.7rem;
         height: 2.7rem;
     }
+
     .media-content {
         max-width: 100%;
+
         margin-bottom: 0;
     }
 
     .media-content h1 {
         margin-bottom: 0.55rem;
+
         font-size: 1.35rem;
+
         line-height: 1.05;
     }
+
     .media-meta {
         gap: 0.5rem 0.8rem;
+
         margin-bottom: 0.55rem;
+
         font-size: 0.82rem;
     }
+
     .media-genres {
         gap: 0.4rem;
+
         margin-bottom: 0.6rem;
     }
 
     .media-genres span {
         padding: 0.35rem 0.7rem;
+
         font-size: 0.75rem;
     }
 
-    .media-description {
+    .media-description-wrapper {
         margin-bottom: 0.8rem;
-        font-size: 0.82rem;
-        line-height: 1.45;
-        -webkit-line-clamp: 2;
     }
+
+    .media-description {
+        font-size: 0.82rem;
+
+        line-height: 1.45;
+    }
+
     .media-actions {
         gap: 0.5rem;
     }
 
     .media-actions button {
-        padding: 0.6rem 0.85rem;
-        border-radius: 0.8rem;
+        padding:
+            0.6rem 0.85rem;
+
+        border-radius: 16px;
+
         font-size: 0.78rem;
     }
 
     .media-actions svg {
         width: 16px;
         height: 16px;
+    }
+
+    .media-see-more {
+        font-size: 0.82rem;
     }
 }

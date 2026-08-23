@@ -7,7 +7,7 @@
     color: #f4f4f7;
     background: #111114;
     transform: translate3d(0, 0, 0);
-    transition: transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition:transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .hero.is-hovered {
@@ -18,7 +18,9 @@
     cursor: grabbing;
     transition: none;
 }
-
+/* =========================================
+   BACKDROP
+========================================= */
 .hero-backdrop {
     position: absolute;
     inset: 0;
@@ -40,6 +42,9 @@
         transform: scale(1.01);
     }
 }
+/* =========================================
+   OVERLAY
+========================================= */
 
 .hero-overlay {
     position: absolute;
@@ -59,14 +64,15 @@
             transparent 72%
         );
 }
-
+/* =========================================
+   CONTENT
+========================================= */
 .hero-content {
     position: relative;
     z-index: 2;
     width: min(720px, 92%);
-    padding: 0 0 0 1vw;
+    padding: 0 2rem 0 1vw;
 }
-
 .hero-kicker {
     display: inline-flex;
     margin-bottom: 0.85rem;
@@ -84,14 +90,17 @@
     font-weight: 800;
     line-height: 0.95;
     letter-spacing: 0;
-    text-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+    text-shadow:0 8px 32px rgba(0, 0, 0, 0.55);
 }
+/* =========================================
+   META
+========================================= */
 
 .hero-meta {
     display: flex;
     flex-wrap: wrap;
     gap: 0.45rem;
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.7rem;
 }
 
 .hero-meta span {
@@ -103,20 +112,47 @@
     font-size: 0.88rem;
     font-weight: 600;
 }
+/* =========================================
+   DESCRIPTION
+========================================= */
 
-.hero-content p {
+.hero-description {
     max-width: 620px;
     margin: 0 0 1.1rem;
     color: rgba(232, 232, 238, 0.78);
-    font-size: clamp(0.95rem, 1.8vw, 1.08rem);
+    font-size: clamp(0.95rem,1.8vw,1.08rem);
     line-height: 1.55;
-    display: -webkit-box;
-    line-clamp: 3;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+}
+.hero-description.expanded {
+    max-width: 680px;
+}
+/* =========================================
+   SEE MORE
+========================================= */
+
+.see-more-button {
+    margin-left: 0.35rem;
+    padding: 0;
+    border: none;
+    background: none;
+    color: rgba(245, 245, 248, 0.95);
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition:
+        color 0.25s ease,
+        opacity 0.25s ease;
 }
 
+.see-more-button:hover {
+    color: #ffffff;
+    opacity: 0.75;
+}
+/* =========================================
+   BUTTONS
+========================================= */
 .hero-buttons {
     display: flex;
     gap: 0.7rem;
@@ -128,10 +164,10 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    min-height: 2.75rem;
-    padding: 0 1.15rem;
+    min-height: 2.85rem;
+    padding: 0 1.2rem;
     border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 8px;
+    border-radius: 16px;
     cursor: pointer;
     font-family: inherit;
     font-size: 0.95rem;
@@ -140,30 +176,51 @@
         background 0.25s ease,
         color 0.25s ease,
         transform 0.25s ease,
-        border-color 0.25s ease;
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
 }
+
+
+/* =========================================
+   PLAY
+========================================= */
 
 .play-btn {
     background: rgba(245, 245, 248, 0.95);
     color: #111114;
+    box-shadow:0 4px 18px rgba(255, 255, 255, 0.08);
 }
-
+.play-btn:hover {
+    background: #ffffff;
+    box-shadow:0 8px 24px rgba(255, 255, 255, 0.12);
+}
+/* =========================================
+   SECONDARY BUTTONS
+========================================= */
 .secondary-btn {
     background: rgba(255, 255, 255, 0.1);
     color: #efeff4;
     backdrop-filter: blur(24px) saturate(160%);
-    -webkit-backdrop-filter: blur(24px) saturate(160%);
-}
+    -webkit-backdrop-filter:
+        blur(24px) saturate(160%);
 
-.hero-buttons button:hover {
-    transform: translateY(-2px);
+    box-shadow:0 4px 18px rgba(0, 0, 0, 0.12);
 }
-
 .secondary-btn:hover {
     background: rgba(245, 245, 248, 0.92);
     color: #111114;
+    border-color: transparent;
+    box-shadow:0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
+.hero-buttons button:hover {
+    transform: scale(1.05);
+}
+
+
+/* =========================================
+   HERO RAIL
+========================================= */
 .hero-rail {
     position: absolute;
     left: 3vw;
@@ -188,29 +245,34 @@
     background: #f4f4f7;
 }
 
+/* =========================================
+   TABLET
+========================================= */
+
 @media (max-width: 815px) {
+
     .hero {
         min-height: 76vh;
     }
-
     .hero-content {
         width: 100%;
-        padding: 0 0 0 3vw;
+        padding:0 0 0 3vw;
     }
     .hero-content h1 {
         font-size: 1.4rem;
     }
+
     .hero-meta span {
         min-height: 1.55rem;
         font-size: 0.78rem;
     }
 
     .hero-buttons button {
-        min-height: 2.5rem;
-        padding: 0 0.9rem;
+        min-height: 2.6rem;
+        padding:0 1rem;
         font-size: 0.88rem;
+        border-radius: 15px;
     }
-
     .hero-rail {
         left: 1rem;
         bottom: 3.6rem;
@@ -219,15 +281,26 @@
     .hero-kicker {
         display: none;
     }
+
+    .hero-description {
+        max-width: 560px;
+        font-size: 0.95rem;
+    }
 }
+/* =========================================
+   MOBILE
+========================================= */
 
 @media (max-width: 480px) {
+
     .hero {
         min-height: 70vh;
     }
+
     .hero-content h1 {
         font-size: 1.4rem;
     }
+
     .hero-overlay {
         background:
             linear-gradient(
@@ -238,16 +311,25 @@
                 rgba(17, 17, 20, 0.15) 100%
             );
     }
+
     .hero-content {
         width: 100%;
-        padding: 0 0 0 1vw;
+        padding:0 0 0 1vw;
     }
-    .hero-content p {
-        line-clamp: 2;
-        -webkit-line-clamp: 2;
+
+    .hero-description {
+        font-size: 0.85rem;
+        line-height: 1.45;
     }
 
     .hero-buttons {
         gap: 0.5rem;
+    }
+
+    .hero-buttons button {
+        min-height: 2.45rem;
+        padding:0 0.9rem;
+        border-radius: 14px;
+        font-size: 0.78rem;
     }
 }

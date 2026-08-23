@@ -1,83 +1,137 @@
-.hover-effect{
-    cursor:pointer;
-    transition: all .3s cubic-bezier(0.25, 1, 0.5, 1);
+/* =========================================
+   HOVER EFFECT
+========================================= */
+
+.hover-effect {
+    cursor: pointer;
+    transition:
+        all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.hover-effect:hover{
-    transform:scale(1.1);
+.hover-effect:hover {
+    transform: scale(1.1);
     color: rgba(200, 200, 220, 0.9);
-    filter: drop-shadow(0 0 6px rgba(200, 200, 220, 0.25));
+    filter:
+        drop-shadow(
+            0 0 6px rgba(200, 200, 220, 0.25)
+        );
 }
-/* Hidden on desktop, visible on mobile */
+/* =========================================
+   VISIBILITY
+========================================= */
+
 .mobile-only {
     display: none;
 }
-/* Hidden by default on desktop */
+
 .mobile-top-bar {
     display: none;
 }
+
+
+/* =========================================
+   DESKTOP NAVBAR
+========================================= */
+
 .navbar {
     position: fixed;
-    top: 20px;
-    left:50%;
-    transform:translateX(-50%);
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
     width: min(94%, 1200px);
-    max-width:1200px;
+    max-width: 1200px;
     z-index: 1000;
     background: transparent;
     border-radius: 50px;
-    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    transition:
+        background 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+        backdrop-filter 0.5s ease,
+        box-shadow 0.5s ease,
+        border-color 0.5s ease;
 }
+/* =========================================
+   SCROLLED DESKTOP NAVBAR
+========================================= */
 .navbar-scrolled {
-    background:rgba(25, 25, 30,0.2);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter:blur(24px) saturate(182%);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
-                0 0 0 1px rgba(255,255,255,0.06) inset;
+    /*
+        Darker glass so it remains readable
+        on deployed backgrounds.
+    */
+    background: rgba(18, 18, 22, 0.72);
+    backdrop-filter:
+        blur(24px)
+        saturate(150%);
+    -webkit-backdrop-filter:
+        blur(24px)
+        saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.42),
+        0 0 0 1px rgba(255, 255, 255, 0.025) inset;
 }
-.navbar-scrolled::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius:50px;
-    background:rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.06);
+/*
+    Very subtle glass highlight.
+*/
+.navbar-scrolled::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50px;
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.035),
+            transparent 55%
+        );
     pointer-events: none;
 }
-
+/* =========================================
+   NAVBAR CONTAINER
+========================================= */
 .navbar-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding:11px 20px;
+    padding: 11px 20px;
     gap: 2rem;
 }
+/* =========================================
+   LOGO
+========================================= */
 .logo {
     display: flex;
     align-items: center;
     flex-shrink: 0;
     text-decoration: none;
 }
-
 .logo img {
     width: 175px;
     height: auto;
     object-fit: contain;
     border-radius: 15px;
-    box-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
+    box-shadow:
+        2px 1px 2px rgba(0, 0, 0, 0.5);
     transition:
         transform 0.35s
         cubic-bezier(0.25, 1, 0.5, 1),
         filter 0.35s ease;
 }
-.logo img:hover{
+.logo img:hover {
     transform: scale(1.07);
-    filter: drop-shadow(0 0 12px rgba(200, 200, 220, 0.15));
+    filter:
+        drop-shadow(
+            0 0 12px rgba(200, 200, 220, 0.15)
+        );
 }
-
 .logo img:not(:hover) {
-    filter: drop-shadow(0 0 0px rgba(129, 117, 117, 0.5));
+    filter:
+        drop-shadow(
+            0 0 0 rgba(129, 117, 117, 0.5)
+        );
 }
+/* =========================================
+   NAV LINKS
+========================================= */
 .nav-links {
     list-style: none;
     display: flex;
@@ -86,18 +140,20 @@
     gap: 1.4rem;
     margin: 0;
     padding: 0;
-    flex-wrap: 1;
+    flex-wrap: nowrap;
 }
-.nav-item{
+.nav-item {
     color: rgba(220, 220, 230, 0.7);
-    display:flex;
-    align-items:center;
+    display: flex;
+    align-items: center;
     gap: 0.4em;
     font-size: 1.4rem;
     white-space: nowrap;
     font-weight: 500;
     letter-spacing: 0.02em;
-    transition: all .3s cubic-bezier(0.25, 1, 0.5, 1);
+    transition:
+        all 0.3s
+        cubic-bezier(0.25, 1, 0.5, 1);
     text-decoration: none;
 }
 .nav-item:hover {
@@ -107,77 +163,134 @@
     flex-shrink: 0;
     opacity: 0.9;
 }
-
-
+/* =========================================
+   NAV ICONS
+========================================= */
 .nav-icons {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     gap: 1.2rem;
     color: rgba(220, 220, 230, 0.7);
-    margin:0;
+    margin: 0;
     flex-shrink: 0;
 }
-
 .nav-icons svg {
     color: rgba(220, 220, 230, 0.7);
     stroke: currentColor;
 }
-
-/* Mobile responsive styles */
-@media (max-width: 815px){
+/* =========================================
+   TABLET / MOBILE
+========================================= */
+@media (max-width: 815px) {
     .desktop-only {
-        display: none !important; /* Hides desktop-only elements on mobile */
+        display: none !important;
     }
-    .mobile-top-bar{
-        display:flex;
-        position:absolute;
+    /* =====================================
+       MOBILE TOP BAR
+    ===================================== */
+    .mobile-top-bar {
+        display: flex;
+        position: absolute;
         top: 10px;
-        left:0;
-        width:100%;
-        padding:0.5rem 1rem;
-        justify-content:space-between;
-        align-items:center;
-        background:transparent;
-        z-index:1000;
+        left: 0;
+        width: 100%;
+        padding: 0.5rem 1rem;
+        justify-content: space-between;
+        align-items: center;
+        background: transparent;
+        z-index: 1000;
+       box-sizing: border-box;
     }
-    .mobile-top-bar .logo img{
+    .mobile-top-bar .logo img {
         width: 120px;
     }
-    .mobile-top-bar .nav-icons{
+    .mobile-top-bar .nav-icons {
         color: rgba(220, 220, 230, 0.8);
     }
-
-    .navbar{
+    /* =====================================
+       MOBILE BOTTOM NAVBAR
+    ===================================== */
+    .navbar {
         top: auto;
-        bottom:2px;
-        width: 97%;
-        background:rgba(30, 30, 40, 0.55);
-        backdrop-filter: blur(28px) saturate(180%);
-        -webkit-backdrop-filter:blur(28px) saturate(180%);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45),
-                    0 0 0 1px rgba(255,255,255,0.08) inset;
-        border: 1px solid rgba(255,255,255,0.1);
+        bottom: 3px;
+        left: 50%;
+        width: calc(100% - 20px);
+        max-width: none;
+        transform: translateX(-50%);
+        background:
+            rgba(15, 15, 19, 0.78);
+        backdrop-filter:
+            blur(28px)
+            saturate(160%);
+        -webkit-backdrop-filter:
+            blur(28px)
+            saturate(160%);
+        border:
+            1px solid rgba(255, 255, 255, 0.09);
         border-radius: 40px;
+        box-shadow:
+            0 10px 30px rgba(0, 0, 0, 0.45),
+            0 0 0 1px rgba(255, 255, 255, 0.025) inset;
+        overflow: hidden;
     }
-    .navbar-container{
+    /*
+        Subtle glass highlight.
+    */
+    .navbar::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background:
+            linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0.045),
+                transparent 50%
+            );
+        pointer-events: none;
+    }
+    /* =====================================
+       NAVBAR CONTAINER
+    ===================================== */
+    .navbar-container {
         justify-content: center;
-        padding: 12px 16px;
+        padding: 10px 14px;
+        gap: 0;
     }
-    
-    .nav-links{
-        display:flex;
-        width:100%;
-        justify-content:space-around;
-        gap:0;
-        margin:0;
+    /* =====================================
+       NAV LINKS
+    ===================================== */
+    .nav-links {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+        gap: 0;
+        margin: 0;
     }
-    .nav-item svg{
-        width:1.5rem;
-        height:1.5rem;
+    .nav-item svg {
+        width: 1.5rem;
+        height: 1.5rem;
     }
-    /* mobile */
-    @media (max-width: 576px){
-        .nav-item{font-size:0rem;}
+}
+/* =========================================
+   SMALL MOBILE
+========================================= */
+@media (max-width: 576px) {
+    .nav-item {
+        font-size: 0;
+    }
+    .nav-item svg {
+        width: 1.35rem;
+        height: 1.35rem;
+    }
+    .navbar {
+        bottom: 5px;
+        width: calc(100% - 16px);
+        border-radius: 32px;
+    }
+    .navbar-container {
+        padding: 9px 12px;
     }
 }
