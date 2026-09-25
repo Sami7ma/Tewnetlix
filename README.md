@@ -53,3 +53,13 @@ The frontend is served by Vite, and the backend health check is available at
 npm run lint
 npm run build
 ```
+
+## Cloudflare Workers deployment
+
+The root Wrangler configuration serves the production build from
+`frontend/dist`. After authenticating Wrangler with Cloudflare, deploy with:
+
+```bash
+npm run build
+npm run deploy
+```
