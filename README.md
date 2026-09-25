@@ -1,16 +1,55 @@
-# React + Vite
+# Tewnetlix
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tewnetlix is organized as a small monorepo with separate frontend and backend
+packages.
 
-Currently, two official plugins are available:
+## Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- [`frontend/`](./frontend) - React and Vite application, including the UI,
+  pages, components, assets, and current TMDB client.
+- [`backend/`](./backend) - Node.js HTTP API foundation. It currently exposes
+  `GET /health` and is ready for server-side features.
 
-## React Compiler
+## Requirements
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Node.js 20 or newer
+- npm 10 or newer
 
-## Expanding the ESLint configuration
+## Setup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Install dependencies from the repository root:
+
+```bash
+npm install
+```
+
+Copy the environment templates and provide the frontend values:
+
+```bash
+cp frontend/.env.example frontend/.env
+cp backend/.env.example backend/.env
+```
+
+## Development
+
+Run the frontend:
+
+```bash
+npm run dev
+```
+
+Run the backend in a separate terminal:
+
+```bash
+npm run dev:backend
+```
+
+The frontend is served by Vite, and the backend health check is available at
+`http://localhost:3000/health`.
+
+## Validation
+
+```bash
+npm run lint
+npm run build
+```
