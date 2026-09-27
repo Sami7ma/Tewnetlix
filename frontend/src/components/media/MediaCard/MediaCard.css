@@ -3,6 +3,9 @@
     width: 165px;
     min-width: 0;
     cursor: pointer;
+    display: block;
+    color: inherit;
+    text-decoration: none;
 }
 
 /* =========================================

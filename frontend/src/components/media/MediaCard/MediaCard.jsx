@@ -1,10 +1,8 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Play, Star } from "lucide-react";
 import "./MediaCard.css";
 
 const MediaCard = ({ media }) => {
-    const navigate = useNavigate();
-
     if (!media) {
         return null;
     }
@@ -48,18 +46,16 @@ const MediaCard = ({ media }) => {
 
     const visibleGenres = genres.slice(0, 2);
 
-    function openDetails() {
-        if (mediaType === "tv") {
-            navigate(`/tv/${media.id}`);
-        } else {
-            navigate(`/movie/${media.id}`);
-        }
-    }
+    const detailsPath =
+        mediaType === "tv"
+            ? `/tv/${media.id}`
+            : `/movie/${media.id}`;
 
     return (
-        <article
+        <Link
+            to={detailsPath}
             className="movie-card"
-            onClick={openDetails}
+            aria-label={`View details for ${title}`}
         >
 
             <div className="poster-container">
@@ -75,6 +71,7 @@ const MediaCard = ({ media }) => {
                     <Play
                         size={42}
                         fill="currentColor"
+                        aria-hidden="true"
                     />
                 </div>
 
@@ -127,7 +124,7 @@ const MediaCard = ({ media }) => {
 
             </div>
 
-        </article>
+        </Link>
     );
 }
 

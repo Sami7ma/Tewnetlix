@@ -111,20 +111,18 @@ function Navbar() {
 
                 <div className="nav-icons">
 
-                    <Search
-                        size={22}
-                        className="hover-effect"
-                        onClick={() =>
-                            setSearchOpen(true)
-                        }
-                    />
+                    <button
+                        type="button"
+                        className="icon-button hover-effect"
+                        aria-label="Open search"
+                        onClick={() => setSearchOpen(true)}
+                    >
+                        <Search size={22} aria-hidden="true" />
+                    </button>
 
                     <Link to="/profile">
 
-                        <User
-                            size={22}
-                            className="hover-effect"
-                        />
+                        <User size={22} className="hover-effect" aria-hidden="true" />
 
                     </Link>
 
@@ -246,20 +244,18 @@ function Navbar() {
 
                     <div className="nav-icons desktop-only">
 
-                        <Search
-                            size={22}
-                            className="hover-effect"
-                            onClick={() =>
-                                setSearchOpen(true)
-                            }
-                        />
+                        <button
+                            type="button"
+                            className="icon-button hover-effect"
+                            aria-label="Open search"
+                            onClick={() => setSearchOpen(true)}
+                        >
+                            <Search size={22} aria-hidden="true" />
+                        </button>
 
                         <Link to="/profile">
 
-                            <User
-                                size={22}
-                                className="hover-effect"
-                            />
+                            <User size={22} className="hover-effect" aria-hidden="true" />
 
                         </Link>
 

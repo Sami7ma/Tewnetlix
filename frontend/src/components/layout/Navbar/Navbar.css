@@ -16,6 +16,24 @@
             0 0 6px rgba(200, 200, 220, 0.25)
         );
 }
+
+.icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+
+.icon-button:hover {
+    background: var(--color-surface-highlight);
+}
 /* =========================================
    VISIBILITY
 ========================================= */
@@ -40,7 +58,7 @@
     transform: translateX(-50%);
     width: min(94%, 1200px);
     max-width: 1200px;
-    z-index: 1000;
+    z-index: var(--z-navigation);
     background: transparent;
     border-radius: 50px;
     transition:
@@ -57,17 +75,13 @@
         Darker glass so it remains readable
         on deployed backgrounds.
     */
-    background: rgba(18, 18, 22, 0.72);
-    backdrop-filter:
-        blur(24px)
-        saturate(150%);
+    background: var(--color-surface-glass);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
     -webkit-backdrop-filter:
         blur(24px)
         saturate(150%);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.42),
-        0 0 0 1px rgba(255, 255, 255, 0.025) inset;
+    box-shadow: var(--shadow-glass), 0 0 0 1px rgba(255, 255, 255, 0.025) inset;
 }
 /*
     Very subtle glass highlight.

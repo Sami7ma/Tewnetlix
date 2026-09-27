@@ -1,0 +1,43 @@
+:root {
+    --color-canvas: #0b0b0f;
+    --color-canvas-raised: #121218;
+    --color-surface: #18181f;
+    --color-surface-glass: rgba(24, 24, 31, 0.72);
+    --color-surface-glass-strong: rgba(28, 28, 37, 0.88);
+    --color-surface-highlight: rgba(255, 255, 255, 0.08);
+    --color-border-subtle: rgba(255, 255, 255, 0.1);
+    --color-border-strong: rgba(255, 255, 255, 0.2);
+    --color-text-primary: #f5f5f7;
+    --color-text-secondary: rgba(232, 232, 238, 0.76);
+    --color-text-muted: rgba(190, 190, 205, 0.62);
+    --color-accent: #ffffff;
+    --color-focus: #9cc7ff;
+    --color-danger: #ff8f8f;
+
+    --radius-control: 0.9rem;
+    --radius-card: 1rem;
+    --radius-panel: 1.5rem;
+    --radius-pill: 999px;
+
+    --shadow-glass: 0 18px 50px rgba(0, 0, 0, 0.35);
+    --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.32);
+    --glass-blur: 24px;
+    --glass-saturation: 150%;
+
+    --content-width: 1440px;
+    --nav-height: 4.25rem;
+    --z-navigation: 1000;
+    --z-overlay: 1100;
+    --z-modal: 1200;
+
+    --motion-standard: 240ms;
+    --motion-emphasis: 420ms;
+    --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --motion-standard: 1ms;
+        --motion-emphasis: 1ms;
+    }
+}
