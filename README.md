@@ -9,6 +9,10 @@ packages.
   pages, components, assets, and current TMDB client.
 - [`backend/`](./backend) - Node.js HTTP API foundation. It currently exposes
   `GET /health` and is ready for server-side features.
+- [`docs/`](./docs) - Project-wide structure notes, design references, and
+  planning documents.
+- [`docs/ui-redesign/`](./docs/ui-redesign) - The current UI audit and the
+  phased Apple TV-inspired liquid-glass redesign plan.
 
 ## Requirements
 
@@ -63,3 +67,18 @@ The root Wrangler configuration serves the production build from
 npm run build
 npm run deploy
 ```
+
+The `VITE_*` values are embedded into the frontend during the Vite build.
+Configure the same variables from
+[`frontend/.env.example`](./frontend/.env.example) in the Cloudflare build
+environment before deploying. Do not commit `frontend/.env`; it is intended
+only for local development and is ignored by Git.
+
+For a Cloudflare Pages-style build, use:
+
+- Build command: `npm run build`
+- Build output directory: `frontend/dist`
+- Root directory: repository root
+
+The root [`wrangler.jsonc`](./wrangler.jsonc) is the deployment configuration
+for the Workers static-assets deployment path.
