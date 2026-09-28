@@ -333,3 +333,19 @@
         font-size: 0.78rem;
     }
 }
+.hero-slide-controls {
+    position: absolute;
+    right: clamp(1rem, 4vw, 4rem);
+    bottom: clamp(1rem, 8vw, 5rem);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.hero-slide-count {
+    min-width: 3rem;
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+    text-align: center;
+}

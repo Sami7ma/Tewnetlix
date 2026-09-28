@@ -1,6 +1,8 @@
-import {useEffect,useMemo,useRef,useState} from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {useNavigate} from "react-router-dom";
-import {BookmarkPlus,Info,Play} from "lucide-react";
+import { BookmarkPlus, ChevronLeft, ChevronRight, Info, Play } from "lucide-react";
+import Button from "../../ui/Button/Button";
+import IconButton from "../../ui/IconButton/IconButton";
 import "./Hero.css";
 
 function Hero({ items = [] }) {
@@ -8,12 +10,16 @@ function Hero({ items = [] }) {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
     const [dragOffset, setDragOffset] = useState(0);
-    const [showFullDescription, setShowFullDescription] = useState(false);
+    const [expandedSlideId, setExpandedSlideId] = useState(null);
     const dragStartX = useRef(0);
     const dragCurrentX = useRef(0);
     const timerRef = useRef(null);
     const hasDragged = useRef(false);
+    const reducedMotion = window.matchMedia?.(
+        "(prefers-reduced-motion: reduce)",
+    ).matches;
     const slides = useMemo(() => { 
         const usableItems =
             items.filter(
@@ -22,23 +28,15 @@ function Hero({ items = [] }) {
             );
         return usableItems.slice(0, 8);
     }, [items]);
-    useEffect(() => {
-        setActiveIndex(0);
-    }, [slides]);
-
-    /*Reset description whenchanging movie.*/
-    useEffect(() => {setShowFullDescription(false);}, [activeIndex]);
-
-
     /*  AUTOPLAY */
 
-    const startAutoplay = () => {
+    const startAutoplay = useCallback(() => {
         if (timerRef.current) {
             window.clearInterval(
                 timerRef.current
             );
         }
-        if (slides.length < 2) {
+        if (reducedMotion || slides.length < 2) {
             return;
         }
         timerRef.current =
@@ -49,7 +47,7 @@ function Hero({ items = [] }) {
                         slides.length
                 );
             }, 6500);
-    };
+    }, [reducedMotion, slides.length]);
 
 
     useEffect(() => {
@@ -59,7 +57,7 @@ function Hero({ items = [] }) {
                 window.clearInterval( timerRef.current);
             }
         };
-    }, [slides.length]);
+    }, [startAutoplay]);
 
     /* NEXT SLIDE */
 
@@ -114,7 +112,7 @@ function Hero({ items = [] }) {
         const offset = dragCurrentX.current - dragStartX.current;
         setDragOffset(offset);
         const distance =
-            Math.abs( dragCurrentX.current - dragStartX.currents);
+            Math.abs(dragCurrentX.current - dragStartX.current);
         if (distance > 8) {
             hasDragged.current = true;
         }
@@ -139,7 +137,9 @@ function Hero({ items = [] }) {
         ) {
             event.currentTarget.releasePointerCapture(event.pointerId);
         }
-        startAutoplay();
+        if (!isHovering && !isFocused) {
+            startAutoplay();
+        }
     };
 
     /* POINTER CANCEL */
@@ -150,7 +150,10 @@ function Hero({ items = [] }) {
         startAutoplay();
     };
     /* ACTIVE SLIDE */
-    const active = slides[activeIndex] || slides[0];
+    const active = slides[Math.min(activeIndex, Math.max(slides.length - 1, 0))] || slides[0];
+    const showFullDescription = active
+        ? expandedSlideId === active.id
+        : false;
 
     if (!active) {
         return null;
@@ -193,7 +196,26 @@ function Hero({ items = [] }) {
             style={{transform:`translate3d(${dragOffset}px, 0, 0)`}}
             aria-label="Featured titles"
             onMouseEnter={() =>setIsHovering(true)}
-            onMouseLeave={() =>setIsHovering(false)}
+            onMouseLeave={() => {
+                setIsHovering(false);
+                if (!isFocused) {
+                    startAutoplay();
+                }
+            }}
+            onFocusCapture={() => {
+                setIsFocused(true);
+                if (timerRef.current) {
+                    window.clearInterval(timerRef.current);
+                }
+            }}
+            onBlurCapture={event => {
+                if (!event.currentTarget.contains(event.relatedTarget)) {
+                    setIsFocused(false);
+                    if (!isHovering) {
+                        startAutoplay();
+                    }
+                }
+            }}
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
@@ -210,6 +232,26 @@ function Hero({ items = [] }) {
                 />
             )}
             <div className="hero-overlay" />
+
+            {slides.length > 1 && (
+                <div className="hero-slide-controls" aria-label="Featured title controls">
+                    <IconButton
+                        label="Previous featured title"
+                        onClick={previousSlide}
+                    >
+                        <ChevronLeft aria-hidden="true" />
+                    </IconButton>
+                    <span className="hero-slide-count" aria-live="polite">
+                        {activeIndex + 1} / {slides.length}
+                    </span>
+                    <IconButton
+                        label="Next featured title"
+                        onClick={nextSlide}
+                    >
+                        <ChevronRight aria-hidden="true" />
+                    </IconButton>
+                </div>
+            )}
 
             <div className="hero-content">
                 <span className="hero-kicker">Featured on TEWNETLIX</span>
@@ -242,35 +284,34 @@ function Hero({ items = [] }) {
                             : description
                     }
                     {description.length > 180 && (
-                        <button
+                        <Button
+                            type="button"
+                            variant="subtle"
                             className="see-more-button"
                             onPointerDown={event =>
                                 event.stopPropagation()
                             }
                             onClick={() =>
-                                setShowFullDescription(
-                                    value => !value
+                                setExpandedSlideId(
+                                showFullDescription ? null : active.id,
                                 )
                             }>
-                            {showFullDescription
-                                ? "See less"
-                                : "See more"
-                            }
-                        </button>
+                            {showFullDescription ? "See less" : "See more"}
+                        </Button>
                     )}
                 </p>
                 {/* ACTIONS*/}
                 <div className="hero-buttons" onPointerDown={event =>
                     event.stopPropagation()
                     }>
-                    <button className="play-btn" onClick={() =>
+                    <Button variant="primary" className="play-btn" onClick={() =>
                                                 navigate(
                                                     `/watch/${mediaType}/${active.id}`
                                                     )}>
                         <Play size={18} fill="currentColor" />
                         Play
-                    </button>
-                    <button className="secondary-btn"
+                    </Button>
+                    <Button variant="secondary" className="secondary-btn"
                         onClick={() => navigate(
                             `/${
                                 mediaType === "tv"
@@ -281,12 +322,12 @@ function Hero({ items = [] }) {
                         }>
                         <Info size={18} />
                         Info
-                    </button>
+                    </Button>
 
-                    <button className="secondary-btn">
+                    <Button variant="secondary" className="secondary-btn">
                         <BookmarkPlus size={18}/>
                         Watchlist
-                    </button>
+                    </Button>
                 </div>
             </div>
         </section>

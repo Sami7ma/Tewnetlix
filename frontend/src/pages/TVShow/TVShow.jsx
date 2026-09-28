@@ -61,17 +61,16 @@ function TVShow() {
         <main className="tv-page">
 
             <DetailHero
+                key={id}
                 media={tvShow}
                 trailer={data.trailer}
                 imageURL={imageURL}
             />
 
-            <section className="cast-section">
-                <CastList
-                    cast={data.cast}
-                    imageURL={imageURL}
-                />
-            </section>
+            <CastList
+                cast={data.cast}
+                imageURL={imageURL}
+            />
 
             <section className="recommendations-section">
                 <MovieRow

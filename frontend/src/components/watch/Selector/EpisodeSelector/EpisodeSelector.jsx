@@ -1,4 +1,4 @@
-import { useState } from "react";
+import Select from "../../../ui/Select/Select";
 import "../Selector.css";
 
 const EpisodeSelector = ({
@@ -7,47 +7,19 @@ const EpisodeSelector = ({
     onChange,
 }) => {
 
-    const [open, setOpen] = useState(false);
-
     return (
-        <div className="custom-selector">
-
-            <button
-                className="selector-button"
-                onClick={() => setOpen(!open)}
-            >
-                Episode {episode}
-            </button>
-
-            <div className={`selector-dropdown ${open ? "open" : ""}`}>
-
-                {episodes.map((ep) => (
-                    <button
-                        key={ep.episode_number}
-                        className={
-                            episode === ep.episode_number
-                                ? "option active"
-                                : "option"
-                        }
-                        onClick={() => {
-                            onChange(ep.episode_number);
-                            setOpen(false);
-                        }}
-                    >
-                        <strong>Episode {ep.episode_number}</strong>
-
-                        {ep.name && (
-                            <>
-                                <br />
-                                <small>{ep.name}</small>
-                            </>
-                        )}
-                    </button>
-                ))}
-
-            </div>
-
-        </div>
+        <Select
+            id="episode-selector"
+            label="Episode"
+            value={episode}
+            onChange={event => onChange(Number(event.target.value))}
+        >
+            {episodes.map(ep => (
+                <option key={ep.episode_number} value={ep.episode_number}>
+                    Episode {ep.episode_number}{ep.name ? `: ${ep.name}` : ""}
+                </option>
+            ))}
+        </Select>
     );
 };
 

@@ -1,4 +1,5 @@
 .movie-card {
+    scroll-snap-align: start;
     flex: 0 0 165px;
     width: 165px;
     min-width: 0;

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
     ChevronLeft,
     ChevronRight,
@@ -6,6 +6,9 @@ import {
 } from "lucide-react";
 
 import MovieCard from "../MediaCard/MediaCard";
+import Button from "../../ui/Button/Button";
+import IconButton from "../../ui/IconButton/IconButton";
+import GlassSurface from "../../ui/GlassSurface/GlassSurface";
 import "./MediaRow.css";
 
 
@@ -23,6 +26,8 @@ const MovieRow = ({
 
     const [isCategoryOpen, setIsCategoryOpen] =
         useState(false);
+    const [canScrollLeft, setCanScrollLeft] = useState(false);
+    const [canScrollRight, setCanScrollRight] = useState(false);
 
 
     const categoryMovies = categories
@@ -38,7 +43,7 @@ const MovieRow = ({
     const scrollLeft = () => {
 
         rowRef.current?.scrollBy({
-            left: -500,
+            left: -(rowRef.current?.clientWidth || 500) * 0.8,
             behavior: "smooth"
         });
 
@@ -48,16 +53,11 @@ const MovieRow = ({
     const scrollRight = () => {
 
         rowRef.current?.scrollBy({
-            left: 500,
+            left: (rowRef.current?.clientWidth || 500) * 0.8,
             behavior: "smooth"
         });
 
     };
-
-
-    if (!displayedMovies.length) {
-        return null;
-    }
 
 
     const categoryLabels = {
@@ -65,6 +65,27 @@ const MovieRow = ({
         tv: "TV Shows"
     };
 
+    useEffect(() => {
+        const row = rowRef.current;
+        if (!row) return undefined;
+        const updateScrollState = () => {
+            setCanScrollLeft(row.scrollLeft > 4);
+            setCanScrollRight(
+                row.scrollLeft + row.clientWidth < row.scrollWidth - 4,
+            );
+        };
+        updateScrollState();
+        row.addEventListener("scroll", updateScrollState, { passive: true });
+        window.addEventListener("resize", updateScrollState);
+        return () => {
+            row.removeEventListener("scroll", updateScrollState);
+            window.removeEventListener("resize", updateScrollState);
+        };
+    }, [displayedMovies.length]);
+
+    if (!displayedMovies.length) {
+        return null;
+    }
 
     return (
         <section className="movie-row">
@@ -92,7 +113,8 @@ const MovieRow = ({
 
                         <div className="row-category">
 
-                            <button
+                            <Button
+                                variant="secondary"
                                 className="row-category-button"
                                 onClick={() =>
                                     setIsCategoryOpen(
@@ -100,6 +122,7 @@ const MovieRow = ({
                                     )
                                 }
                                 aria-expanded={isCategoryOpen}
+                                aria-haspopup="menu"
                             >
 
                                 <span>
@@ -119,25 +142,34 @@ const MovieRow = ({
                                     }
                                 />
 
-                            </button>
+                            </Button>
 
 
                             {isCategoryOpen && (
 
-                                <div className="row-category-dropdown">
+                                <GlassSurface
+                                    as="div"
+                                    className="row-category-dropdown"
+                                    strength="subtle"
+                                    role="menu"
+                                >
 
                                     {Object.entries(
                                         categoryLabels
                                     ).map(
                                         ([key, label]) => (
 
-                                            <button
+                                            <Button
+                                                type="button"
+                                                variant="subtle"
                                                 key={key}
                                                 className={
                                                     activeCategory === key
                                                         ? "row-category-option active"
                                                         : "row-category-option"
                                                 }
+                                                role="menuitemradio"
+                                                aria-checked={activeCategory === key}
                                                 onClick={() => {
 
                                                     setActiveCategory(
@@ -162,12 +194,12 @@ const MovieRow = ({
                                                 }}
                                             >
                                                 {label}
-                                            </button>
+                                            </Button>
 
                                         )
                                     )}
 
-                                </div>
+                                </GlassSurface>
 
                             )}
 
@@ -180,20 +212,22 @@ const MovieRow = ({
 
                     <div className="row-buttons">
 
-                        <button
+                        <IconButton
+                            label={`Scroll ${title} left`}
                             onClick={scrollLeft}
-                            aria-label={`Scroll ${title} left`}
+                            disabled={!canScrollLeft}
                         >
                             <ChevronLeft />
-                        </button>
+                        </IconButton>
 
 
-                        <button
+                        <IconButton
+                            label={`Scroll ${title} right`}
                             onClick={scrollRight}
-                            aria-label={`Scroll ${title} right`}
+                            disabled={!canScrollRight}
                         >
                             <ChevronRight />
-                        </button>
+                        </IconButton>
 
                     </div>
 

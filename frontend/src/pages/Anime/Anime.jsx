@@ -1,96 +1,33 @@
 import { useState } from "react";
-
 import TVFilter from "../../components/media/MeidaFilter/TVFilter";
-import MediaList from "../../components/media/MediaList/MediaList";
-import LoadingSpinner from "../../components/layout/LoadingSpinner/LoadingSpinner";
-import ErrorState from "../../components/states/ErrorState/ErrorState";
+import DiscoveryPage from "../../components/discovery/DiscoveryPage/DiscoveryPage";
 import useInfiniteMedia from "../../hooks/useInfiniteMedia";
 import { getDiscoverAnime } from "../../services/tmdb";
 
-import "./Anime.css";
+const initialFilters = {
+    genres: [], year: "", rating: "", length: "", status: "", type: "",
+    sort: "popularity.desc",
+};
 
 function Anime() {
-    const [filters, setFilters] = useState({
-        genres: [],
-        year: "",
-        rating: "",
-        length: "",
-        status: "",
-        type: "",
-        sort: "popularity.desc"
-    });
-
-    const {
-        items: anime,
-        loading,
-        loadingMore,
-        error,
-        page,
-        totalPages,
-        retry,
-        observerRef,
-    } = useInfiniteMedia(getDiscoverAnime, filters);
-
+    const [filters, setFilters] = useState(initialFilters);
+    const data = useInfiniteMedia(getDiscoverAnime, filters);
     return (
-        <main className="anime-page">
-            <section className="anime-container">
-                <header className="anime-header">
-
-    <div className="anime-heading">
-
-        
-
-        <h2>
-            Anime
-        </h2>
-
-    </div>
-
-    <div className="anime-filter">
-
-        <TVFilter
-            filters={filters}
-            onChange={setFilters}
+        <DiscoveryPage
+            title="Anime"
+            className="anime"
+            filters={<TVFilter filters={filters} onChange={setFilters} />}
+            results={data.items}
+            emptyTitle="No anime found"
+            loading={data.loading}
+            loadingMore={data.loadingMore}
+            error={data.error}
+            retry={data.retry}
+            page={data.page}
+            totalPages={data.totalPages}
+            observerRef={data.observerRef}
+            onReset={() => setFilters(initialFilters)}
         />
-
-    </div>
-
-</header>
-
-                {loading ? (
-                    <LoadingSpinner
-                        size="medium"
-                        text="Loading anime..."
-                    />
-                ) : error ? (
-                    <ErrorState
-                        message="Anime could not be loaded."
-                        onAction={retry}
-                    />
-                ) : (
-                    <>
-                        <MediaList
-                            movies={anime}
-                            emptyTitle="No anime found"
-                        />
-
-                        {page < totalPages && (
-                            <div
-                                ref={observerRef}
-                                className="media-load-more"
-                            >
-                                {loadingMore && (
-                                    <LoadingSpinner
-                                        size="small"
-                                        text="Loading more..."
-                                    />
-                                )}
-                            </div>
-                        )}
-                    </>
-                )}
-            </section>
-        </main>
     );
 }
 

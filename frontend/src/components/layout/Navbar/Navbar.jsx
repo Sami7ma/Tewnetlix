@@ -1,283 +1,93 @@
-import { useState, useEffect } from "react";
-import {
-    Search,
-    User,
-    House,
-    Clapperboard,
-    Tv,
-    Sparkles
-} from "lucide-react";
-
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Clapperboard, House, Search, Sparkles, Tv, User } from "lucide-react";
+import { NavLink, Link } from "react-router-dom";
 import Logo from "../../../assets/DarkMode.svg";
 import SearchOverlay from "../../search/SearchOverlay/SearchOverlay";
-
+import GlassSurface from "../../ui/GlassSurface/GlassSurface";
+import IconButton from "../../ui/IconButton/IconButton";
 import "./Navbar.css";
 
-function Navbar() {
+const navigation = [
+    { to: "/", label: "Home", icon: House, end: true },
+    { to: "/movies", label: "Movies", icon: Clapperboard },
+    { to: "/tvshows", label: "TV Shows", icon: Tv },
+    { to: "/anime", label: "Anime", icon: Sparkles },
+];
 
+function Navbar() {
     const [scrolled, setScrolled] = useState(false);
-    const [atBottom, setAtBottom] = useState(false);
     const [searchOpen, setSearchOpen] = useState(false);
 
-
     useEffect(() => {
-
-        function handleScroll() {
-
-            const scrollTop = window.scrollY;
-            const windowHeight = window.innerHeight;
-            const documentHeight =
-                document.documentElement.scrollHeight;
-
-            setScrolled(scrollTop > 20);
-
-            /*
-                Detect when the user reaches
-                the bottom of the page.
-            */
-            const isBottom =
-                scrollTop + windowHeight >=
-                documentHeight - 10;
-
-            setAtBottom(isBottom);
-
-        }
-
-
+        const handleScroll = () => setScrolled(window.scrollY > 20);
         handleScroll();
-
-        window.addEventListener(
-            "scroll",
-            handleScroll,
-            { passive: true }
-        );
-
-        window.addEventListener(
-            "resize",
-            handleScroll
-        );
-
-
-        return () => {
-
-            window.removeEventListener(
-                "scroll",
-                handleScroll
-            );
-
-            window.removeEventListener(
-                "resize",
-                handleScroll
-            );
-
-        };
-
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-
     const scrollToTop = () => {
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
+        const reducedMotion = window.matchMedia?.(
+            "(prefers-reduced-motion: reduce)",
+        ).matches;
+        window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
     };
-
 
     return (
         <>
-
-            {/* =========================================
-                MOBILE TOP BAR
-            ========================================= */}
-
-            <div className="mobile-top-bar">
-
-                <Link
-                    to="/"
-                    className="logo"
-                    onClick={scrollToTop}
-                >
-
-                    <img
-                        src={Logo}
-                        alt="TEWNETLIX"
-                    />
-
-                </Link>
-
-
-                <div className="nav-icons">
-
-                    <button
-                        type="button"
-                        className="icon-button hover-effect"
-                        aria-label="Open search"
-                        onClick={() => setSearchOpen(true)}
-                    >
-                        <Search size={22} aria-hidden="true" />
-                    </button>
-
-                    <Link to="/profile">
-
-                        <User size={22} className="hover-effect" aria-hidden="true" />
-
-                    </Link>
-
-                </div>
-
-            </div>
-
-
-            {/* =========================================
-                MAIN NAVBAR
-            ========================================= */}
-
-            <header
-                className={`
-                    navbar
-                    ${scrolled ? "navbar-scrolled" : ""}
-                    ${atBottom ? "navbar-at-bottom" : ""}
-                `}
+            <GlassSurface
+                as="header"
+                className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}
+                strength="subtle"
             >
-
-                <nav className="navbar-container">
-
-                    {/* Logo */}
-
+                <nav className="navbar-container" aria-label="Primary navigation">
                     <Link
                         to="/"
-                        className="logo desktop-only"
+                        className="logo"
                         onClick={scrollToTop}
+                        aria-label="TEWNETLIX home"
                     >
-
-                        <img
-                            src={Logo}
-                            alt="TEWNETLIX"
-                        />
-
+                        <img src={Logo} alt="TEWNETLIX" />
                     </Link>
 
-
-                    {/* Navigation */}
-
                     <ul className="nav-links">
-
-                        <li>
-
-                            <Link
-                                to="/"
-                                className="nav-item hover-effect"
-                                onClick={scrollToTop}
-                            >
-
-                                <House size={20} />
-
-                                <span>
-                                    Home
-                                </span>
-
-                            </Link>
-
-                        </li>
-
-
-                        <li>
-
-                            <Link
-                                to="/movies"
-                                className="nav-item hover-effect"
-                            >
-
-                                <Clapperboard size={20} />
-
-                                <span>
-                                    Movies
-                                </span>
-
-                            </Link>
-
-                        </li>
-
-
-                        <li>
-
-                            <Link
-                                to="/tvshows"
-                                className="nav-item hover-effect"
-                            >
-
-                                <Tv size={20} />
-
-                                <span>
-                                    TV Shows
-                                </span>
-
-                            </Link>
-
-                        </li>
-
-
-                        <li>
-
-                            <Link
-                                to="/anime"
-                                className="nav-item hover-effect"
-                            >
-
-                                <Sparkles size={20} />
-
-                                <span>
-                                    Anime
-                                </span>
-
-                            </Link>
-
-                        </li>
-
+                        {navigation.map(({ to, label, icon: Icon, end }) => (
+                            <li key={to}>
+                                <NavLink
+                                    to={to}
+                                    end={end}
+                                    className={({ isActive }) =>
+                                        `nav-item ${isActive ? "nav-item-active" : ""}`
+                                    }
+                                    onClick={to === "/" ? scrollToTop : undefined}
+                                >
+                                    <Icon size={20} aria-hidden="true" />
+                                    <span>{label}</span>
+                                </NavLink>
+                            </li>
+                        ))}
                     </ul>
 
-
-                    {/* Desktop Actions */}
-
-                    <div className="nav-icons desktop-only">
-
-                        <button
-                            type="button"
-                            className="icon-button hover-effect"
-                            aria-label="Open search"
+                    <div className="nav-actions">
+                        <IconButton
+                            label="Open search"
                             onClick={() => setSearchOpen(true)}
                         >
-                            <Search size={22} aria-hidden="true" />
-                        </button>
-
-                        <Link to="/profile">
-
-                            <User size={22} className="hover-effect" aria-hidden="true" />
-
+                            <Search size={21} aria-hidden="true" />
+                        </IconButton>
+                        <Link
+                            to="/profile"
+                            className="profile-link"
+                            aria-label="Open profile"
+                        >
+                            <User size={21} aria-hidden="true" />
                         </Link>
-
                     </div>
-
                 </nav>
-
-            </header>
-
-
-            {/* SEARCH */}
+            </GlassSurface>
 
             {searchOpen && (
-
-                <SearchOverlay
-                    onClose={() =>
-                        setSearchOpen(false)
-                    }
-                />
-
+                <SearchOverlay onClose={() => setSearchOpen(false)} />
             )}
-
         </>
     );
 }

@@ -6,10 +6,20 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    padding-left: 1rem;
+    padding: 0;
     width: 100%;
     min-width: 0;
     box-sizing: border-box;
+}
+
+.cast-section {
+    width: min(var(--content-width), calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 1.5rem 0 0;
+}
+
+.cast-section h2 {
+    margin: 0 0 1rem;
 }
 
 /* Desktop — Maximum 12 */
@@ -22,9 +32,7 @@
 ========================================= */
 @media (max-width: 768px) {
     .cast-section {
-        width: calc(100% - 1.5rem);
-        margin-left: 0.75rem;
-        margin-right: 0.75rem;
+        width: calc(100% - 2rem);
     }
 
     .cast-list {
@@ -44,9 +52,7 @@
 ========================================= */
 @media (max-width: 480px) {
     .cast-section {
-        width: calc(100% - 0.8rem);
-        margin-left: 0.4rem;
-        margin-right: 0.4rem;
+        width: calc(100% - 1.5rem);
     }
 
     .cast-section h2 {

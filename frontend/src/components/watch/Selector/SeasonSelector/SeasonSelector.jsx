@@ -1,48 +1,21 @@
-import { useState } from "react";
+import Select from "../../../ui/Select/Select";
 import "../Selector.css";
 
 const SeasonSelector = ({ seasons = [], selectedSeason, onChange }) => {
 
-    const [open, setOpen] = useState(false);
-
     return (
-        <div className="custom-selector">
-
-            <button 
-                className="selector-button"
-                onClick={() => setOpen(!open)}
-                >
-                Season {selectedSeason}
-
-            </button>
-
-
-            <div className={`selector-dropdown ${open ? "open" : ""}`}>
-
-                {
-                    seasons.map(season => (
-
-                        <button
-                            key={season.season_number}
-                            className={
-                                selectedSeason === season.season_number
-                                ? "option active"
-                                : "option"
-                            }
-                            onClick={() =>{
-                                onChange(season.season_number);
-                                setOpen(false);
-                            }}
-                        >
-                            Season {season.season_number}
-                        </button>
-
-                    ))
-                }
-
-            </div>
-
-        </div>
+        <Select
+            id="season-selector"
+            label="Season"
+            value={selectedSeason}
+            onChange={event => onChange(Number(event.target.value))}
+        >
+            {seasons.map(season => (
+                <option key={season.season_number} value={season.season_number}>
+                    Season {season.season_number}
+                </option>
+            ))}
+        </Select>
     );
 };
 

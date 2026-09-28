@@ -1,0 +1,37 @@
+.loading-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    width: 100%;
+    min-height: 220px;
+    color: var(--color-text-secondary);
+}
+
+.loading-state-spinner {
+    width: 2rem;
+    height: 2rem;
+    border: 3px solid var(--color-glass-border);
+    border-top-color: var(--color-accent);
+    border-radius: 50%;
+    animation: loading-state-spin 800ms linear infinite;
+}
+
+.loading-state-small .loading-state-spinner {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-width: 2px;
+}
+
+@keyframes loading-state-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .loading-state-spinner {
+        animation: none;
+        border-top-color: var(--color-accent);
+    }
+}

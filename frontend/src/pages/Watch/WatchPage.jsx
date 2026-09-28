@@ -28,15 +28,13 @@ const WatchPage = () => {
     const navigate = useNavigate();
 
     const SERVERS = [
-        { id: 1, name: "Server 1" },
-        { id: 2, name: "Server 2" },
-        { id: 3, name: "Server 3" },
-        { id: 4, name: "Server 4" },
-        { id: 5, name: "Server 5" },
-        { id: 6, name: "Server 6" },
-        { id: 7, name: "Server 7" },
-        { id: 8, name: "Server 8" },
-    ];
+        { id: 1, name: "Primary player" },
+        { id: 2, name: "Secondary player" },
+    ].filter(server => Boolean(
+        server.id === 1
+            ? import.meta.env.VITE_EMBED_PRIMARY
+            : import.meta.env.VITE_EMBED_SECONDARY,
+    ));
 
     const [selectedServer, setSelectedServer] = useState(1);
 
