@@ -14,12 +14,13 @@ let tvGenres = null;
    MOVIE GENRES
 ========================================= */
 
-async function getMovieGenres() {
+async function getMovieGenres(signal) {
     if (movieGenres) {
         return movieGenres;
     }
     const data = await fetchFromTMDB(
-        "/genre/movie/list"
+        "/genre/movie/list",
+        { signal }
     );
     movieGenres = Object.fromEntries(
         data.genres.map(genre => [
@@ -30,12 +31,13 @@ async function getMovieGenres() {
     return movieGenres;
 }
 
-async function getTVGenres() {
+async function getTVGenres(signal) {
     if (tvGenres) {
         return tvGenres;
     }
     const data = await fetchFromTMDB(
-        "/genre/tv/list"
+        "/genre/tv/list",
+        { signal }
     );
     tvGenres = Object.fromEntries(
         data.genres.map(genre => [
@@ -65,9 +67,9 @@ function normalizeMediaList(
 /* =========================================
    ADD MOVIE GENRE NAMES
 ========================================= */
-async function addMovieGenres(movies) {
+async function addMovieGenres(movies, signal) {
     const genres =
-        await getMovieGenres();
+        await getMovieGenres(signal);
     return normalizeMediaList(
         movies,
         "movie"
@@ -83,9 +85,9 @@ async function addMovieGenres(movies) {
    ADD TV GENRE NAMES
 ========================================= */
 
-async function addTVGenres(shows) {
+async function addTVGenres(shows, signal) {
     const genres =
-        await getTVGenres();
+        await getTVGenres(signal);
     return normalizeMediaList(
         shows,
         "tv"
@@ -178,20 +180,20 @@ export async function searchMulti(query) {
     return normalizedResults;
 }
 
-export async function getMovieDetails(id) {
-    return await fetchFromTMDB(`/movie/${id}`);
+export async function getMovieDetails(id, options = {}) {
+    return await fetchFromTMDB(`/movie/${id}`, options);
 }
-export async function getMovieCredits(id) {
-    const data =await fetchFromTMDB(`/movie/${id}/credits`);
+export async function getMovieCredits(id, options = {}) {
+    const data = await fetchFromTMDB(`/movie/${id}/credits`, options);
     return data.cast.slice(0,12);
 }
-export async function getMovieRecommendations(id) {
-    const data = await fetchFromTMDB(`/movie/${id}/recommendations`);
+export async function getMovieRecommendations(id, options = {}) {
+    const data = await fetchFromTMDB(`/movie/${id}/recommendations`, options);
     const results = data.results.slice(0, LIMIT);
-    return await addMovieGenres(results);
+    return await addMovieGenres(results, options.signal);
 }
-export async function getMovieTrailer(id) {
-    const data = await fetchFromTMDB(`/movie/${id}/videos`);
+export async function getMovieTrailer(id, options = {}) {
+    const data = await fetchFromTMDB(`/movie/${id}/videos`, options);
     return (
         data.results.find(
             video =>
@@ -218,22 +220,23 @@ export async function getTopRatedTVShows() {
     const results =data.results.slice(0,LIMIT);
     return await addTVGenres(results);
 }
-export async function getTVDetails(id) {
-    return await fetchFromTMDB(`/tv/${id}`);
+export async function getTVDetails(id, options = {}) {
+    return await fetchFromTMDB(`/tv/${id}`, options);
 }
 
 export const getTVCredits =
-    async (id) => {
-        const data = await fetchFromTMDB(`/tv/${id}/credits`);
+    async (id, options = {}) => {
+        const data = await fetchFromTMDB(`/tv/${id}/credits`, options);
         return data.cast.slice(0,12);
     };
 
 export const getTVRecommendations =
-    async (id) => {
+    async (id, options = {}) => {
 
         const data =
             await fetchFromTMDB(
-                `/tv/${id}/recommendations`
+                `/tv/${id}/recommendations`,
+                options
             );
 
         const results =
@@ -242,9 +245,7 @@ export const getTVRecommendations =
                 LIMIT
             );
 
-        return await addTVGenres(
-            results
-        );
+        return await addTVGenres(results, options.signal);
 
     };
 
@@ -254,11 +255,12 @@ export const getTVRecommendations =
 ========================================= */
 
 export const getTVTrailer =
-    async (id) => {
+    async (id, options = {}) => {
 
         const data =
             await fetchFromTMDB(
-                `/tv/${id}/videos`
+                `/tv/${id}/videos`,
+                options
             );
 
         return (
@@ -282,11 +284,13 @@ export const getTVTrailer =
 
 export async function getSeasonDetails(
     id,
-    season
+    season,
+    options = {}
 ) {
 
     return await fetchFromTMDB(
-        `/tv/${id}/season/${season}`
+        `/tv/${id}/season/${season}`,
+        options
     );
 
 }
@@ -308,7 +312,8 @@ export async function getDiscoverMovies({
 
     sort = "popularity.desc",
 
-    page = 1
+    page = 1,
+    signal
 
 }) {
 
@@ -455,7 +460,8 @@ export async function getDiscoverMovies({
 
     const data =
         await fetchFromTMDB(
-            `/discover/movie?${params.toString()}`
+            `/discover/movie?${params.toString()}`,
+            { signal }
         );
 
 
@@ -499,7 +505,8 @@ export const getDiscoverTV =
 
         sort = "popularity.desc",
 
-        page = 1
+        page = 1,
+        signal
 
     }) => {
 
@@ -674,7 +681,8 @@ export const getDiscoverTV =
 
         const data =
             await fetchFromTMDB(
-                `/discover/tv?${params.toString()}`
+                `/discover/tv?${params.toString()}`,
+                { signal }
             );
 
 
@@ -714,7 +722,8 @@ export const getDiscoverAnime =
 
         sort = "popularity.desc",
 
-        page = 1
+        page = 1,
+        signal
 
     }) => {
 
@@ -772,6 +781,7 @@ export const getDiscoverAnime =
             sort,
 
             page,
+            signal,
 
             keyword:
                 ANIME_KEYWORD_ID
