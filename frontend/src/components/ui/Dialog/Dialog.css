@@ -1,0 +1,38 @@
+.dialog-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    background: rgba(4, 4, 8, 0.72);
+}
+
+.dialog-panel {
+    width: min(100%, 36rem);
+    max-height: min(90dvh, 48rem);
+    overflow: auto;
+    padding: 1.25rem;
+}
+
+.dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.dialog-header h2 {
+    margin: 0;
+    font-size: 1.15rem;
+}
+
+.dialog-content {
+    margin-top: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+    .dialog-backdrop {
+        background: Canvas;
+    }
+}

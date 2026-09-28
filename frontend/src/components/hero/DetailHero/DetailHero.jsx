@@ -7,6 +7,9 @@ import {
     HeartPlus,
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import Button from "../../ui/Button/Button";
+import IconButton from "../../ui/IconButton/IconButton";
+import Pill from "../../ui/Pill/Pill";
 
 import "./DetailHero.css";
 
@@ -20,10 +23,6 @@ function DetailHero({ media, trailer, imageURL }) {
 
     // Reset trailer and description state when switching media
     useEffect(() => {
-        setShowTrailer(false);
-        setMuted(true);
-        setExpanded(false);
-
         if (!trailer?.key) {
             return;
         }
@@ -177,19 +176,19 @@ function DetailHero({ media, trailer, imageURL }) {
 
             <div className="media-top-buttons">
 
-                <button
+                <IconButton
                     className="back-button"
                     onClick={handleBack}
-                    aria-label="Go back"
+                    label="Go back"
                 >
-                    <ArrowLeft />
-                </button>
+                    <ArrowLeft aria-hidden="true" />
+                </IconButton>
 
                 {showTrailer && trailerURL && (
-                    <button
+                    <IconButton
                         className="volume-button"
                         onClick={toggleMute}
-                        aria-label={
+                        label={
                             muted
                                 ? "Unmute trailer"
                                 : "Mute trailer"
@@ -200,7 +199,7 @@ function DetailHero({ media, trailer, imageURL }) {
                         ) : (
                             <Volume />
                         )}
-                    </button>
+                    </IconButton>
                 )}
 
             </div>
@@ -224,15 +223,15 @@ function DetailHero({ media, trailer, imageURL }) {
                 <div className="media-meta">
 
                     {rating && (
-                        <span>★ {rating}</span>
+                        <Pill>★ {rating}</Pill>
                     )}
 
                     {runtime && (
-                        <span>{runtime}</span>
+                        <Pill>{runtime}</Pill>
                     )}
 
                     {year && (
-                        <span>{year}</span>
+                        <Pill>{year}</Pill>
                     )}
 
                 </div>
@@ -243,9 +242,7 @@ function DetailHero({ media, trailer, imageURL }) {
 
                     {media.genres &&
                         media.genres.map((genre) => (
-                            <span key={genre.id}>
-                                ● {genre.name}
-                            </span>
+                            <Pill key={genre.id}>{genre.name}</Pill>
                         ))}
 
                 </div>
@@ -265,16 +262,15 @@ function DetailHero({ media, trailer, imageURL }) {
                             {description}
                         </p>
 
-                        <button
+                        <Button
+                            type="button"
+                            variant="subtle"
                             className="media-see-more"
                             onClick={() =>
                                 setExpanded(!expanded)
-                            }
-                        >
-                            {expanded
-                                ? "See less"
-                                : "See more"}
-                        </button>
+                            }>
+                            {expanded ? "See less" : "See more"}
+                        </Button>
 
                     </div>
                 )}
@@ -285,7 +281,8 @@ function DetailHero({ media, trailer, imageURL }) {
 
                 <div className="media-actions">
 
-                    <button
+                    <Button
+                        variant="primary"
                         className="play-button"
                         onClick={() =>
                             navigate(
@@ -299,16 +296,16 @@ function DetailHero({ media, trailer, imageURL }) {
                         />
 
                         Play Now
-                    </button>
+                    </Button>
 
-                    <button
+                    <Button
+                        variant="secondary"
                         className="favorite-button"
                     >
                         <HeartPlus size={18} />
 
                         Add to Favorites
-                    </button>
-
+                    </Button>
                 </div>
 
             </div>

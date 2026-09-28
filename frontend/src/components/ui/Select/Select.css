@@ -1,0 +1,15 @@
+.ui-select {
+    display: inline-grid;
+    gap: 0.4rem;
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+}
+
+.ui-select select {
+    min-height: 2.75rem;
+    padding: 0.55rem 2rem 0.55rem 0.75rem;
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--radius-control);
+    background: var(--color-surface-solid);
+    color: var(--color-text-primary);
+}

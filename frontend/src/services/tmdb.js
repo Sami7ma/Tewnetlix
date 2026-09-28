@@ -139,11 +139,14 @@ export async function getPopularMovies() {
     return await addMovieGenres(results);
 }
 
-export async function searchMulti(query) {
+export async function searchMulti(query, options = {}) {
     if (!query.trim()) {
         return [];
     }
-    const data =await fetchFromTMDB(`/search/multi?query=${encodeURIComponent(query)}`);
+    const data = await fetchFromTMDB(
+        `/search/multi?query=${encodeURIComponent(query)}`,
+        options,
+    );
     const results = data.results
             .filter(
                 item =>
@@ -158,8 +161,8 @@ export async function searchMulti(query) {
             item =>
                 item.media_type === "tv"
         );
-    const movieResults = await addMovieGenres(movies);
-    const tvResults = await addTVGenres(shows);
+    const movieResults = await addMovieGenres(movies, options.signal);
+    const tvResults = await addTVGenres(shows, options.signal);
     const normalizedResults =
         results
             .map(item => {

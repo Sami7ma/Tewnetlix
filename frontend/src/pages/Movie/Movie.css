@@ -3,3 +3,15 @@
     min-height:100vh;
     color:#e0e0e5;
 }
+
+.movie-page .recommendations-section,
+.tv-page .recommendations-section {
+    width: min(var(--content-width), calc(100% - 2rem));
+    margin: 0 auto;
+}
+
+.movie-page .recommendations-section .movie-row,
+.tv-page .recommendations-section .movie-row {
+    padding-right: 0;
+    padding-left: 0;
+}

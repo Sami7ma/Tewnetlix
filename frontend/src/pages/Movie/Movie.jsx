@@ -59,12 +59,8 @@ const Movie = () => {
     
     return(
         <main className="movie-page">
-            <DetailHero media={movie} imageURL={imageURL} trailer={data.trailer} />
-            <section className="cast-section">
-                <div className="cast-list">
-                    <CastList cast={data.cast} imageURL={imageURL} />
-                </div>
-            </section>
+            <DetailHero key={id} media={movie} imageURL={imageURL} trailer={data.trailer} />
+            <CastList cast={data.cast} imageURL={imageURL} />
             <section className="recommendations-section">
                 <MovieRow 
                     title="Recommended Movies" 

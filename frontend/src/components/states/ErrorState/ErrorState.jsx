@@ -1,4 +1,5 @@
 import "./ErrorState.css";
+import Button from "../../ui/Button/Button";
 
 function ErrorState({
     title = "Unable to load content",
@@ -11,9 +12,9 @@ function ErrorState({
             <h2>{title}</h2>
             <p>{message}</p>
             {onAction && (
-                <button type="button" onClick={onAction}>
+                <Button type="button" variant="secondary" onClick={onAction}>
                     {actionLabel}
-                </button>
+                </Button>
             )}
         </section>
     );

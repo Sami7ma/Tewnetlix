@@ -1,6 +1,6 @@
 import "./PlayerNotice.css";
 
-const PlayerNotice = ({ }) => {
+const PlayerNotice = () => {
     return (
         <section className="player-notice">
             <p>

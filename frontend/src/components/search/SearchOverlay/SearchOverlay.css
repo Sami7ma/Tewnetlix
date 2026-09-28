@@ -388,3 +388,27 @@
     }
 
 }
+.dialog-panel .search-overlay {
+    position: static;
+    inset: auto;
+    display: block;
+    padding: 0;
+    font-family: inherit;
+}
+
+.dialog-panel .search-input-wrapper {
+    margin: 0 0 1rem;
+}
+
+.dialog-panel .search-input-wrapper input {
+    min-width: 0;
+}
+
+.dialog-panel .ui-select {
+    margin-bottom: 1rem;
+}
+
+.dialog-panel .search-results {
+    max-height: min(55vh, 34rem);
+    overflow: auto;
+}

@@ -1,333 +1,138 @@
-import { useEffect, useState } from "react";
-import { Search, X, ChevronDown } from "lucide-react";
-
+import { useEffect, useRef, useState } from "react";
+import { Search, X } from "lucide-react";
 import MovieCard from "../../media/MediaCard/MediaCard";
-import {
-    searchMulti
-} from "../../../services/tmdb";
-
+import Dialog from "../../ui/Dialog/Dialog";
+import ErrorState from "../../states/ErrorState/ErrorState";
+import LoadingState from "../../ui/LoadingState/LoadingState";
+import Select from "../../ui/Select/Select";
+import { searchMulti } from "../../../services/tmdb";
 import "./SearchOverlay.css";
 
+const FILTERS = [
+    ["multi", "Movies & TV Shows"],
+    ["movie", "Movies"],
+    ["tv", "TV Shows"],
+    ["anime", "Anime"],
+];
 
-const SearchOverlay = ({ onClose }) => {
-
+function SearchOverlay({ onClose }) {
     const [query, setQuery] = useState("");
     const [filter, setFilter] = useState("multi");
     const [results, setResults] = useState([]);
-    const [openFilter, setOpenFilter] = useState(false);
     const [loading, setLoading] = useState(false);
-
-
-    useEffect(() => {
-
-        const handleEscape = (event) => {
-            if (event.key === "Escape") {
-                onClose();
-            }
-        };
-
-        document.addEventListener("keydown", handleEscape);
-
-        return () => {
-            document.removeEventListener("keydown", handleEscape);
-        };
-
-    }, [onClose]);
-
+    const [error, setError] = useState(null);
+    const [retryKey, setRetryKey] = useState(0);
+    const inputRef = useRef(null);
 
     useEffect(() => {
-
-        if (!query.trim()) {
-            setResults([]);
-            return;
+        const trimmedQuery = query.trim();
+        if (!trimmedQuery) {
+            return undefined;
         }
 
-
-        const timer = setTimeout(async () => {
-
+        const controller = new AbortController();
+        const timer = window.setTimeout(async () => {
             try {
-
                 setLoading(true);
-
-                const data = await searchMulti(query);
-
-                let filteredResults = data;
-
-                if (filter === "movie") {
-                    filteredResults = data.filter(
-                        item => item.media_type === "movie"
-                    );
+                setError(null);
+                const data = await searchMulti(trimmedQuery, {
+                    signal: controller.signal,
+                });
+                const filtered = filter === "anime"
+                    ? data.filter(item =>
+                        item.genre_ids?.includes(16) &&
+                        item.original_language === "ja")
+                    : filter === "multi"
+                        ? data
+                        : data.filter(item => item.media_type === filter);
+                setResults(filtered.slice(0, 8));
+            } catch (requestError) {
+                if (requestError.name !== "AbortError") {
+                    setError("Search could not be completed.");
                 }
-                if (filter === "tv") {
-                    filteredResults = data.filter(
-                        item => item.media_type === "tv"
-                    );
-                }
-                if (filter === "anime") {
-                    filteredResults = data.filter( item =>{
-                        const isAnimation = item.genre_ids?.includes(16);
-                        const isJapanese = item.original_language === "ja";
-                        return isAnimation && isJapanese;
-                    }
-                        
-                    );
-                }
-
-                filteredResults = filteredResults.slice(0, 5);
-
-                setResults(filteredResults);
-
-            } catch (error) {
-
-                console.error("Search failed:", error);
-                setResults([]);
-
             } finally {
-
-                setLoading(false);
-
+                if (!controller.signal.aborted) {
+                    setLoading(false);
+                }
             }
-
         }, 300);
 
-
-        return () => clearTimeout(timer);
-
-    }, [query, filter]);
-
-
-    const filterLabels = {
-        multi: "Movies & TV Shows",
-        movie: "Movies",
-        tv: "TV Shows",
-        anime: "Anime"
-    };
-
+        return () => {
+            window.clearTimeout(timer);
+            controller.abort();
+        };
+    }, [filter, query, retryKey]);
 
     return (
-        <div className="search-overlay">
-
-            <div
-                className="search-backdrop"
-                onClick={onClose}
-            />
-
-
-            <section className="search-panel">
-
-
-                {/* Header */}
-                <header className="search-header">
-
-                    <h2>
-                        Search
-                    </h2>
-
-
-                    <div className="search-header-actions">
-
-
-                        {/* Filter */}
-                        <div className="search-filter">
-
-                            <button
-                                className="filter-button"
-                                onClick={() =>
-                                    setOpenFilter(!openFilter)
-                                }
-                            >
-
-                                <span>
-                                    {filterLabels[filter]}
-                                </span>
-
-                                <ChevronDown
-                                    size={17}
-                                    className={
-                                        openFilter
-                                            ? "rotate"
-                                            : ""
-                                    }
-                                />
-
-                            </button>
-
-
-                            {openFilter && (
-
-                                <div className="filter-dropdown">
-
-                                    <button
-                                        className={
-                                            filter === "multi"
-                                                ? "filter-option active"
-                                                : "filter-option"
-                                        }
-                                        onClick={() => {
-                                            setFilter("multi");
-                                            setOpenFilter(false);
-                                        }}
-                                    >
-                                        Movies & TV Shows
-                                    </button>
-
-
-                                    <button
-                                        className={
-                                            filter === "movie"
-                                                ? "filter-option active"
-                                                : "filter-option"
-                                        }
-                                        onClick={() => {
-                                            setFilter("movie");
-                                            setOpenFilter(false);
-                                        }}
-                                    >
-                                        Movies
-                                    </button>
-
-
-                                    <button
-                                        className={
-                                            filter === "tv"
-                                                ? "filter-option active"
-                                                : "filter-option"
-                                        }
-                                        onClick={() => {
-                                            setFilter("tv");
-                                            setOpenFilter(false);
-                                        }}
-                                    >
-                                        TV Shows
-                                    </button>
-
-
-                                    <button
-                                        className={
-                                            filter === "anime"
-                                                ? "filter-option active"
-                                                : "filter-option"
-                                        }
-                                        onClick={() => {
-                                            setFilter("anime");
-                                            setOpenFilter(false);
-                                        }}
-                                    >
-                                        Anime
-                                    </button>                                            
-
-                                </div>
-
-                            )}
-
-                        </div>
-
-
-                        {/* Close */}
-                        <button
-                            className="search-close"
-                            onClick={onClose}
-                            aria-label="Close search"
-                        >
-                            <X size={23} />
-                        </button>
-
-                    </div>
-
-                </header>
-
-
-                {/* Search Input */}
+        <Dialog open title="Search" onClose={onClose}>
+            <div className="search-overlay">
                 <div className="search-input-wrapper">
-
-                    <Search size={21} />
-
+                    <Search size={21} aria-hidden="true" />
                     <input
-                        autoFocus
-                        type="text"
+                        ref={inputRef}
+                        type="search"
                         value={query}
-                        onChange={(event) =>
-                            setQuery(event.target.value)
-                        }
-                        placeholder="Type to search..."
+                        onChange={event => setQuery(event.target.value)}
+                        placeholder="Search movies and TV shows"
+                        aria-label="Search movies and TV shows"
                     />
-
                     {query && (
                         <button
                             className="clear-search"
-                            onClick={() => setQuery("")}
+                            type="button"
+                            onClick={() => {
+                                setQuery("");
+                                inputRef.current?.focus();
+                            }}
+                            aria-label="Clear search"
                         >
-                            <X size={17} />
+                            <X size={17} aria-hidden="true" />
                         </button>
                     )}
-
                 </div>
 
+                <Select
+                    id="search-filter"
+                    label="Search category"
+                    value={filter}
+                    onChange={event => setFilter(event.target.value)}
+                >
+                    {FILTERS.map(([value, label]) => (
+                        <option value={value} key={value}>{label}</option>
+                    ))}
+                </Select>
 
-                {/* Results */}
-                <div className="search-results">
-
+                <div className="search-results" aria-live="polite">
                     {!query.trim() && (
                         <div className="search-empty">
-
-                            <Search size={35} />
-
-                            <p>
-                                Search for movies and TV shows
-                            </p>
-
+                            <Search size={35} aria-hidden="true" />
+                            <p>Search for movies and TV shows</p>
                         </div>
                     )}
-
-
-                    {loading && (
-                        <div className="search-empty">
-                            <p>Searching...</p>
+                    {loading && <LoadingState label="Searching..." />}
+                    {error && (
+                        <ErrorState
+                            message={error}
+                            onAction={() => setRetryKey(value => value + 1)}
+                        />
+                    )}
+                    {!loading && !error && query.trim() && !results.length && (
+                        <div className="search-empty"><p>No results found</p></div>
+                    )}
+                    {!loading && !error && results.length > 0 && (
+                        <div className="search-results-grid">
+                            {results.map(movie => (
+                                <MovieCard
+                                    key={`${movie.media_type}-${movie.id}`}
+                                    media={movie}
+                                />
+                            ))}
                         </div>
                     )}
-
-
-                    {!loading &&
-                        query.trim() &&
-                        results.length === 0 && (
-
-                            <div className="search-empty">
-
-                                <p>
-                                    No results found
-                                </p>
-
-                            </div>
-                        )
-                    }
-
-
-                    {!loading &&
-                        results.length > 0 && (
-
-                            <div className="search-results-grid">
-
-                                {results.map(movie => (
-
-                                    <MovieCard
-                                        key={`${movie.media_type}-${movie.id}`}
-                                        media={movie}
-                                    />
-
-                                ))}
-
-                            </div>
-
-                        )
-                    }
-
                 </div>
-
-            </section>
-
-        </div>
+            </div>
+        </Dialog>
     );
-};
-
+}
 
 export default SearchOverlay;
