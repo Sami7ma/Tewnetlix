@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useCallback } from "react";
 
 import {
     getTVDetails,
@@ -12,6 +12,8 @@ import CastList from "../../components/cast/CastList/CastList";
 import MovieRow from "../../components/media/MediaRow/MediaRow";
 import DetailHero from "../../components/hero/DetailHero/DetailHero";
 import LoadingSpinner from "../../components/layout/LoadingSpinner/LoadingSpinner";
+import ErrorState from "../../components/states/ErrorState/ErrorState";
+import useMediaDetails from "../../hooks/useMediaDetails";
 
 import "./TVShow.css";
 
@@ -21,47 +23,37 @@ function TVShow() {
 
     const imageURL = import.meta.env.VITE_TMDB_IMAGE_URL;
 
-    const [tvShow, setTVShow] = useState(null);
-    const [cast, setCast] = useState([]);
-    const [recommendations, setRecommendations] = useState([]);
-    const [trailer, setTrailer] = useState(null);
+    const loadTVShow = useCallback(async signal => {
+        const options = { signal };
+        const [details, cast, recommendations, trailer] =
+            await Promise.all([
+                getTVDetails(id, options),
+                getTVCredits(id, options),
+                getTVRecommendations(id, options),
+                getTVTrailer(id, options),
+            ]);
 
-    useEffect(() => {
-
-        async function loadTVShow() {
-
-            try {
-
-                const [
-                    details,
-                    credits,
-                    recommendations,
-                    trailer
-                ] = await Promise.all([
-                    getTVDetails(id),
-                    getTVCredits(id),
-                    getTVRecommendations(id),
-                    getTVTrailer(id),
-                ]);
-
-                setTVShow(details);
-                setCast(credits);
-                setRecommendations(recommendations);
-                setTrailer(trailer);
-
-            } catch (error) {
-                console.error(error);
-            }
-
-        }
-
-        loadTVShow();
-
+        return { details, cast, recommendations, trailer };
     }, [id]);
 
-    if (!tvShow) {
+    const { data, loading, error, retry } =
+        useMediaDetails(loadTVShow, [id]);
+
+    const tvShow = data?.details;
+
+    if (loading) {
         return (
             <LoadingSpinner text="Loading TV show details..." />
+        );
+    }
+
+    if (error || !tvShow) {
+        return (
+            <ErrorState
+                title="TV show unavailable"
+                message="This TV show could not be loaded."
+                onAction={retry}
+            />
         );
     }
 
@@ -70,13 +62,13 @@ function TVShow() {
 
             <DetailHero
                 media={tvShow}
-                trailer={trailer}
+                trailer={data.trailer}
                 imageURL={imageURL}
             />
 
             <section className="cast-section">
                 <CastList
-                    cast={cast}
+                    cast={data.cast}
                     imageURL={imageURL}
                 />
             </section>
@@ -84,7 +76,7 @@ function TVShow() {
             <section className="recommendations-section">
                 <MovieRow
                     title="Recommended TV Shows"
-                    movies={recommendations}
+                    movies={data.recommendations}
                 />
             </section>
 

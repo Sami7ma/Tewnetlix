@@ -1,7 +1,12 @@
 import MediaCard from "../MediaCard/MediaCard";
+import EmptyState from "../../states/EmptyState/EmptyState";
 import "./MediaList.css";
 
-const MediaList = ({ movies = [] }) => {
+const MediaList = ({
+    movies = [],
+    emptyTitle = "No titles found",
+    emptyMessage = "Try changing your filters.",
+}) => {
 
     const uniqueMovies = movies.filter(
         (item, index, array) => {
@@ -23,12 +28,7 @@ const MediaList = ({ movies = [] }) => {
 
     if (!uniqueMovies.length) {
         return (
-            <div className="media-empty">
-                <p>No movies found</p>
-                <span>
-                    Try changing your filters.
-                </span>
-            </div>
+            <EmptyState title={emptyTitle} message={emptyMessage} />
         );
     }
 
