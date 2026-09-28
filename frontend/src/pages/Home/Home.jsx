@@ -1,4 +1,3 @@
-import Navbar from "../../components/layout/Navbar/Navbar";
 import Hero from "../../components/hero/HomeHero/Hero";
 import MovieRow from "../../components/media/MediaRow/MediaRow";
 import "./Home.css";
@@ -8,25 +7,24 @@ import { useEffect, useState } from "react";
 import {
     getTrendingMovies,
     getTrendingTVShows,
-    getTrendingAnime,
     getTopRatedMovies,
     getTopRatedTVShows,
-    getTopRatedAnime,
     getPopularTVShows
 } from "../../services/tmdb";
+import LoadingSpinner from "../../components/layout/LoadingSpinner/LoadingSpinner";
+import ErrorState from "../../components/states/ErrorState/ErrorState";
 
 
 function Home() {
 
     const [trendingMovies, setTrendingMovies] = useState([]);
     const [trendingTV, setTrendingTV] = useState([]);
-    const [trendingAnime, setTrendingAnime] = useState([]);
-
     const [topRatedMovies, setTopRatedMovies] = useState([]);
     const [topRatedTV, setTopRatedTV] = useState([]);
-    const [topRatedAnime, setTopRatedAnime] = useState([]);
-
     const [tvshows, setTvshows] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [reloadKey, setReloadKey] = useState(0);
 
 
     useEffect(() => {
@@ -38,11 +36,8 @@ function Home() {
                 const [
                     trendingMoviesData,
                     trendingTVData,
-                    trendingAnimeData,
-
                     topRatedMoviesData,
                     topRatedTVData,
-                    topRatedAnimeData,
 
                     popularTVData
 
@@ -50,11 +45,9 @@ function Home() {
 
                     getTrendingMovies(),
                     getTrendingTVShows(),
-                    getTrendingAnime(),
 
                     getTopRatedMovies(),
                     getTopRatedTVShows(),
-                    getTopRatedAnime(),
 
                     getPopularTVShows()
 
@@ -63,21 +56,16 @@ function Home() {
 
                 setTrendingMovies(trendingMoviesData);
                 setTrendingTV(trendingTVData);
-                setTrendingAnime(trendingAnimeData);
-
                 setTopRatedMovies(topRatedMoviesData);
                 setTopRatedTV(topRatedTVData);
-                setTopRatedAnime(topRatedAnimeData);
 
                 setTvshows(popularTVData);
 
             } catch (error) {
-
-                console.error(
-                    "Failed to load homepage:",
-                    error
-                );
-
+                console.error("Failed to load homepage:", error);
+                setError(error);
+            } finally {
+                setLoading(false);
             }
 
         }
@@ -85,12 +73,34 @@ function Home() {
 
         loadMovies();
 
-    }, []);
+    }, [reloadKey]);
+
+    if (loading) {
+        return (
+            <main className="home">
+                <LoadingSpinner text="Loading your home..." />
+            </main>
+        );
+    }
+
+    if (error) {
+        return (
+            <main className="home">
+                <ErrorState
+                    message="The home page could not be loaded."
+                    onAction={() => {
+                        setError(null);
+                        setLoading(true);
+                        setReloadKey(key => key + 1);
+                    }}
+                />
+            </main>
+        );
+    }
 
 
     return (
         <main className="home">
-            <Navbar />
             <Hero items={trendingMovies}/>
             <MovieRow title="Trending Today"
                 movies={trendingMovies}

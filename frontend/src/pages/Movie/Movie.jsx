@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom";
-import {useState, useEffect} from "react";
+import { useCallback } from "react";
 import {
     getMovieDetails,
     getMovieCredits,
@@ -11,58 +11,64 @@ import MovieRow from "../../components/media/MediaRow/MediaRow";
 import DetailHero from "../../components/hero/DetailHero/DetailHero";
 import "./Movie.css";
 import LoadingSpinner from "../../components/layout/LoadingSpinner/LoadingSpinner";
+import ErrorState from "../../components/states/ErrorState/ErrorState";
+import useMediaDetails from "../../hooks/useMediaDetails";
 const Movie = () => {
     
-    const [movie, setMovie] = useState(null);
-    const [cast, setCast] = useState([]);
-    const [recommendations, setRecommendations] = useState([]);
-    const [trailer, setTrailer] = useState(null);
     const imageURL = import.meta.env.VITE_TMDB_IMAGE_URL;
     const {id} = useParams();
 
-    useEffect(()=>{
-        async function loadMovie(){
-            try{
-                const [movie,cast,recommendations,trailer] = 
-                    await Promise.all([
-                    getMovieDetails(id),
-                    getMovieCredits(id),
-                    getMovieRecommendations(id),
-                    getMovieTrailer(id)
-                ]);
+    const loadMovie = useCallback(async signal => {
+        const options = { signal };
+        const [movie, cast, recommendations, trailer] =
+            await Promise.all([
+                getMovieDetails(id, options),
+                getMovieCredits(id, options),
+                getMovieRecommendations(id, options),
+                getMovieTrailer(id, options),
+            ]);
 
-                setMovie(movie);
-                setCast(cast);
-                setRecommendations(recommendations);
-                setTrailer(trailer);
+        return { movie, cast, recommendations, trailer };
+    }, [id]);
 
-            }
-            catch(error){
-                console.error("Error fetching movie details:", error);
-            }
-        }
-        loadMovie();
-    },[id]);
+    const {
+        data,
+        loading,
+        error,
+        retry,
+    } = useMediaDetails(loadMovie, [id]);
 
-    if(!movie){
+    const movie = data?.movie;
+
+    if (loading) {
         return(
             <LoadingSpinner text="Loading movie details..." />
         )
 
     }
+
+    if (error || !movie) {
+        return (
+            <ErrorState
+                title="Movie unavailable"
+                message="This movie could not be loaded."
+                onAction={retry}
+            />
+        );
+    }
     
     return(
         <main className="movie-page">
-            <DetailHero media={movie} imageURL={imageURL} trailer={trailer} />
+            <DetailHero media={movie} imageURL={imageURL} trailer={data.trailer} />
             <section className="cast-section">
                 <div className="cast-list">
-                    <CastList cast={cast} imageURL={imageURL} />
+                    <CastList cast={data.cast} imageURL={imageURL} />
                 </div>
             </section>
             <section className="recommendations-section">
                 <MovieRow 
                     title="Recommended Movies" 
-                    movies={recommendations} 
+                    movies={data.recommendations}
                 />
             </section>
         </main>

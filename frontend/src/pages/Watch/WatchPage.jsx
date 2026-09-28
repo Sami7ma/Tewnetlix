@@ -6,7 +6,6 @@ import Player from "../../components/watch/Player/Player";
 import ServerSelector from "../../components/watch/ServerSelector/ServerSelector";
 import PlayerNotice from "../../components/watch/PlayerNotice/PlayerNotice";
 import MovieRow from "../../components/media/MediaRow/MediaRow";
-import NavBar from "../../components/layout/Navbar/Navbar";
 import SeasonSelector from "../../components/watch/Selector/SeasonSelector/SeasonSelector";
 import EpisodeSelector from "../../components/watch/Selector/EpisodeSelector/EpisodeSelector";
 
@@ -21,6 +20,8 @@ import {
 } from "../../services/tmdb";
 
 import "./Watch.css";
+import LoadingSpinner from "../../components/layout/LoadingSpinner/LoadingSpinner";
+import ErrorState from "../../components/states/ErrorState/ErrorState";
 
 const WatchPage = () => {
     const { type, id } = useParams();
@@ -46,6 +47,8 @@ const WatchPage = () => {
     const [episode, setEpisode] = useState(1);
 
     const [episodes, setEpisodes] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const playerURL = getMovieEmbed(
         id,
@@ -65,6 +68,8 @@ const WatchPage = () => {
         async function loadMedia() {
 
             try {
+                setLoading(true);
+                setError(null);
 
                 if (type === "movie") {
 
@@ -98,9 +103,10 @@ const WatchPage = () => {
                 }
 
             } catch (err) {
-
                 console.error(err);
-
+                setError(err);
+            } finally {
+                setLoading(false);
             }
 
         }
@@ -145,9 +151,16 @@ const WatchPage = () => {
 
         <main className="movie-player">
 
-            <NavBar />
-
             <div className="watch-container">
+                {loading ? (
+                    <LoadingSpinner text="Loading player details..." />
+                ) : error ? (
+                    <ErrorState
+                        title="Playback unavailable"
+                        message="The title or playback details could not be loaded."
+                        onAction={() => window.location.reload()}
+                    />
+                ) : (
 
                 <div className="main-watch-grid">
 
@@ -261,6 +274,7 @@ const WatchPage = () => {
                     </div>
 
                 </div>
+                )}
 
             </div>
 
