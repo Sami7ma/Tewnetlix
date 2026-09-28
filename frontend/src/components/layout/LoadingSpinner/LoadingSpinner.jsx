@@ -6,7 +6,11 @@ const LoadingSpinner = ({
 }) => {
 
     return (
-        <div className={`loading-spinner-container ${size}`}>
+        <div
+            className={`loading-spinner-container ${size}`}
+            role="status"
+            aria-live="polite"
+        >
 
             <div className="spinner"></div>
 

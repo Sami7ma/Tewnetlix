@@ -1,4 +1,5 @@
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AppLayout from "./components/layout/AppLayout/AppLayout";
 
 import Home from "./pages/Home/Home";
 import Movie from "./pages/Movie/Movie";
@@ -15,18 +16,17 @@ function App(){
 return(
     <BrowserRouter>
         <Routes>
-
-            <Route path="/" element={<Home />} />
-            <Route path="/movie/:id" element={<Movie />} />
-            <Route path="/movies" element={<Movies />} />
-            <Route path="/tv/:id" element={<TVShow />} />
-            <Route path="/tvshows" element={<TVShows />} />
-            <Route path="/anime" element={<Anime />} />
-            <Route path="/watch/:type/:id" element={<WatchPage />} />
-            <Route path="/profile" element={<Profile/>}/>
-            <Route path="*" element={<NotFound/>}/>
-
-
+            <Route element={<AppLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/movie/:id" element={<Movie />} />
+                <Route path="/movies" element={<Movies />} />
+                <Route path="/tv/:id" element={<TVShow />} />
+                <Route path="/tvshows" element={<TVShows />} />
+                <Route path="/anime" element={<Anime />} />
+                <Route path="/watch/:type/:id" element={<WatchPage />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="*" element={<NotFound />} />
+            </Route>
         </Routes>
     </BrowserRouter>
 );
