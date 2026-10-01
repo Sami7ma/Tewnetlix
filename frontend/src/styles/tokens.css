@@ -1,12 +1,12 @@
 :root {
-    --color-canvas: #0b0b0f;
-    --color-canvas-raised: #121218;
-    --color-surface: #18181f;
-    --color-surface-solid: #1b1b23;
-    --color-glass-surface: rgba(24, 24, 31, 0.72);
-    --color-glass-surface-strong: rgba(28, 28, 37, 0.88);
-    --color-surface-highlight: rgba(255, 255, 255, 0.08);
-    --color-glass-border: rgba(255, 255, 255, 0.12);
+    --color-canvas: #08090c;
+    --color-canvas-raised: #101218;
+    --color-surface: #171a21;
+    --color-surface-solid: #1b1e26;
+    --color-glass-surface: rgba(21, 24, 32, 0.68);
+    --color-glass-surface-strong: rgba(25, 29, 39, 0.86);
+    --color-surface-highlight: rgba(255, 255, 255, 0.1);
+    --color-glass-border: rgba(255, 255, 255, 0.18);
     --color-border-subtle: rgba(255, 255, 255, 0.1);
     --color-border-strong: rgba(255, 255, 255, 0.2);
     --color-text-primary: #f5f5f7;
@@ -24,13 +24,14 @@
     --radius-panel: 1.5rem;
     --radius-pill: 999px;
 
-    --shadow-glass: 0 18px 50px rgba(0, 0, 0, 0.35);
+    --shadow-glass: 0 20px 55px rgba(0, 0, 0, 0.42);
     --shadow-glass-inset:
-        inset 0 1px 1px rgba(255, 255, 255, 0.22),
+        inset 0 1px 1px rgba(255, 255, 255, 0.3),
         inset 0 -8px 20px rgba(255, 255, 255, 0.04),
         inset 0 0 0 1px rgba(255, 255, 255, 0.06);
     --shadow-elevated: 0 12px 32px rgba(0, 0, 0, 0.32);
     --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.32);
+    --shadow-focus: 0 0 0 3px rgba(156, 199, 255, 0.28);
     --glass-blur: 24px;
     --glass-saturation: 150%;
     --gradient-glass-highlight:
