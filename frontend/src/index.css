@@ -9,12 +9,19 @@
 body {
     margin: 0;
     overflow-x: hidden;
-    background: var(--color-canvas);
+    background:
+        radial-gradient(circle at 50% -20%, rgba(81, 102, 145, 0.16), transparent 42rem),
+        var(--color-canvas);
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: var(--color-text-primary);
     scroll-behavior: smooth;
+}
+
+::selection {
+    background: rgba(156, 199, 255, 0.3);
+    color: #fff;
 }
 
 button,

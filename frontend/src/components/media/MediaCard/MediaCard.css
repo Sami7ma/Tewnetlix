@@ -74,6 +74,16 @@
         0 0 0 1px rgba(255, 255, 255, 0.08) inset;
 }
 
+.movie-card:focus-visible {
+    outline: none;
+}
+
+.movie-card:focus-visible .poster-container {
+    box-shadow:
+        var(--shadow-focus),
+        0 14px 32px rgba(0, 0, 0, 0.5);
+}
+
 .poster-container:hover .movie-overlay {
     opacity: 1;
 }
